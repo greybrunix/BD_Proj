@@ -12,7 +12,7 @@
     %% https://ctan.org/pkg/fontspec?lang=en
 \usepackage{fontspec}
     %% Arial FONT
-    \setmainfont{Arial}
+    \setmainfont{Liberation Sans}
 
     %% More colors and color options
     %% https://ctan.org/pkg/xcolor?lang=en
@@ -59,7 +59,7 @@
     \usetikzlibrary{calc}
 
 %% Defining sfdefault font and default font for document
-\usepackage[style=authoryear]{biblatex}
+\usepackage[indexing, style=authoryear]{biblatex}
 \addbibresource{citations.bib}
 \renewcommand{\familydefault}{\sfdefault}
 
@@ -167,84 +167,271 @@
 %% Starting page numbering here
 \pagenumbering{arabic}
 
-\chapter{Introdução}
+\chapter{Introdução e Definição do Sistema}
      \section{Contextualização}
-         Em Eventopolis, a gest\~ao de eventos \'e relativamente simples, uma dada pessoa
-         deveria sair da cidade de tal forma a contactar uma empresa especializada
-         precisamente nessa área.
 
-         Ora, esta cidade \'e relativamente isolada do resto do pa\'is, sendo assim,
-         a empresa de eventos mais pr\'oxima era uma seita de bruxas que, de forma
-         extremamente predat\'oria, exigia pre\c{c}os exorbitantes e obscurava bastantes
-         informa\c{c}\~oes das bases de dados.
+     Em Eventopolis, uma localidade remota no centro de uma densa floresta,
+     a gestão dos eventos foi sempre baseada em \textit{outsourcing} ou métodos manuais,
+     devido à escassez de recursos humanos e à existência de um monopólio na área de Bases
+     de Dados (BD). Este monopólio era controlado por uma seita de ocultistas tecnológicos,
+     os quais praticavam preços exorbitantes e limitavam o acesso a uma parte significativa
+     das informações nas suas BD. Após uma revolta interna motivada pela insatisfação com a
+     direção da empresa, alguns ex-membros, descontentes com a situação, optaram por adotar
+     uma abordagem mais humanista e criar uma \textit{start-up} de Engenharia de Software em Eventopolis.
+    
+     Ao tomar conhecimento desta informação, o Professor Doutor Henrique Borges, responsável atual
+     pela Gestão de Eventos na Câmara Municipal da cidade, prontamente identificou a
+     oportunidade de mitigar os prejuízos significativos dos últimos anos ao estabelecer
+     um contrato com a referida \textit{start-up} para a implementação de um Sistema de Bases de Dados (SBD) \textit{open-source}.
+    
+     O SBD seria batizado de ``Mademoiselle Borges'' em homenagem
+     a Antoinette Borges, a antiga gestora de Eventos da Câmara Municipal de Eventopolis
+     e esposa de Henrique Borges, que faleceu há alguns anos. Antoinette enfrentou uma pressão
+     considerável ao depender da seita ou ao ser forçada a gerir manualmente os eventos com uma
+     equipa de funcionários bastante limitada, desafios que foram fatores cruciais para o seu falecimento precoce.
+   
+     Para Henrique Borges, este projeto tem então um significado profundamente pessoal.
+     Além de simplificar o funcionamento dos eventos, diminuindo a mortalidade deste posto de trabalho,
+     a criação deste Sistema também reflete a sua vontade de fomentar a promoção da arte e da cultura
+     na sua pequena cidade, algo que era o maior sonho da sua falecida esposa.
+     Antoinette queria ver a transformação da modesta e isolada cidade numa capital cultural,
+     uma aspiração que, infelizmente, apenas se concretizaria após o seu falecimento.
+    
+     Após a introdução do SBD, todos os eventos aprovados pela Câmara transformarão
+     a cidade num cenário requintado que realça a estética do estilo \textit{Art Nouveau},
+     o estilo artístico predileto da Mademoiselle, este estilo tira inspiração da vegetação exuberante,
+     densa e colorida, característica das imensas florestas que rodeiam Eventopolis.
+     O principal local de eventos será uma gigantesca estufa situada no parque central,
+     construída no início do século anterior. Esta estrutura exibe uma cúpula central, vitrais coloridos
+     e um esqueleto de ferro com linhas detalhadas e artísticas, que ao longo do tempo oxidaram,
+     apresentando agora uma tonalidade verde clássica.
 
-         Após a fal\^encia desta empresa, algumas bruxas mais humanistas decidiram
-         criar uma ``start-up'' de Engenharia de Software em Eventopolis.
-
-         Sabendo desta not\'icia, o Prof. Dr. Henrique Borges, PhD em Matem\'atica e Filosofia,
-         professor no humilde Instituto de Ensino Superior de Eventopolis e atual encarregado
-         de Gest\~ao de Eventos pela C\^amara Municipal da cidade, imediatamente saltou na oportunidade
-         de recuperar as desastrosas perdas dos \'ultimos anos de eventos atrav\'es da contrata\c{c}\~ao
-         dessa ``start-up'' para implementar um sistema de Bases de Dados.
-
-         A mulher de Henrique Borges, a anterior gestora de Eventos da C\^amara Municipal de Eventopolis,
-         faleceu h\'a uns anos, ap\'os o imenso stress de depender das bruxas para os eventos, sendo assim,
-         Henrique Borges tem outro motivo mais pessoal para a conce\c{c}\~ao,
-         a promo\c{c}\~ao da arte e da cultura atrav\'es do estilo art\'istico favorito de sua amada: ``Art Nouveau''.
-              
+    \section{Fundamenta\c{c}\~ao}
+    Considerando o modo prévio de gerir eventos em Eventopolis,
+    onde o uso de serviços externos era considerado excessivamente dispendioso,
+    e diante da escassez de recursos humanos para uma gestão manual, a única alternativa
+    viável, na perspetiva de Henrique Borges, seria desenvolver um SBD interno.
     \section{Apresentação do Caso de Estudo}
-
+    Este trabalho consistirá então na elaboração de um SBD que consiga, aptamente, ajudar Henrique Borges
+    e a c\^amara municipal de Eventopolis a gerir e publicitar os seus eventos.
+    
     \section{Motivação e Objectivos}
+    O Professor Doutor Henrique Borges acredita que a introdu\c{c}\~{a}o de uma base de dados
+    trar\'{a} sucesso aos eventos.
 
-    \section{Estrutura do Relatório}
-        Após esta introdu\c{c}\~ao, seguir-se-\~ao mais dois capítulos, nomeadamente,
-        referentes \`a metodologia e \`a conclus\~ao, seguido também de um cap\'itulo
-        complementar para potenciais anexos.
-        \\Na metodologia, teremos uma secç\~ao para cada fase do ``ciclo de vida'' do desenvolvimento
-        de bases de dados, isto \'e, defini\c{c}\~ao do sistema, defini\c{c}\~ao de requisitos e
-        modela\c{c}\~ao conceptual\footnote{De notar que este relat\'orio n\~ao abrange nas fases de modela\c{c}\~ao
-        l\'ogica nem implementa\c{c}\~ao f\'isica, logo, n\~ao ser\~ao encontradas nesta fase do relat\'orio.}.
-        \\Na conclus\~ao, blah blah blah
-        \\De seguida temos o exclarecimento de siglas e abreviaturas, blah blah
-        \\Finalmente, temos o capítulo de anexos, que pode conter scripts, imagens referentes a diagrams finais,
-        entre outros. [\cite{begg2002database}]
+    Os objetivos mencionados abaixo s\~{a}o fundamentais para refletir este sucesso:
+    \begin{itemize}
+    \item Aumentar a capacidade de armazenamento de informa\c{c}\~{o}es;
+    \item Saber em tempo real qual a previsão de afluência de cada evento, sendo assim possível
+planear os eventos com maior precisão;
+    \item Perceber quais são os colaboradores com melhor desempenho nas vendas, permitindo o
+uso de incentivos para estimulá-los a alcançar novos patamares de vendas;
+    \item Possibilitar uma gestão financeira mais abrangente e precisa;
+    \item Garantir que é minimizada a possibilidade da capacidade do evento ser excedida;
+    \item Obter, em tempo real, um registo preciso das compras de cada participante, bem como
+identificar os itens mais vendidos tanto em eventos específicos quanto globalmente;
+    \item Melhorar a organiza\c{c}\~{a}o de hor\'{a}rios para cada evento;
+    \item Promover a cidade em \^{a}mbito nacional e internacional;
+    \item Estimular a economia local por meio de inje\c{c}\~{a}o de capital na regi\~{a}o.
+    \end{itemize}
+
+        \section{Viabilidade}
+        O Professor Doutor Henrique Borges defende que ao implementar um sistema de controlo de eventos
+        será possível: 
+        \begin{itemize}
+          \item Recuperar, no final no primeiro semestre, $40\%$ das perdas anteriores e cerca de $20\%$
+            do investimento inicial;
+          \item Aumentar a participação nos eventos em $30\%$ no primeiro ano.
+        \end{itemize}
+
+        \section{Recursos}
+             \subsubsection{Recursos Humanos}
+             \begin{itemize}
+               \item Pessoal de limpeza;
+               \item Equipa de seguran\c{c}a;
+               \item Vendedores;
+               \item Equipa de multim\'edia;
+               \item Funcion\'{a}rios da empresa de desenvolvimento;
+               \item Potenciais Volunt\'arios.
+             \end{itemize}
+             \subsubsection{Recursos Materiais}
+             \begin{itemize}
+             \item{Hardware:}
+               \begin{itemize}
+                 \item 1 servidor fornecido pela \textit{start-up} com 128GiB;
+                 \item 15 terminais ``burros'';
+                 \item 10 computadores pessoais.
+               \end{itemize}
+             \item{Software:}
+               \begin{itemize}
+                 \item SGBD;
+                 \item Aplicação de vendas e aprovisionamento;
+                 \item Redes sociais para divulgar o calendários de eventos.
+               \end{itemize}
+             \end{itemize}
+             \subsubsection{Equipa de Trabalho}
+             \begin{itemize}
+                 \item{\textbf{Pessoal Interno}}
+                   Na equipa de gest\~ao de eventos da C\^amara Municipal de Eventopolis temos:
+                   \begin{itemize}
+                     \item{Professor Doutor Henrique Borges:} O coordenador principal da equipa;
+                     \item{Maria Ivanovna Ivanova:} Colaboradora com experi\^encia em \textit{marketing} e co-coordenadora
+                       da equipa;
+                     \item{Herr Otto Mustermann:} Trabalhador \textit{part-time}.
+                   \end{itemize}
+                 \item{\textbf{Pessoal Externo}}
+                   Já o pessoal externo, consiste na equipa de desenvolvimento da ``start-up'',
+                   que seria constituída por 4 engenheiros, nomeadamente:
+                   \begin{itemize}
+                     \item Luke Bytespell;
+                     \item Aurelius Cibern\'etico;
+                     \item Bella Firewall;
+                     \item Aurora Matrix.
+                   \end{itemize}
+             \end{itemize}
+        \section{Plano de Execu\c{c}\~ao}
+             Com o intuito de desenvolver atempadamente o SBD ``Mademoiselle Borges'', Henrique Borges e a equipa de desenvolvimento
+              reuniram-se e elaboraram o seguinte esquema GANTT\footnote{(ver \ref{GANTT} e \ref{GANTT_c2} para esquema completo)}:
+        \newpage
         \begin{figure}[h]
             \centering
-            \includegraphics[width=6in]{images/GAANTT.png}
-            \caption{Diagrama de GANTT}
+            \includegraphics[width=6.2in]{images/GANTT_c1.png}
+            \caption{Diagrama de GANTT com conteúdos da primeira fase do Trabalho}
         \end{figure}
+    
+    \section{Estrutura do Relatório}
 
+    Após a introdução, seguir-se-ão mais dois capítulos, designadamente, metodologia e conclusão,
+    acompanhados por um capítulo complementar para potenciais anexos.
+    Na metodologia, abordaremos uma secção para cada fase do ``ciclo de vida'' do desenvolvimento de bases de dados,
+    nomeadamente a definição de requisitos e modelação conceptual\footnote{De notar que este relat\'orio n\~ao abrange nas fases de modela\c{c}\~ao
+        l\'ogica nem implementa\c{c}\~ao f\'isica, logo, n\~ao ser\~ao encontradas nesta fase do relat\'orio.}.
+        
+    A conclusão seguirá os padrões convencionais de tal secção, fornecendo um breve
+    resumo dos resultados finais e indicando as próximas etapas necessárias para o sucesso do trabalho.
+    Prosseguimos com o esclarecimento de siglas e abreviaturas e, finalmente, o capítulo de anexos,
+    que pode conter \textit{scripts}, imagens de diagramas finais, entre outros.
         
 %==========================================================================
 % END INTRODUCTION
 %==========================================================================
-
 \chapter{Metodologia}
-
-    \section{Defini\c{c}\~ao do Sistema}
-        \subsection{Fundamenta\c{c}\~ao}
-        \subsection{Viabilidade}
-        \subsection{Recursos}
-             \subsubsection{Recursos Humanos}
-             \subsubsection{Recursos Materiais}
-             \subsubsection{Equipa de Trabalho}
-             \begin{itemize}
-                 \item{\textbf{Pessoal Interno}}
-                     Na equipa da C\^amara Municipal de Eventopolis temos o
-                     Professor Doutor Henrique Borges, a Maria Ivanovna Ivanova e
-                     Herr Otto Mustermann.
-                 \item{\textbf{Pessoal Externo}}
-                     Já o pessoal externo, consiste na equipa de desenvolvimento da ``start-up''
-             \end{itemize}
     \section{Defini\c{c}\~ao de Requisitos}
-        \subsection{Defini\c{c}\~ao do M\'etodo}
-        Com o objetivo de conseguirmos perceber quais os objetivos que a base de dados deverá cumprir, planeamos inúmeras reuniões com o Prof. D. Henrique Borges. Também questionamos participantes de eventos passados para perceber o que poderia ser melhorado ao introduzir este sistema.
-        No final destas reuniões e questionários iremos ter uma ideia vasta sobre quais requisitos teremos que implementar.
+        \subsection{M\'etodo de Levantamento e de An\'alise de Requisitos Adotados}
+        Com o objetivo de determinar os objetivos a serem alcançados pelo SBD,
+        foram agendadas diversas reuniões com o Prof.\ Dr.\ Henrique Borges, onde foram discutidas
+        várias questões pertinentes. No final destas reuniões, é previsto obter-se uma compreensão
+        abrangente dos requisitos a serem implementados.
+        \subsection{Organiza\c{c}\~ao dos Requisitos Levantados}
+        \subsubsection{Requisitos de Descri\c{c}\~ao}
+        \begin{table}[!ht]
+    \centering
+    \setlength\extrarowheight{5pt}
+    \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{|l|l|l|l|l|l|l|}
+    \hline
+        Nr & ~ & Data e Hora & Descrição & Área & Fonte & Analista \\ \hline
+        RD01 & 1 & 12:29 & Cada evento deve ter um identificador, uma descrição
+        do mesmo, a data de início e de fim e pode ter, ou não, a capacidade &
+        Eventos & Henrique Borges & Aurora Matrix \\ \hline RD02 & 2 & 12:30 &
+        Cada funcionário deve ter um identificador, nome, NIF, data de
+        nascimento, email, lista de telemoveis e morada (rua, localidade,
+        código-postal & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RD03 & 3 & 12:31 & Cada venda deve ter um identificador, o valor total
+        da venda, a quantidade de artigos na mesma e a data da venda & Eventos
+        & Henrique Borges & Aurora Matrix \\ \hline RD04 & 4 & 12:32 & Cada
+        participante dever ter um identificador, nome, NIF (opcional), data de
+        nascimento, email (opcional), lista de números de telemóvel e
+        opcionalmente, morada (rua, localidade, código-postal) & Eventos &
+        Henrique Borges & Aurora Matrix \\ \hline RD05 & 5 & 12:33 & Cada
+        artigo deve ter um identificador, nome, descrição do mesmo, preço e
+        stock & Eventos & Henrique Borges & Aurora Matrix \\ \hline RD06 & 6 &
+        12:34 & Cada fornecedor deve ter um identificador, nome, IBAN, email,
+        contacto (a pessoa que contactamos na empresa e o seu número de
+        telemóvel), lista de números de telemóvel, morada (rua, localidade,
+        código-postal) & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+    \end{tabular}%
+}
+        \end{table}
+        \newpage
+        \subsubsection{Requisitos de Manipula\c{c}\~ao}
+\begin{table}[!ht]
+    \centering
+    \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{|l|l|l|l|l|l|l|}
+    \hline
+        Nr & ~ & Data e Hora & Descrição & Área & Fonte & Analista \\ \hline
+        RM01 & 10 & 12:37 & O administrador deve conseguir consultar qual funcionário gere qual & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM02 & 11 & 12:38 & Um funcionário deve ser capaz de consultar qual é o funcionário que o gere & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM03 & 12 & 12:39 & Um funcionário deve ser capaz de consultar que funcionário(s) gere & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM04 & 13 & 12:40 & O administrador deve ser capaz de consultar as vendas efetuadas por um funcionário específico & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM05 & 14 & 12:41 & O administrador deve ser capaz de consultar todas as vendas efetuadas & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM06 & 15 & 12:42 & Um funcionário deve ser capaz de consultar as vendas que efetuou & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM07 & 16 & 12:43 & O administrador deve ser capaz de consultar os artigos numa venda & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM08 & 17 & 12:44 & O administrador deve ser capaz de consultar todos os artigos que estão numa venda & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM09 & 18 & 12:45 & Um funcionário deve ser capaz de consultar os artigos numa venda & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM10 & 19 & 12:46 & O administrador deve ser capaz de consultar todos os artigos & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM11 & 20 & 12:47 & O administrador deve ser capaz de consultar os participantes de um evento & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM12 & 21 & 12:48 & O administrador deve ser capaz de consultar todos os participantes em todos os eventos & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM13 & 22 & 12:49 & O administrador deve ser capaz de consultar o participante de uma venda específica & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM14 & 23 & 12:50 & Um funcionário deve ser capaz de consultar o participante de uma venda que efetuou & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM15 & 24 & 12:51 & O administrador deve ser capaz de consultar todas as vendas de um participante & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM16 & 25 & 12:52 & O administrador deve ser capaz de consultar o fornecedor de um certo artigo & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM17 & 26 & 12:53 & O administrador deve ser capaz de consultar os passados fornecedores de um certo artigo & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM18 & 27 & 12:54 & O administrador deve ser capaz de consultar todos os fornecedores & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM19 & 28 & 12:55 & O administrador deve ser capaz de consultar todos os funcionários & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM20 & 29 & 12:56 & O administrador deve ser capaz de consultar todos os eventos & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM21 & 30 & 12:57 & O administrador deve ser capaz de consultar o valor de vendas num dia particular & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM22 & 31 & 12:58 & Deve ser possível determinar qual é o participante com maior valor de vendas & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM23 & 32 & 12:59 & Deve ser possível determinar qual é o evento com maior volume de vendas & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM24 & 33 & 13:00 & Deve ser possível determinar qual foi o evento com maior participação & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM25 & 34 & 13:01 & Os funcionários devem ser capazes de alterar as informações de um participante & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM26 & 36 & 13:03 & No final do dia o sistema deve enviar um email ao Henrique Borges com o relatório de vendas & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM27 & 37 & 13:04 & No final do dia o sistema deve enviar um email ao Henrique Borges com a afluência do evento & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM28 & 38 & 13:05 & Um participante é inserido na base de dados quando compra um bilhete & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM29 & 39 & 13:06 & Se o evento for gratuito a venda do bilhete deve ser registada na mesma mas com o valor a 0 & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM30 & 40 & 13:07 & Não podem ser vendidos mais bilhetes para um evento do que a capacidade do mesmo & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM31 & 42 & 13:09 & Os funcionários devem poder verificar o histórico de vendas de um participante & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM32 & 44 & 13:12 & O administrador deve ser capaz de saber quais eventos decorreram num determinado período de tempo & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM33 & 45 & 13:13 & O administrador deve ser capaz de consultar qual foi o funcionário que vendeu mais bilhetes num dado evento & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+    \end{tabular}%
+}
+\end{table}
+        \newpage
+        \subsubsection{Requisitos de Controlo}
+        \begin{table}[!ht]
+    \centering
+    \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{|l|l|l|l|l|l|l|}
+    \hline
+        Nr & ~ & Data e Hora & Descrição & Área & Fonte & Analista \\ \hline
+        RC01 & 7 & 12:35 & O administrador do sistema é o Henrique Borges & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RC02 & 8 & 12:36 & Herr Otto Mustermann e Maria Ivanovna Ivanova são também administradores & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RC03 & 9 & 12:36 & Herr Mustermann só tem acesso à base de dados entre as 15:30 e as 19:30 & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RC04 & 35 & 13:02 & Os funcionários não devem ter acesso ao valor de vendas de cada evento & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RC05 & 41 & 13:08 & O acesso à base de dados só está disponível das 07:00 às 02:00 & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RC06 & 43 & 13:10 & Os funcionários só podem aceder à base de dados se um evento estiver a decorrer & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+    \end{tabular}%
+}
+        \end{table}
+        \subsubsection{Análise e Validação Geral dos Requisitos}
+        Depois do levantamento dos requisitos, marcou-se uma reunião no intuito de
+        o pessoal externo tomar conhecimento dos requisitos documentados.
+
+        Essa reunião, por sua vez, foi realizada com sucesso, e o pessoal interno
+        mostrou-se satisfeito com o progresso e nível de detalhe a que os membros
+        da equipa de desenvolvimento de BD chegaram, especialmente o Prof.\ Dr.\ Henrique
+        Borges, que viu muito potencial neste projeto.
+    \newpage
+    \section{Modela\c{c}\~ao Conceptual}
+        \subsection{Identificação Conceptual}
+             Após analisar os requisitos anotados, a equipa de desenvolvimento procedeu com a 
+             \subsubsection{Entidades}
+             \subsubsection{Relacionamentos}
+             \subsubsection{Atributos}
+        \subsection{Modelo Conceptual}
         
-
-
-    \section{Modela\c{c}\~ao Conceptual}          
-
+        
 
     
 %==========================================================================
@@ -268,6 +455,7 @@
 \renewcommand\bibname{Referências}
 
 %% https://www.overleaf.com/learn/latex/bibliography_management_with_bibtex
+\nocite{*}
 \printbibliography
 
 
@@ -286,8 +474,10 @@
 \renewcommand{\nompreamble}{}
 
 %% acronyms
-\nomenclature[01]{\textbf{BD}}{Base de Dados}
+\nomenclature[01]{\textbf{BD}}{Base(s) de Dados}
 \nomenclature[02]{\textbf{ER}}{Entity-Relationship}
+\nomenclature[03]{\textbf{SBD}}{Sistema de Bases de Dados}
+\nomenclature[04]{\textbf{SGBD}}{Sistema de Gestão de Bases de Dados}
 
 %% Show acronyms
 \printnomenclature
@@ -308,7 +498,17 @@
 \chapter{Anexos}
     
     %% section version of \addchap
-    \section{Anexo 1}
+    \section{Anexo 1} \label{GANTT}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=6.2in]{images/GANTT.png}
+        \end{figure}
+\newpage
+    \section{Anexo 2} \label{GANTT_c2}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=6.2in]{images/GANTT_c2.png}
+        \end{figure}
 
 
 %==========================================================================
