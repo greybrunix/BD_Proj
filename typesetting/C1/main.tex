@@ -12,6 +12,7 @@
     %% https://ctan.org/pkg/fontspec?lang=en
 \usepackage{fontspec}
     %% Arial FONT
+    %%\setmainfont{Arial}
     \setmainfont{Liberation Sans}
 
     %% More colors and color options
@@ -55,8 +56,9 @@
     %% Used to make drawings or complex graphics
     %% http://pgf.sourceforge.net/pgf_CVS.pdf
 \usepackage{tikz}
-    %% Tikz library to point operations ((x1,y1) + (x2,y2))
-    \usetikzlibrary{calc}
+% we want ER + above/below + left/right
+\usetikzlibrary{calc}
+\usepackage{float}
 
 %% Defining sfdefault font and default font for document
 \usepackage[indexing, style=authoryear]{biblatex}
@@ -324,38 +326,38 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
         abrangente dos requisitos a serem implementados.
         \subsection{Organiza\c{c}\~ao dos Requisitos Levantados}
         \subsubsection{Requisitos de Descri\c{c}\~ao}
-        \begin{table}[!ht]
+        \begin{table}[H]
     \centering
-    \setlength\extrarowheight{5pt}
     \resizebox{\columnwidth}{!}{%
-    \begin{tabular}{|l|l|l|l|l|l|l|}
+    \begin{tabular}{|l|l|l|>{\raggedright\arraybackslash}p{7cm}|l|l|l|}
     \hline
         Nr & ~ & Data e Hora & Descrição & Área & Fonte & Analista \\ \hline
         RD01 & 1 & 12:29 & Cada evento deve ter um identificador, uma descrição
         do mesmo, a data de início e de fim e pode ter, ou não, a capacidade &
-        Eventos & Henrique Borges & Aurora Matrix \\ \hline RD02 & 2 & 12:30 &
-        Cada funcionário deve ter um identificador, nome, NIF, data de
-        nascimento, email, lista de telemoveis e morada (rua, localidade,
-        código-postal & Eventos & Henrique Borges & Aurora Matrix \\ \hline
-        RD03 & 3 & 12:31 & Cada venda deve ter um identificador, o valor total
-        da venda, a quantidade de artigos na mesma e a data da venda & Eventos
-        & Henrique Borges & Aurora Matrix \\ \hline RD04 & 4 & 12:32 & Cada
-        participante dever ter um identificador, nome, NIF (opcional), data de
-        nascimento, email (opcional), lista de números de telemóvel e
-        opcionalmente, morada (rua, localidade, código-postal) & Eventos &
-        Henrique Borges & Aurora Matrix \\ \hline RD05 & 5 & 12:33 & Cada
-        artigo deve ter um identificador, nome, descrição do mesmo, preço e
-        stock & Eventos & Henrique Borges & Aurora Matrix \\ \hline RD06 & 6 &
-        12:34 & Cada fornecedor deve ter um identificador, nome, IBAN, email,
-        contacto (a pessoa que contactamos na empresa e o seu número de
-        telemóvel), lista de números de telemóvel, morada (rua, localidade,
-        código-postal) & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RD02 & 2 & 12:30 & Cada funcionário deve ter um identificador, nome,
+        NIF, data de nascimento, email, lista de telemoveis e morada (rua,
+        localidade, código-postal & Eventos & Henrique Borges & Aurora Matrix
+        \\ \hline RD03 & 3 & 12:31 & Cada venda deve ter um identificador, o
+        valor total da venda, a quantidade de artigos na mesma e a data da
+        venda & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RD04 & 4 & 12:32 & Cada participante dever ter um identificador, nome,
+        NIF (opcional), data de nascimento, email (opcional), lista de números
+        de telemóvel e opcionalmente, morada (rua, localidade, código-postal) &
+        Eventos & Henrique Borges & Aurora Matrix \\ \hline RD05 & 5 & 12:33 &
+        Cada artigo deve ter um identificador, nome, descrição do mesmo, preço
+        e stock & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RD06 & 6 & 12:34 & Cada fornecedor deve ter um identificador, nome,
+    IBAN, email, contacto (a pessoa que contactamos na empresa e o seu número
+    de telemóvel), lista de números de telemóvel, morada (rua, localidade,
+    código-postal) & Eventos & Henrique Borges & Aurora Matrix \\ \hline
     \end{tabular}%
-}
-        \end{table}
+    }
+            \caption{Requisitos de Descrição}
+\end{table}
         \newpage
         \subsubsection{Requisitos de Manipula\c{c}\~ao}
-\begin{table}[!ht]
+\begin{table}[H]
     \centering
     \resizebox{\columnwidth}{!}{%
     \begin{tabular}{|l|l|l|l|l|l|l|}
@@ -396,13 +398,14 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
         RM33 & 45 & 13:13 & O administrador deve ser capaz de consultar qual foi o funcionário que vendeu mais bilhetes num dado evento & Eventos & Henrique Borges & Aurora Matrix \\ \hline
     \end{tabular}%
 }
+    \caption{Requisitos de Manipulação}
 \end{table}
         \newpage
         \subsubsection{Requisitos de Controlo}
-        \begin{table}[!ht]
+        \begin{table}[H]
     \centering
     \resizebox{\columnwidth}{!}{%
-    \begin{tabular}{|l|l|l|l|l|l|l|}
+    \begin{tabular}{|l|l|l|>{\raggedright\arraybackslash}p{8cm}|l|l|l|}
     \hline
         Nr & ~ & Data e Hora & Descrição & Área & Fonte & Analista \\ \hline
         RC01 & 7 & 12:35 & O administrador do sistema é o Henrique Borges & Eventos & Henrique Borges & Aurora Matrix \\ \hline
@@ -413,6 +416,7 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
         RC06 & 43 & 13:10 & Os funcionários só podem aceder à base de dados se um evento estiver a decorrer & Eventos & Henrique Borges & Aurora Matrix \\ \hline
     \end{tabular}%
 }
+        \caption{Requisitos de Controlo}
         \end{table}
         \subsubsection{Análise e Validação Geral dos Requisitos}
         Depois do levantamento dos requisitos, marcou-se uma reunião no intuito de
@@ -426,10 +430,95 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
     \section{Modela\c{c}\~ao Conceptual}
         \subsection{Identificação Conceptual}
              Após analisar os requisitos anotados, a equipa de desenvolvimento procedeu com a 
+             modelação conceptual do SBD, tendo iniciado pela identificação das entidades,
+             relacionamentos e os atributos de cada uma.
              \subsubsection{Entidades}
+             \begin{itemize}
+                 \item{\textbf{Evento:}} 
+                     \begin{itemize}
+                         \item{ID} 
+                         \item{Descrição}
+                         \item{DataInicio}
+                         \item{DataFim}
+                         \item{Capacidade}
+                     \end{itemize}
+                 \item{\textbf{Funcionário:}}
+                     \begin{itemize}
+                         \item{ID}
+                         \item{Nome}
+                         \item{NIF}
+                         \item{DataNascimento}
+                         \item{Email}
+                         \item{NTelemovel}
+                         \item{Morada}
+                     \end{itemize}
+                 \item{\textbf{Venda:}}
+                     \begin{itemize}
+                         \item{ID}
+                         \item{Valor}
+                         \item{Quantidade}
+                         \item{Data}
+                     \end{itemize}
+                 \item{\textbf{Participante:}}
+                     \begin{itemize}
+                         \item{ID}
+                         \item{Nome}
+                         \item{NIF}
+                         \item{DataNascimento}
+                         \item{Email}
+                         \item{NTelemovel}
+                         \item{Morada}
+                     \end{itemize}
+                 \item{\textbf{Artigo:}}
+                     \begin{itemize}
+                         \item{ID}
+                         \item{Nome}
+                         \item{Descrição}
+                         \item{Preço}
+                         \item{Stock}
+                     \end{itemize}
+                 \item{\textbf{Fornecedor:}}
+                     \begin{itemize}
+                         \item{ID}
+                         \item{Nome}
+                         \item{IBAN}
+                         \item{Email}
+                         \item{Contacto}
+                         \item{NTelemovel}
+                         \item{Morada}
+                     \end{itemize}
+             \end{itemize}
              \subsubsection{Relacionamentos}
-             \subsubsection{Atributos}
+             \begin{itemize}
+                 \item{Evento emprega Funcionário:}
+                 \item{Funcionário gere Funcionário:}
+                 \item{Funcionário realiza Venda:}
+                 \item{Venda contem Artigo:}
+                     \begin{itemize}
+                        \item{Valor}
+                        \item{Quantidade}
+                     \end{itemize}
+                 \item{Venda para Participante:}
+                 \item{Artigo fornecido por Fornecedor:}
+                     \begin{itemize}
+                        \item{Data}
+                        \item{Quantidade}
+                     \end{itemize}
+                 \item{Artigo encomendado do Fornecedor:}
+                     \begin{itemize}
+                        \item{Data}
+                        \item{Quantidade}
+                     \end{itemize}
+             \end{itemize}
         \subsection{Modelo Conceptual}
+        Consoante os resultados da subsecção anterior, temos o seguinte diagrama ER,
+        concebido na ferramenta BrModelo\footnote{No anexo \ref{chendiag} podemos ver
+        o diagrama equivalente em notação de Peter Chen}:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=4.75in]{images/Conceitual_Com_Atributos.png}
+            \caption{Diagrama Conceitual}
+        \end{figure}
         
         
 
@@ -509,7 +598,26 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
             \centering
             \includegraphics[width=6.2in]{images/GANTT_c2.png}
         \end{figure}
-
+\newpage
+    \section{Anexo 3} \label{chendiag}
+    \usetikzlibrary{er,positioning}
+\begin{tikzpicture}[auto,node distance=1.5cm]
+  \node[entity] (node1) {event}
+    [grow=up,sibling distance=3cm]
+    child {node[attribute] {\underline{id}}}
+    child {node[attribute] {description}}
+    child {node[attribute] {capacity}}
+    child {node[attribute] {start\_date}}
+    child {node[attribute] {end\_date}};
+  \node[relationship] (rel1) [below = of node1] {employs};
+  \node[entity] (node2) [below = of rel1]	{employee};
+  \node[relationship] (rel2) [below = of node2] {manages};
+  \path (rel1) edge node {N} (node1)
+    edge	 node {M}	(node2);
+  \path (rel2) edge node {1} (node2)
+    edge     node {  N}   (node2);
+\end{tikzpicture}
+\end{document}
 
 %==========================================================================
 % END ANEXOS
