@@ -325,6 +325,11 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
         várias questões pertinentes. No final destas reuniões, é previsto obter-se uma compreensão
         abrangente dos requisitos a serem implementados.
         \subsection{Organiza\c{c}\~ao dos Requisitos Levantados}
+        Sendo assim, um total de $45$ requisitos foram levantados e,
+        de acordo com a norma da organização de requisitos, separados em Descrição,
+        Manipulação e Controlo, dos quais $6$ são de Descrição, $33$ de Manipulação e
+        $6$ de Controlo.
+        \newpage
         \subsubsection{Requisitos de Descri\c{c}\~ao}
         \begin{table}[H]
     \centering
@@ -355,12 +360,11 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
     }
             \caption{Requisitos de Descrição}
 \end{table}
-        \newpage
         \subsubsection{Requisitos de Manipula\c{c}\~ao}
 \begin{table}[H]
     \centering
     \resizebox{\columnwidth}{!}{%
-    \begin{tabular}{|l|l|l|l|l|l|l|}
+    \begin{tabular}{|l|l|l|>{\raggedright\arraybackslash}p{12cm}|l|l|l|}
     \hline
         Nr & ~ & Data e Hora & Descrição & Área & Fonte & Analista \\ \hline
         RM01 & 10 & 12:37 & O administrador deve conseguir consultar qual funcionário gere qual & Eventos & Henrique Borges & Aurora Matrix \\ \hline
@@ -374,6 +378,14 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
         RM09 & 18 & 12:45 & Um funcionário deve ser capaz de consultar os artigos numa venda & Eventos & Henrique Borges & Aurora Matrix \\ \hline
         RM10 & 19 & 12:46 & O administrador deve ser capaz de consultar todos os artigos & Eventos & Henrique Borges & Aurora Matrix \\ \hline
         RM11 & 20 & 12:47 & O administrador deve ser capaz de consultar os participantes de um evento & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+%    \end{tabular}%
+%}
+%\end{table}
+%\begin{table}[H]
+%    \centering
+%    \resizebox{\columnwidth}{!}{%
+%    \begin{tabular}{|l|l|l|>{\raggedright\arraybackslash}p{8cm}|l|l|l|}
+%    \hline
         RM12 & 21 & 12:48 & O administrador deve ser capaz de consultar todos os participantes em todos os eventos & Eventos & Henrique Borges & Aurora Matrix \\ \hline
         RM13 & 22 & 12:49 & O administrador deve ser capaz de consultar o participante de uma venda específica & Eventos & Henrique Borges & Aurora Matrix \\ \hline
         RM14 & 23 & 12:50 & Um funcionário deve ser capaz de consultar o participante de uma venda que efetuou & Eventos & Henrique Borges & Aurora Matrix \\ \hline
@@ -385,6 +397,14 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
         RM20 & 29 & 12:56 & O administrador deve ser capaz de consultar todos os eventos & Eventos & Henrique Borges & Aurora Matrix \\ \hline
         RM21 & 30 & 12:57 & O administrador deve ser capaz de consultar o valor de vendas num dia particular & Eventos & Henrique Borges & Aurora Matrix \\ \hline
         RM22 & 31 & 12:58 & Deve ser possível determinar qual é o participante com maior valor de vendas & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+%    \end{tabular}%
+%}
+%\end{table}
+%\begin{table}[H]
+%    \centering
+%    \resizebox{\columnwidth}{!}{%
+%    \begin{tabular}{|l|l|l|>{\raggedright\arraybackslash}p{8cm}|l|l|l|}
+%    \hline
         RM23 & 32 & 12:59 & Deve ser possível determinar qual é o evento com maior volume de vendas & Eventos & Henrique Borges & Aurora Matrix \\ \hline
         RM24 & 33 & 13:00 & Deve ser possível determinar qual foi o evento com maior participação & Eventos & Henrique Borges & Aurora Matrix \\ \hline
         RM25 & 34 & 13:01 & Os funcionários devem ser capazes de alterar as informações de um participante & Eventos & Henrique Borges & Aurora Matrix \\ \hline
@@ -400,7 +420,6 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
 }
     \caption{Requisitos de Manipulação}
 \end{table}
-        \newpage
         \subsubsection{Requisitos de Controlo}
         \begin{table}[H]
     \centering
@@ -436,8 +455,9 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
              \begin{itemize}
                  \item{\textbf{Evento:}} 
                      \begin{itemize}
-                         \item{ID} 
-                         \item{Descrição}
+                     \item{ID} Chave Primária da entidade que estará no domínio Inteiro
+                       auto incrementável;
+                         \item{Descrição} 
                          \item{DataInicio}
                          \item{DataFim}
                          \item{Capacidade}
@@ -512,11 +532,11 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
              \end{itemize}
         \subsection{Modelo Conceptual}
         Consoante os resultados da subsecção anterior, temos o seguinte diagrama ER,
-        concebido na ferramenta BrModelo\footnote{No anexo \ref{chendiag} podemos ver
-        o diagrama equivalente em notação de Peter Chen}:
+        concebido na ferramenta BrModelo\footnote{Note-se que os diagramas criados no brModelo
+        não seguem a notação de Chen [\cite{chen}]}:
         \begin{figure}[H]
             \centering
-            \includegraphics[width=4.75in]{images/Conceitual_Com_Atributos.png}
+            \includegraphics[width=4.75in]{images/Conceptual_Com_Atributos.png}
             \caption{Diagrama Conceitual}
         \end{figure}
         
@@ -598,25 +618,6 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
             \centering
             \includegraphics[width=6.2in]{images/GANTT_c2.png}
         \end{figure}
-\newpage
-    \section{Anexo 3} \label{chendiag}
-    \usetikzlibrary{er,positioning}
-\begin{tikzpicture}[auto,node distance=1.5cm]
-  \node[entity] (node1) {event}
-    [grow=up,sibling distance=3cm]
-    child {node[attribute] {\underline{id}}}
-    child {node[attribute] {description}}
-    child {node[attribute] {capacity}}
-    child {node[attribute] {start\_date}}
-    child {node[attribute] {end\_date}};
-  \node[relationship] (rel1) [below = of node1] {employs};
-  \node[entity] (node2) [below = of rel1]	{employee};
-  \node[relationship] (rel2) [below = of node2] {manages};
-  \path (rel1) edge node {N} (node1)
-    edge	 node {M}	(node2);
-  \path (rel2) edge node {1} (node2)
-    edge     node {  N}   (node2);
-\end{tikzpicture}
 \end{document}
 
 %==========================================================================
