@@ -450,62 +450,98 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
         \subsection{Identificação Conceptual}
              Após analisar os requisitos anotados, a equipa de desenvolvimento procedeu com a 
              modelação conceptual do SBD, tendo iniciado pela identificação das entidades,
-             relacionamentos e os atributos de cada uma.
+             relacionamentos e os atributos de cada uma, não incluíndo chaves estrangeiras.
              \subsubsection{Entidades}
              \begin{itemize}
                  \item{\textbf{Evento:}} 
                      \begin{itemize}
-                     \item{ID} Chave Primária da entidade que estará no domínio Inteiro
-                       auto incrementável;
-                         \item{Descrição} 
-                         \item{DataInicio}
-                         \item{DataFim}
-                         \item{Capacidade}
+                     \item{ID:} Chave Primária da entidade que estará no domínio INTEGER
+                       e será auto incrementável;
+                     \item{Descrição:} A descrição de um elemento da tabela ``Evento'' será
+                       um breve texto que introduz o tema e qualquer tipo de subevento que possa
+                       estar inserido no evento. Sendo assim, este atributo estará no domínio TEXT;
+                     \item{DataFim:} A data do fim de um evento será uma data com as horas a qual
+                       o evento será dado por oficialmente terminado. Sendo assim, estará no domínio
+                       DATETIME;
+                     \item{DataInicio:} A data do inicio de um evento será uma data com as horas a qual
+                       o evento será dado por oficialmente iniciado. Sendo assim, estará no domínio
+                       DATETIME;
+                     \item{Capacidade:} É importante ter noção da quantidade máxima de participantes num
+                       dado evento. Então, este atributo será um elemento numérico e estará no domínio INTEGER.
                      \end{itemize}
                  \item{\textbf{Funcionário:}}
                      \begin{itemize}
-                         \item{ID}
-                         \item{Nome}
-                         \item{NIF}
-                         \item{DataNascimento}
-                         \item{Email}
-                         \item{NTelemovel}
-                         \item{Morada}
+                     \item{ID:} Chave Primária da entidade que estará no domínio VARCHAR(10);
+                     \item{Nome:} O nome legal ou social de um funcionário também será armazenado e estará
+                       no domínio VARCHAR(75);
+                     \item{NIF:} O número de identificação fiscal é um número de 9 algarismos e, portanto estará
+                       no domínio VARCHAR(9);
+                     \item{DataNascimento:} Domínio = DATE;
+                       
+                     \item{Email:} VARCHAR(150);
+                       
+                     \item{NTelemovel:} Atributo multivalorado de VARCHAR(15);
+                       
+                     \item{Morada:} Atributo Composto de VARCHAR();
+                       
                      \end{itemize}
                  \item{\textbf{Venda:}}
                      \begin{itemize}
-                         \item{ID}
-                         \item{Valor}
-                         \item{Quantidade}
-                         \item{Data}
+                     \item{ID:}
+                       
+                     \item{Valor:}
+                       
+                     \item{Quantidade:}
+                       
+                     \item{Data:}
+                       
                      \end{itemize}
                  \item{\textbf{Participante:}}
                      \begin{itemize}
-                         \item{ID}
-                         \item{Nome}
-                         \item{NIF}
-                         \item{DataNascimento}
-                         \item{Email}
-                         \item{NTelemovel}
-                         \item{Morada}
+                     \item{ID:}
+                       
+                     \item{Nome:}
+                       
+                     \item{NIF:}
+                       
+                     \item{DataNascimento:}
+                       
+                     \item{Email:}
+                       
+                     \item{NTelemovel:}
+                       
+                     \item{Morada:}
+                       
                      \end{itemize}
                  \item{\textbf{Artigo:}}
                      \begin{itemize}
-                         \item{ID}
-                         \item{Nome}
-                         \item{Descrição}
-                         \item{Preço}
-                         \item{Stock}
+                     \item{ID:}
+                       
+                     \item{Nome:}
+                       
+                     \item{Descrição:}
+                       
+                     \item{Preço:}
+                       
+                     \item{Stock:}
+                       
                      \end{itemize}
                  \item{\textbf{Fornecedor:}}
                      \begin{itemize}
-                         \item{ID}
-                         \item{Nome}
-                         \item{IBAN}
-                         \item{Email}
-                         \item{Contacto}
-                         \item{NTelemovel}
-                         \item{Morada}
+                     \item{ID:}
+                       
+                     \item{Nome:}
+                       
+                     \item{IBAN:}
+                       
+                     \item{Email:}
+                       
+                     \item{Contacto:}
+                       
+                     \item{NTelemovel:}
+                       
+                     \item{Morada:}
+                       
                      \end{itemize}
              \end{itemize}
              \subsubsection{Relacionamentos}
@@ -515,19 +551,25 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
                  \item{Funcionário realiza Venda:}
                  \item{Venda contem Artigo:}
                      \begin{itemize}
-                        \item{Valor}
-                        \item{Quantidade}
+                     \item{Valor:}
+                       
+                     \item{Quantidade:}
+                       
                      \end{itemize}
                  \item{Venda para Participante:}
                  \item{Artigo fornecido por Fornecedor:}
                      \begin{itemize}
-                        \item{Data}
-                        \item{Quantidade}
+                     \item{Data:}
+                       
+                     \item{Quantidade:}
+                       
                      \end{itemize}
                  \item{Artigo encomendado do Fornecedor:}
                      \begin{itemize}
-                        \item{Data}
-                        \item{Quantidade}
+                     \item{Data:}
+                       
+                     \item{Quantidade:}
+                       
                      \end{itemize}
              \end{itemize}
         \subsection{Modelo Conceptual}
