@@ -172,7 +172,7 @@
 \chapter{Introdução e Definição do Sistema}
      \section{Contextualização}
 
-     Em Eventopolis, uma localidade remota no centro de uma densa floresta,
+     Em Eventopolis, uma localidade remota no centro de uma grande floresta,
      a gestão dos eventos foi sempre baseada em \textit{outsourcing} ou métodos manuais,
      devido à escassez de recursos humanos e à existência de um monopólio na área de Bases
      de Dados (BD). Este monopólio era controlado por uma seita de ocultistas tecnológicos,
@@ -188,8 +188,7 @@
     
      O SBD seria batizado de ``Mademoiselle Borges'' em homenagem
      a Antoinette Borges, a antiga gestora de Eventos da Câmara Municipal de Eventopolis
-     e esposa de Henrique Borges, que faleceu há alguns anos. Antoinette enfrentou uma pressão
-     considerável ao depender da seita ou ao ser forçada a gerir manualmente os eventos com uma
+     e esposa de Henrique Borges, que faleceu há alguns anos. Antoinette enfrentou uma pressão considerável ao ser forçada a gerir manualmente os eventos culturais de Eventopolis, com uma
      equipa de funcionários bastante limitada, desafios que foram fatores cruciais para o seu falecimento precoce.
    
      Para Henrique Borges, este projeto tem então um significado profundamente pessoal.
@@ -201,7 +200,7 @@
     
      Após a introdução do SBD, todos os eventos aprovados pela Câmara transformarão
      a cidade num cenário requintado que realça a estética do estilo \textit{Art Nouveau},
-     o estilo artístico predileto da Mademoiselle, este estilo tira inspiração da vegetação exuberante,
+     o estilo artístico predileto da \textit{Mademoiselle}, este estilo tira inspiração da vegetação exuberante,
      densa e colorida, característica das imensas florestas que rodeiam Eventopolis.
      O principal local de eventos será uma gigantesca estufa situada no parque central,
      construída no início do século anterior. Esta estrutura exibe uma cúpula central, vitrais coloridos
@@ -243,7 +242,7 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
         \begin{itemize}
           \item Recuperar, no final no primeiro semestre, $40\%$ das perdas anteriores e cerca de $20\%$
             do investimento inicial;
-          \item Aumentar a participação nos eventos em $30\%$ no primeiro ano.
+          \item Aumentar a participação nos eventos em $20\%$ no primeiro ano.
         \end{itemize}
 
         \section{Recursos}
@@ -416,6 +415,10 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
         RM31 & 42 & 13:09 & Os funcionários devem poder verificar o histórico de vendas de um participante & Eventos & Henrique Borges & Aurora Matrix \\ \hline
         RM32 & 44 & 13:12 & O administrador deve ser capaz de saber quais eventos decorreram num determinado período de tempo & Eventos & Henrique Borges & Aurora Matrix \\ \hline
         RM33 & 45 & 13:13 & O administrador deve ser capaz de consultar qual foi o funcionário que vendeu mais bilhetes num dado evento & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        RM34 & 46 & 13:15 & O valor total de uma venda é dado pela formula
+        $\sum_{i=1}^{\text{venda.quantidade}} \text{contem.valor} \times \text{contem.quantidade}$ 
+        & Eventos & Henrique Borges & Aurora Matrix \\ \hline
+        
     \end{tabular}%
 }
     \caption{Requisitos de Manipulação}
@@ -453,7 +456,7 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
              relacionamentos e os atributos de cada uma, não incluíndo chaves estrangeiras.
              \subsubsection{Entidades}
              \begin{itemize}
-                 \item{\textbf{Evento:}} 
+                 \item{\textbf{Evento:}} Evento a ser gerido. 
                      \begin{itemize}
                      \item{ID:} Chave Primária da entidade que estará no domínio INTEGER
                        e será auto incrementável;
@@ -469,106 +472,108 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
                      \item{Capacidade:} É importante ter noção da quantidade máxima de participantes num
                        dado evento. Então, este atributo será um elemento numérico e estará no domínio INTEGER.
                      \end{itemize}
-                 \item{\textbf{Funcionário:}}
+                 \item{\textbf{Funcionário:}} Colaborador da câmara munincipal.
                      \begin{itemize}
                      \item{ID:} Chave Primária da entidade que estará no domínio VARCHAR(10);
                      \item{Nome:} O nome legal ou social de um funcionário também será armazenado e estará
                        no domínio VARCHAR(75);
                      \item{NIF:} O número de identificação fiscal é um número de 9 algarismos e, portanto estará
                        no domínio VARCHAR(9);
-                     \item{DataNascimento:} Domínio = DATE;
+                     \item{DataNascimento:} Data de nascimento que estará no domínio DATE;
                        
-                     \item{Email:} VARCHAR(150);
+                     \item{Email:} Email é um atributo multivalorado que estará no domínio VARCHAR(75);
                        
-                     \item{NTelemovel:} Atributo multivalorado de VARCHAR(15);
+                     \item{NTelemovel:} Números de telemóvel. Podem conter letras e números. É um atributo multivalorado no domínio VARCHAR(20);
                        
-                     \item{Morada:} Atributo Composto de VARCHAR();
-                       
-                     \end{itemize}
-                 \item{\textbf{Venda:}}
-                     \begin{itemize}
-                     \item{ID:}
-                       
-                     \item{Valor:}
-                       
-                     \item{Quantidade:}
-                       
-                     \item{Data:}
+                     \item{Morada:} Morada composta por rua, localidade, código-postal. Atributo Composto de VARCHAR(), onde rua será VARCHAR(50), localidade VARCHAR(30) e código-postal VARCHAR(15);
                        
                      \end{itemize}
-                 \item{\textbf{Participante:}}
+                 \item{\textbf{Participante:}} Pessoa que participa num evento(s). É registado no sistema quando efetua a compra do seu primeiro bilhete para um evento;
                      \begin{itemize}
-                     \item{ID:}
+                     \item{ID:} Chave Primária da entidade que estará no domínio INTEGER;
                        
-                     \item{Nome:}
+                     \item{Nome:} O nome legal ou social da pessoa também será armazenado e estará
+                       no domínio VARCHAR(75);
                        
-                     \item{NIF:}
+                     \item{NIF:} O número de identificação fiscal é um número de 9 algarismos e, portanto estará no domínio VARCHAR(9). Este campo é opcional;
                        
-                     \item{DataNascimento:}
+                     \item{DataNascimento:} Data de nascimento que estará no domínio DATE;
                        
-                     \item{Email:}
+                     \item{Email:} Email do participante que estará no domínio VARCHAR(75). Este campo é multivalorado e opcional;
                        
-                     \item{NTelemovel:}
+                     \item{NTelemovel:} Números de telemóvel. Podem conter letras e números. É um atributo multivalorado no domínio VARCHAR(20);
                        
-                     \item{Morada:}
+                     \item{Morada:} Morada composta por rua, localidade, código-postal. Atributo Composto de VARCHAR(), onde rua será VARCHAR(50), localidade VARCHAR(30) e código-postal VARCHAR(15). Este campo é opcional;
                        
                      \end{itemize}
-                 \item{\textbf{Artigo:}}
+                 \item{\textbf{Artigo:}} Artigo que é possível estar numa venda;
                      \begin{itemize}
-                     \item{ID:}
+                     \item{ID:} Chave Primária da entidade que estará no domínio INTEGER;
                        
-                     \item{Nome:}
+                     \item{Nome:} O nome do artigo que estará no domínio VARCHAR(75);
                        
-                     \item{Descrição:}
+                     \item{Descrição:} A descrição de um elemento da tabela ``Artigo'' será
+                       um breve texto que descreve o produto em questão e qualquer medida extra necessária a ter com o mesmo. Sendo assim, este atributo estará no domínio TEXT;
                        
-                     \item{Preço:}
+                     \item{Preço:} Valor de um artigo, logo estará no domínio DECIMAL(5,2);
                        
-                     \item{Stock:}
+                     \item{Stock:} Quantidade de um artigo que está disponível, estará no domínio INTEGER;
                        
                      \end{itemize}
-                 \item{\textbf{Fornecedor:}}
+                 \item{\textbf{Venda:}} Venda de artigo(s) a ser efetuada a um participante por parte de um funcionário;
                      \begin{itemize}
-                     \item{ID:}
+                     \item{ID:} Chave Primária da entidade que estará no domínio INTEGER;
                        
-                     \item{Nome:}
+                     \item{Valor:} Valor total da venda que estará no domínio DECIMAL(5,2);
                        
-                     \item{IBAN:}
+                     \item{Quantidade:} Valor total do número de artigos na venda que estará no domínio INTEGER;
                        
-                     \item{Email:}
+                     \item{Data:} Data na qual a venda aconteceu logo estará no domínio DATE;
                        
-                     \item{Contacto:}
+                     \end{itemize}
+                 \item{\textbf{Fornecedor:}} Quem fornece os artigos;
+                     \begin{itemize}
+                     \item{ID:} Chave Primária da entidade que estará no domínio INTEGER;
                        
-                     \item{NTelemovel:}
+                     \item{Nome:} O nome da empresa fornecedora que estará no domínio VARCHAR(75);
                        
-                     \item{Morada:}
+                     \item{IBAN:} Código de identificação de conta bancária para a qual devem ser feitos os pagamentos ao fornecedor. Está no domínio VARCHAR(50);
+                       
+                     \item{Email:} Email do participante que estará no domínio VARCHAR(75) e é multivalorado;
+                       
+                     \item{Contacto:} Pessoa que representa a empresa e o seu número de telemóvel, estará no domínio VARCHAR(50);
+                       
+                     \item{NTelemovel:} Números de telemóvel. Podem conter letras e números. É um atributo multivalorado no domínio VARCHAR(20);
+                       
+                     \item{Morada:} Morada composta por rua, localidade, código-postal. Atributo Composto de VARCHAR(), onde rua será VARCHAR(50), localidade VARCHAR(30) e código-postal VARCHAR(15);
                        
                      \end{itemize}
              \end{itemize}
              \subsubsection{Relacionamentos}
              \begin{itemize}
-                 \item{Evento emprega Funcionário:}
-                 \item{Funcionário gere Funcionário:}
-                 \item{Funcionário realiza Venda:}
-                 \item{Venda contem Artigo:}
+                 \item{Evento emprega Funcionário:} Relacionamento entre Evento e Funcionário, representado quais funcionários estão alocados para quais eventos. Sendo a cardinalidade muitos para muitos;
+                 \item{Funcionário gere Funcionário:} Relacionamento entre Funcionário e Funcionário, representado qual funcionário gere qual/quais funcionários são geridos por um Funcionário. Sendo a cardinalidade 1 para muitos;
+                 \item{Funcionário realiza Venda:} Relacionamento entre Funcionário e Venda, representado qual funcionário efetuou uma Venda. Sendo a cardinalidade um para muitos.
+                 \item{Venda contem Artigo:} Relacionamento entre Venda e Artigo, representando quais artigos estão numa venda. Sendo a cardinalidade muitos para muitos.
                      \begin{itemize}
-                     \item{Valor:}
+                     \item{Valor:} Valor do artigo no momento da venda, estará então no domínio DECIMAL(5,2);
                        
-                     \item{Quantidade:}
+                     \item{Quantidade:} Valor total da quantidade de um dado artigo numa venda, estará então no domínio INTEGER;
                        
                      \end{itemize}
-                 \item{Venda para Participante:}
-                 \item{Artigo fornecido por Fornecedor:}
+                 \item{Venda para Participante:} Relacionamento entre Venda e Participante, representando a que participante uma venda pertence. Sendo a cardinalidade muitos para 1;
+                 \item{Artigo fornecido por Fornecedor:} Relacionamento entre Artigo e Fornecedor, representado o fornecedor pelo qual um artigo foi fornecido. Sendo a cardinalidade muitos para muitos;
                      \begin{itemize}
-                     \item{Data:}
+                     \item{Data:} Data na qual o artigo foi entregue pelo fornecedor, estará então no domínio DATE;
                        
-                     \item{Quantidade:}
+                     \item{Quantidade:} Valor total da quantidade de um dado artigo numa entrega por parte de um fornecedor, estará então no domínio INTEGER;
                        
                      \end{itemize}
-                 \item{Artigo encomendado do Fornecedor:}
+                 \item{Artigo encomendado do Fornecedor:} Relacionamento entre Artigo e Fornecedor, representado o fornecedor pelo qual um artigo foi encomendado. Sendo a cardinalidade muitos para muitos;
                      \begin{itemize}
-                     \item{Data:}
+                     \item{Data:} Data na qual o artigo foi encomendado ao fornecedor, estará então no domínio DATE;
                        
-                     \item{Quantidade:}
+                     \item{Quantidade:} Valor total da quantidade de um dado artigo numa encomenda por parte de um fornecedor, estará então no domínio INTEGER;
                        
                      \end{itemize}
              \end{itemize}
@@ -591,7 +596,13 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
 %==========================================================================
 
 \chapter{Conclusões e Trabalho Futuro}
-    
+
+
+    Acreditamos que, ao concluirmos a primeira fase deste projeto, reunimos condições
+    ideais para proceder à modelação lógica e física do caso de estudo.\\
+    Neste sentido, é necessário avançar de seguida com o procedimento de modelação lógica,
+    que envolve a identificação das tabelas a criar, das chaves estrangeiras,
+    e de todos os elementos que se traduzem diretamente neste processo.
 
 %==========================================================================
 % END CONCLUSÕES DE TRABALHO FUTURO
@@ -661,7 +672,6 @@ identificar os itens mais vendidos tanto em eventos específicos quanto globalme
             \centering
             \includegraphics[width=6.2in]{images/GANTT_c2.png}
         \end{figure}
-\end{document}
 
 %==========================================================================
 % END ANEXOS
