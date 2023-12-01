@@ -5,9 +5,9 @@ USE mademoiselle_borges;
 
 CREATE TABLE event (
 	id INTEGER AUTO_INCREMENT,
-	desc TEXT NOT NULL,
-	begin DATETIME NOT NULL,
-	end   DATETIME NOT NULL,
+	descr TEXT NOT NULL,
+	beg DATETIME NOT NULL,
+	fin   DATETIME NOT NULL,
 	capacity INTEGER NOT NULL,
 	PRIMARY KEY (id)
 );
@@ -26,22 +26,22 @@ CREATE TABLE employee (
 );
 
 CREATE TABLE employee_phone (
-	employee_id VARCHAR(10) NOT NULL,
+	employee_id_phone VARCHAR(10) NOT NULL,
 	phone VARCHAR(20) NOT NULL,
-	FOREIGN KEY (employee_id) REFERENCES employee (id)
+	FOREIGN KEY (employee_id_employee_phone) REFERENCES employee (id)
 );
 CREATE TABLE employee_email (
 	employee_id VARCHAR(10) NOT NULL,
 	email VARCHAR(75) NOT NULL,
-	FOREIGN KEY (employee_id) REFERENCES employee (id)
+	FOREIGN KEY (employee_id_employee_email) REFERENCES employee (id)
 );
 
 CREATE TABLE event_employee (
-	event_id INTEGER,
-	employee_id INTEGER,
-	PRIMARY KEY (event_id, employee_id),
-	FOREIGN KEY (event_id) REFERENCES event (id),
-	FOREIGN KEY (employee_id) REFERENCES employee (id)
+	event_id_event_employee INTEGER,
+	employee_id_event_employee INTEGER,
+	PRIMARY KEY (event_id_event_employee, employee_id_event_employee),
+	FOREIGN KEY (event_id_event_employee) REFERENCES event (id),
+	FOREIGN KEY (employee_id_event_employee) REFERENCES employee (id)
 );
 
 CREATE TABLE participant (
@@ -56,46 +56,46 @@ CREATE TABLE participant (
 );
 
 CREATE TABLE participant_email (
-	participant_id INTEGER NOT NULL,
+	participant_id_participant_email INTEGER NOT NULL,
 	email VARCHAR(75) NULL,
-	FOREIGN KEY (participant_id) REFERENCES participant (id)
+	FOREIGN KEY (participant_id_participant_email) REFERENCES participant (id)
 );
 
 CREATE TABLE participant_phone (
-	participant_id INTEGER NOT NULL,
+	participant_id_participant_phone INTEGER NOT NULL,
 	phone VARCHAR(20) NOT NULL,
-	FOREIGN KEY (participant_id) REFERENCES participant (id)
+	FOREIGN KEY (participant_id_participant_phone) REFERENCES participant (id)
 );
 
 CREATE TABLE sale (
 	id INTEGER AUTO_INCREMENT,
-	value DECIMAL(5,2) NOT NULL,
+	val DECIMAL(5,2) NOT NULL,
 	quantity INTEGER NOT NULL,
-	date DATETIME NOT NULL,
-	employee_id VARCHAR(10) NOT NULL,
-	participant_id INTEGER NOT NULL,
+	dos DATETIME NOT NULL,
+	employee_id_sale VARCHAR(10) NOT NULL,
+	participant_id_sale INTEGER NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (employee_id) REFERENCES employee (id),
-	FOREIGN KEY (participant_id) REFERENCES participant (id)
+	FOREIGN KEY (employee_id_sale) REFERENCES employee (id),
+	FOREIGN KEY (participant_id_sale) REFERENCES participant (id)
 );
 
 CREATE TABLE product (
 	id INTEGER AUTO_INCREMENT,
 	name VARCHAR(75) NOT NULL,
-	desc TEXT NOT NULL,
+	descr TEXT NOT NULL,
 	price DECIMAL(5,2) NOT NULL,
 	stock INTEGER NOT NULL,
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE sale_product (
-	sale_id INTEGER NOT NULL,
-	product_id INTEGER NOT NULL,
-	value DECIMAL(5,2) NOT NULL,
+	sale_id_sale_product INTEGER NOT NULL,
+	product_id_sale_product INTEGER NOT NULL,
+	val DECIMAL(5,2) NOT NULL,
 	quantity INTEGER NOT NULL,
-	PRIMARY KEY (sale_id, product_id),
-	FOREIGN KEY (sale_id) REFERENCES sale (id),
-	FOREIGN KEY (product_id) REFERENCES product (id)
+	PRIMARY KEY (sale_id_sale_product, product_id_sale_product),
+	FOREIGN KEY (sale_id_sale_product) REFERENCES sale (id),
+	FOREIGN KEY (product_id_sale_product) REFERENCES product (id)
 );
 
 CREATE TABLE supplier (
@@ -110,21 +110,21 @@ CREATE TABLE supplier (
 );
 
 CREATE TABLE product_supplier_past (
-	product_id INTEGER NOT NULL,
-	supplier_id INTEGER NOT NULL,
-	date DATE NOT NULL,
+	product_id_product_supplier_past INTEGER NOT NULL,
+	supplier_id_product_supplier_past INTEGER NOT NULL,
+	dod DATE NOT NULL,
 	quantity INTEGER NOT NULL
-	PRIMARY KEY (product_id, supplier_id, date),
-	FOREIGN KEY (product_id) REFERENCES product (id),
-	FOREIGN KEY (supplier_id) REFERENCES supplier (id)
+	PRIMARY KEY (product_id_product_supplier_past, supplier_id_product_supplier_past, dod),
+	FOREIGN KEY (product_id_product_supplier_past) REFERENCES product (id),
+	FOREIGN KEY (supplier_id_product_supplier_past) REFERENCES supplier (id)
 );
 
 CREATE TABLE product_supplier_future (
-	product_id INTEGER NOT NULL,
-	supplier_id INTEGER NOT NULL,
-	date DATE NOT NULL,
+	product_id_product_supplier_future INTEGER NOT NULL,
+	supplier_id_product_supplier_future INTEGER NOT NULL,
+	dod DATE NOT NULL,
 	quantity INTEGER NOT NULL
-	PRIMARY KEY (product_id, supplier_id, date),
-	FOREIGN KEY (product_id) REFERENCES product (id),
-	FOREIGN KEY (supplier_id) REFERENCES supplier (id)
+	PRIMARY KEY (product_id_product_supplier_future, supplier_id_product_supplier_future, dod),
+	FOREIGN KEY (product_id_product_supplier_future) REFERENCES product (id),
+	FOREIGN KEY (supplier_id_product_supplier_future) REFERENCES supplier (id)
 );
