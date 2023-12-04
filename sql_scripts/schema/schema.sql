@@ -20,32 +20,32 @@ CREATE TABLE employee (
 	street VARCHAR(50) NOT NULL,
 	locale VARCHAR(30) NOT NULL,
 	postal VARCHAR(15) NOT NULL,
-	employee_id VARCHAR(10),
+	employee_id_e VARCHAR(10),
 	PRIMARY KEY (id),
-	FOREIGN KEY (employee_id) REFERENCES employee (id)
+	FOREIGN KEY (employee_id_e) REFERENCES employee (id)
 );
 
 CREATE TABLE employee_phone (
-	employee_id_phone VARCHAR(10) NOT NULL,
+	employee_id_ep VARCHAR(10) NOT NULL,
 	phone VARCHAR(20) NOT NULL,
-	FOREIGN KEY (employee_id_employee_phone) REFERENCES employee (id)
+	FOREIGN KEY (employee_id_ep) REFERENCES employee (id)
 );
 CREATE TABLE employee_email (
-	employee_id VARCHAR(10) NOT NULL,
+	employee_id_eem VARCHAR(10) NOT NULL,
 	email VARCHAR(75) NOT NULL,
-	FOREIGN KEY (employee_id_employee_email) REFERENCES employee (id)
+	FOREIGN KEY (employee_id_eem) REFERENCES employee (id)
 );
 
 CREATE TABLE event_employee (
-	event_id_event_employee INTEGER,
-	employee_id_event_employee INTEGER,
-	PRIMARY KEY (event_id_event_employee, employee_id_event_employee),
-	FOREIGN KEY (event_id_event_employee) REFERENCES event (id),
-	FOREIGN KEY (employee_id_event_employee) REFERENCES employee (id)
+	event_id_ee INTEGER,
+	employee_id_ee VARCHAR(10),
+	CONSTRAINT comp_key PRIMARY KEY (event_id_ee , employee_id_ee),
+	FOREIGN KEY (event_id_ee) REFERENCES event (id),
+	FOREIGN KEY (employee_id_ee) REFERENCES employee (id)
 );
 
 CREATE TABLE participant (
-	id INTEGER AUTO INCREMENT,
+	id INTEGER AUTO_INCREMENT,
 	name VARCHAR(75) NOT NULL,
 	vat VARCHAR(9) NULL,
 	birth DATE NOT NULL,
@@ -56,15 +56,15 @@ CREATE TABLE participant (
 );
 
 CREATE TABLE participant_email (
-	participant_id_participant_email INTEGER NOT NULL,
+	participant_id_pem INTEGER NOT NULL,
 	email VARCHAR(75) NULL,
-	FOREIGN KEY (participant_id_participant_email) REFERENCES participant (id)
+	FOREIGN KEY (participant_id_pem) REFERENCES participant (id)
 );
 
 CREATE TABLE participant_phone (
-	participant_id_participant_phone INTEGER NOT NULL,
+	participant_id_pp INTEGER NOT NULL,
 	phone VARCHAR(20) NOT NULL,
-	FOREIGN KEY (participant_id_participant_phone) REFERENCES participant (id)
+	FOREIGN KEY (participant_id_pp) REFERENCES participant (id)
 );
 
 CREATE TABLE sale (
@@ -72,11 +72,11 @@ CREATE TABLE sale (
 	val DECIMAL(5,2) NOT NULL,
 	quantity INTEGER NOT NULL,
 	dos DATETIME NOT NULL,
-	employee_id_sale VARCHAR(10) NOT NULL,
-	participant_id_sale INTEGER NOT NULL,
+	employee_id_s VARCHAR(10) NOT NULL,
+	participant_id_s INTEGER NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (employee_id_sale) REFERENCES employee (id),
-	FOREIGN KEY (participant_id_sale) REFERENCES participant (id)
+	FOREIGN KEY (employee_id_s) REFERENCES employee (id),
+	FOREIGN KEY (participant_id_s) REFERENCES participant (id)
 );
 
 CREATE TABLE product (
@@ -89,13 +89,13 @@ CREATE TABLE product (
 );
 
 CREATE TABLE sale_product (
-	sale_id_sale_product INTEGER NOT NULL,
-	product_id_sale_product INTEGER NOT NULL,
+	sale_id_sp INTEGER NOT NULL,
+	product_id_sp INTEGER NOT NULL,
 	val DECIMAL(5,2) NOT NULL,
 	quantity INTEGER NOT NULL,
-	PRIMARY KEY (sale_id_sale_product, product_id_sale_product),
-	FOREIGN KEY (sale_id_sale_product) REFERENCES sale (id),
-	FOREIGN KEY (product_id_sale_product) REFERENCES product (id)
+	CONSTRAINT comp_key PRIMARY KEY (sale_id_sp, product_id_sp),
+	FOREIGN KEY (sale_id_sp) REFERENCES sale (id),
+	FOREIGN KEY (product_id_sp) REFERENCES product (id)
 );
 
 CREATE TABLE supplier (
@@ -110,21 +110,21 @@ CREATE TABLE supplier (
 );
 
 CREATE TABLE product_supplier_past (
-	product_id_product_supplier_past INTEGER NOT NULL,
-	supplier_id_product_supplier_past INTEGER NOT NULL,
-	dod DATE NOT NULL,
-	quantity INTEGER NOT NULL
-	PRIMARY KEY (product_id_product_supplier_past, supplier_id_product_supplier_past, dod),
-	FOREIGN KEY (product_id_product_supplier_past) REFERENCES product (id),
-	FOREIGN KEY (supplier_id_product_supplier_past) REFERENCES supplier (id)
+	product_id_psp INTEGER NOT NULL,
+	supplier_id_psp INTEGER NOT NULL,
+	dod DATE NOT NULL, -- date of delivery
+	quantity INTEGER NOT NULL,
+	CONSTRAINT comp_key PRIMARY KEY (product_id_psp, supplier_id_psp, dod),
+	FOREIGN KEY (product_id_psp) REFERENCES product (id),
+	FOREIGN KEY (supplier_id_psp) REFERENCES supplier (id)
 );
 
 CREATE TABLE product_supplier_future (
-	product_id_product_supplier_future INTEGER NOT NULL,
-	supplier_id_product_supplier_future INTEGER NOT NULL,
-	dod DATE NOT NULL,
-	quantity INTEGER NOT NULL
-	PRIMARY KEY (product_id_product_supplier_future, supplier_id_product_supplier_future, dod),
-	FOREIGN KEY (product_id_product_supplier_future) REFERENCES product (id),
-	FOREIGN KEY (supplier_id_product_supplier_future) REFERENCES supplier (id)
+	product_id_psf INTEGER NOT NULL,
+	supplier_id_psf INTEGER NOT NULL,
+	dor DATE NOT NULL, -- date of reservation
+	quantity INTEGER NOT NULL,
+	CONSTRAINT comp_key PRIMARY KEY (product_id_psf, supplier_id_psf, dor),
+	FOREIGN KEY (product_id_psf) REFERENCES product (id),
+	FOREIGN KEY (supplier_id_psf) REFERENCES supplier (id)
 );
