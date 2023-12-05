@@ -46,13 +46,13 @@ CREATE PROCEDURE GetProductsInSale (IN id INTEGER)
 	WHERE sale_id_sp = id;
 END &&
 -- check all participants of a given event
--- DELIMITER &&
--- CREATE PROCEDURE GetEvParticipants (IN id INTEGER)
---   BEGIN
---      DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
---      SELECT id
---          FROM sale AS S INNER JOIN 
---          WHERE S.participant_id_s = id AND 
+DELIMITER &&
+CREATE PROCEDURE GetEvParticipants (IN id INTEGER)
+  BEGIN
+     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
+     SELECT id
+         FROM sale AS S INNER JOIN 
+         WHERE S.participant_id_s = id AND 
 -- S.participant_id_s <-> S.employee_id_s <-> event_employee.employee_id_ee
 --END &&
 -- check all participants of all events
@@ -100,4 +100,40 @@ CREATE PROCEDURE GetPartWithMostSales ()
          FROM sale AS S INNER JOIN participant AS P
 	 ORDER BY (COUNT(S.participant_id_s = P.id));
 END &&
+-- check all suppliers
+DELIMITER &&
+CREATE PROCEDURE GetSuppliers ()
+  BEGIN
+     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
+     SELECT *
+         FROM supplier;
+END &&
+-- check past suppliers of a product
+DELIMITER &&
+CREATE PROCEDURE GetProdSupplier (IN id INTEGER)
+  BEGIN
+     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
+     SELECT supplier_id_psp
+         FROM product_supplier_past
+	 WHERE id = product_id_psp;
+END &&
+-- check sales in a given day
+DELIMITER &&
+CREATE PROCEDURE GetDaySakes (IN dos DATE)
+  BEGIN
+     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
+     SELECT *
+         FROM sale AS S
+	 WHERE S.dos = dos;
+END &&
+-- check who sold the most tickets in Event
+DELIMITER &&
+CREATE PROCEDURE GetSoldMostInEv (IN id INTEGER)
+  BEGIN
+     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUTER' Message;
+     SELECT *
+         FROM sale AS S
+         WHERE S
+END &&
+-- asdklj
 
