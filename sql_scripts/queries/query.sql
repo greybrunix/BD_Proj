@@ -84,4 +84,3 @@ CREATE PROCEDURE GetProds ()
 END &&
 --
 -- 
->>>>>>> adb848a (proc)
