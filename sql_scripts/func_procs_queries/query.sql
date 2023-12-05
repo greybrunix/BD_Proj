@@ -70,9 +70,9 @@ DELIMITER &&
 CREATE PROCEDURE GetPartInSale (IN id INTEGER)
   BEGIN 
      DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUTER' Message;
-     SELECT id
-         FROM sale
-	 WHERE participant_id_s = id;
+     SELECT participant_id_s
+         FROM sale AS S
+	 WHERE S.id = id;
 END &&
 -- check all products
 DELIMITER &&
@@ -82,5 +82,22 @@ CREATE PROCEDURE GetProds ()
      SELECT *
          FROM product;
 END &&
---
--- 
+-- check alls sales associated with a participant
+DELIMITER &&
+CREATE PROCEDURE GetSalesOfPart (IN id INTEGER)
+  BEGIN
+     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
+     SELECT id
+         FROM sale AS S
+	 WHERE S.participant_id_s = id
+END &&
+-- check part with most sales associated
+DELIMITER &&
+CREATE PROCEDURE GetPartWithMostSales ()
+  BEGIN
+     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
+     SELECT P.id -- sort and get first value
+         FROM sale AS S INNER JOIN participant AS P
+	 ORDER BY (COUNT(S.participant_id_s = P.id));
+END &&
+
