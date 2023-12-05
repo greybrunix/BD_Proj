@@ -1,7 +1,6 @@
-Nome_tabela/argv1,argv2,...,argvn
 
-event,1,Feira Natalicia do Livro,2023-12-05/08:00:00,2024-01-03/22:00:00,300
-event,2,Torneio de Sueca em Roriz,2024-02-02/21:30:00,2024-02-04/15:00:00,50
+1,Feira Natalicia do Livro,2023-12-05/08:00:00,2024-01-03/22:00:00,300
+2,Torneio de Sueca em Roriz,2024-02-02/21:30:00,2024-02-04/15:00:00,50
 event,3,Peca de Teatro "A Madame Escondida",2024-12-15/18:30:00,2024-12-15/20:30:00,150
 event,4,Procissao Festiva de Sao Celestino de Rabo de Peixe,2024-02-03/15:00:00,2024-02-04/19:30:00,150
 
