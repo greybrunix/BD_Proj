@@ -6,6 +6,6 @@ id,name,vat,birth,street,locale,postal,employee_id_e
 "FLADM00005","Miguel Mata Migalhas","555555555",1974-04-25,"Avenida dos Comem-Tudo","Eventopolis","5555-5555-55555",
 "FL---00006","Aknostr Grust Hings","669669669",1996-06-09,"Trilho do Cu de Judas","Pimba","6969-6969-69696","FLADM00005"
 "F----00007","Alice Grande Pequena","777777777","1969-07-20","Travessa da Lua","Ham Strong City","7777-7777-77777","FADM-00002"
-"FADM-00008","Bernardo Fernando Ferrari","888888888","15-08-1988","Largo da Boa Corrida nº8, R/C","Eventopolis","8888-8888-88888","FCADM00004"
-"EST--00009","Inês Luísa de Úrsula","999999999","13-02-1999","Beco de São Valentim, S2","Eventopolis","9999-9999-99999","FADM-00008"
-"F----00010","Yuppy May Catrindottir Alvason","101010101","13-02-1990","Rua Doutor Félix Felizardo Felisberto nº10","Eventopolis","1010-1010-10000","FADM-00008"
+"FADM-00008","Bernardo Fernando Ferrari","888888888","1988-08-15","Largo da Boa Corrida nº8, R/C","Eventopolis","8888-8888-88888","FCADM00004"
+"EST--00009","Inês Luísa de Úrsula","999999999","1999-02-13","Beco de São Valentim, S2","Eventopolis","9999-9999-99999","FADM-00008"
+"F----00010","Yuppy May Catrindottir Alvason","101010101","1990-02-13","Rua Doutor Félix Felizardo Felisberto nº10","Eventopolis","1010-1010-10000","FADM-00008"
