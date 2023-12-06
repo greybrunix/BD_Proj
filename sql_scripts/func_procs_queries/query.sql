@@ -46,15 +46,15 @@ CREATE PROCEDURE GetProductsInSale (IN id INTEGER)
 	WHERE sale_id_sp = id;
 END &&
 -- check all participants of a given event
-DELIMITER &&
-CREATE PROCEDURE GetEvParticipants (IN id INTEGER)
-  BEGIN
-     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
-     SELECT id
-         FROM sale AS S INNER JOIN 
-         WHERE S.participant_id_s = id AND 
+-- DELIMITER &&
+-- CREATE PROCEDURE GetEvParticipants (IN id INTEGER)
+--   BEGIN
+--      DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
+--      SELECT id
+--          FROM sale AS S INNER JOIN 
+--          WHERE S.participant_id_s = id AND 
 -- S.participant_id_s <-> S.employee_id_s <-> event_employee.employee_id_ee
---END &&
+-- END &&
 -- check all participants of all events
 -- DELIMITER &&
 -- CREATE PROCEDURE GetEvParticipants (IN id INTEGER)
@@ -127,13 +127,13 @@ CREATE PROCEDURE GetDaySakes (IN dos DATE)
 	 WHERE S.dos = dos;
 END &&
 -- check who sold the most tickets in Event
-DELIMITER &&
-CREATE PROCEDURE GetSoldMostInEv (IN id INTEGER)
-  BEGIN
-     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUTER' Message;
-     SELECT *
-         FROM sale AS S
-         WHERE S
-END &&
+-- DELIMITER &&
+-- CREATE PROCEDURE GetSoldMostInEv (IN id INTEGER)
+--   BEGIN
+--      DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUTER' Message;
+--      SELECT *
+--          FROM sale AS S
+--          WHERE S
+-- END &&
 -- asdklj
 
