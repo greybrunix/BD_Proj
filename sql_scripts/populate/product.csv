@@ -1,22 +1,22 @@
 Nome,Descrição,Stock,Preco
-"Pacote Caneta Azul Bic","Pacote de 10 Canetas da Marca Bic, cor azul",1,3.89
-"Borracha Branca","2 Borrachas MAPPED",1,1.10
-"Pacote Caneta Vermelha Bic","Pacote de 10 Canetas da Marca Bic, cor vermelha",1,3.89
-"Livro para Colorir","Livro com imagens de locais e eventos importantes de Eventopolis para colorir ",1,6.00
-"Livro 'Historia de Eventopolis, do século XV até modernidade'","Livro do autor Benedito Leão, onde ele escreve sobre vários eventos históricos da antiga cidade de Eventopolis",1,30.00
-"T-shirt 'I LOVE EVENTOPOLIS'","Uma t-shirt de tamanho S com o famoso logo'",0,10.00
-"Caderno Pautado","Caderno com 100 folhas pautadas",1,1.50
-"Caderno Quadriculado","Caderno com 100 folhas quadriculadas",1,1.50
-"Caneca 'I LOVE Eventopolis'","Caneca de ceramica com o slogan da cidade",1,7.50
-"Lápis de Cor Faber-Castell","Caixa com 36 lápis de cor vibrantes",1,29.99
-"Jogo de Tabuleiro 'Descubra Eventopolis'","Jogo interativo para explorar a história e geografia de Eventopolis",1,24.55
-"Bloco de Notas de Couro","Bloco de notas elegante com capa de couro sintético",0,9.75
-"Guia Turístico de Eventopolis","Livro informativo com destinos, atrações e lendas da cidade",1,11.50
-"Bilhete para Eventos","Bilhete necessário para usufruir de todos os beneficios dos eventos ",1,4.00
-"Bilhete Junior para Eventos","Bilhete necessário para usufruir de todos os beneficios dos eventos, versão para crianças até aos 12 anOs ",1,0.99
-"Assinatura Mensal de Livros Locais","Receba mensalmente um livro de um autor local ou com temática da cidade",1,10.99
-"Livro 'A vida secreta de Carlos Valente'","Uma Biografia escrita por Maria Alves, acerca da escandalosa vida do mais importante arquiteto de Eventopolis",0,35.00
-"Livro de Receitas 'Sabores de Eventopolis'","Receitas locais e tradicionais da região copiladas pelo enigmatico chefe Roy Mustang",1,49.95
-"Agenda Anual Gatos 2024","Agenda com páginas para cada dia do ano com imagens de vários felinos",1,12.99
-"Conjunto de Postais de Eventopolis","Pacote com 10 postais ilustrados de vários monumentos da cidade, incluido a famosa estufa construida por Carlos Valente no inicio do seculo XX",1,9.99
-"Bloco de Desenho A4","Bloco de papel para desenho tamanho A4, 50 folhas",0,12.95
+"Pacote Caneta Azul Bic","Pacote de 10 Canetas da Marca Bic, cor azul",3.89,1
+"Borracha Branca","2 Borrachas MAPPED",1.10,1
+"Pacote Caneta Vermelha Bic","Pacote de 10 Canetas da Marca Bic, cor vermelha",3.89,1
+"Livro para Colorir","Livro com imagens de locais e eventos importantes de Eventopolis para colorir ",6.00,1
+"Livro 'Historia de Eventopolis, do século XV até modernidade'","Livro do autor Benedito Leão, onde ele escreve sobre vários eventos históricos da antiga cidade de Eventopolis",30.00,1
+"T-shirt 'I LOVE EVENTOPOLIS'","Uma t-shirt de tamanho S com o famoso logo'",10.00,0
+"Caderno Pautado","Caderno com 100 folhas pautadas",1.50,1
+"Caderno Quadriculado","Caderno com 100 folhas quadriculadas",1.50,1
+"Caneca 'I LOVE Eventopolis'","Caneca de ceramica com o slogan da cidade",7.50,1
+"Lápis de Cor Faber-Castell","Caixa com 36 lápis de cor vibrantes",29.99,1
+"Jogo de Tabuleiro 'Descubra Eventopolis'","Jogo interativo para explorar a história e geografia de Eventopolis",24.55,1
+"Bloco de Notas de Couro","Bloco de notas elegante com capa de couro sintético",9.75,0
+"Guia Turístico de Eventopolis","Livro informativo com destinos, atrações e lendas da cidade",11.50,1
+"Bilhete para Eventos","Bilhete necessário para usufruir de todos os beneficios dos eventos ",4.00,450
+"Bilhete Junior para Eventos","Bilhete necessário para usufruir de todos os beneficios dos eventos, versão para crianças até aos 12 anOs ",0.99,200
+"Assinatura Mensal de Livros Locais","Receba mensalmente um livro de um autor local ou com temática da cidade",10.99,1
+"Livro 'A vida secreta de Carlos Valente'","Uma Biografia escrita por Maria Alves, acerca da escandalosa vida do mais importante arquiteto de Eventopolis",35.00,0
+"Livro de Receitas 'Sabores de Eventopolis'","Receitas locais e tradicionais da região copiladas pelo enigmatico chefe Roy Mustang",49.95,1
+"Agenda Anual Gatos 2024","Agenda com páginas para cada dia do ano com imagens de vários felinos",12.99,1
+"Conjunto de Postais de Eventopolis","Pacote com 10 postais ilustrados de vários monumentos da cidade, incluido a famosa estufa construida por Carlos Valente no inicio do seculo XX",9.99,1
+"Bloco de Desenho A4","Bloco de papel para desenho tamanho A4, 50 folhas",12.95,0
