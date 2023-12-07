@@ -1,4 +1,5 @@
--- USE mademoiselle_borges;
+USE mademoiselle_borges
+
 
 
 DELIMITER &&

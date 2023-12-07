@@ -1,10 +1,11 @@
---DROP SCHEMA IF EXISTS mademoiselle_borges;
+-- DROP SCHEMA IF EXISTS mademoiselle_borges;
 CREATE SCHEMA IF NOT EXISTS mademoiselle_borges;
 
-USE mademoiselle_borges;
+USE mademoiselle_borges
 
 CREATE TABLE event (
 	id INTEGER AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL UNIQUE,
 	descr TEXT NOT NULL,
 	beg DATETIME NOT NULL,
 	fin   DATETIME NOT NULL,
@@ -14,12 +15,12 @@ CREATE TABLE event (
 
 CREATE TABLE employee (
 	id VARCHAR(10),
-	name VARCHAR(75) NOT NULL,
-	vat VARCHAR(9) NOT NULL,
+	name VARCHAR(75) NOT NULL UNIQUE,
+	vat VARCHAR(9) NOT NULL UNIQUE,
 	birth DATE NOT NULL,
-	street VARCHAR(50) NOT NULL,
-	locale VARCHAR(30) NOT NULL,
-	postal VARCHAR(15) NOT NULL,
+	street VARCHAR(50) NULL,
+	locale VARCHAR(30) NULL,
+	postal VARCHAR(15) NULL,
 	employee_id_e VARCHAR(10),
 	PRIMARY KEY (id),
 	FOREIGN KEY (employee_id_e) REFERENCES employee (id)
@@ -27,12 +28,12 @@ CREATE TABLE employee (
 
 CREATE TABLE employee_phone (
 	employee_id_ep VARCHAR(10) NOT NULL,
-	phone VARCHAR(20) NOT NULL,
+	phone VARCHAR(20) NOT NULL UNIQUE,
 	FOREIGN KEY (employee_id_ep) REFERENCES employee (id)
 );
 CREATE TABLE employee_email (
 	employee_id_eem VARCHAR(10) NOT NULL,
-	email VARCHAR(75) NOT NULL,
+	email VARCHAR(75) NOT NULL UNIQUE,
 	FOREIGN KEY (employee_id_eem) REFERENCES employee (id)
 );
 
@@ -46,8 +47,8 @@ CREATE TABLE event_employee (
 
 CREATE TABLE participant (
 	id INTEGER AUTO_INCREMENT,
-	name VARCHAR(75) NOT NULL,
-	vat VARCHAR(9) NULL,
+	name VARCHAR(75) NOT NULL UNIQUE,
+	vat VARCHAR(9) NULL UNIQUE,
 	birth DATE NOT NULL,
 	street VARCHAR(50) NULL,
 	locale VARCHAR(30) NULL,
@@ -57,13 +58,13 @@ CREATE TABLE participant (
 
 CREATE TABLE participant_email (
 	participant_id_pem INTEGER NOT NULL,
-	email VARCHAR(75) NULL,
+	email VARCHAR(75) NULL UNIQUE,
 	FOREIGN KEY (participant_id_pem) REFERENCES participant (id)
 );
 
 CREATE TABLE participant_phone (
 	participant_id_pp INTEGER NOT NULL,
-	phone VARCHAR(20) NOT NULL,
+	phone VARCHAR(20) NOT NULL UNIQUE,
 	FOREIGN KEY (participant_id_pp) REFERENCES participant (id)
 );
 
@@ -81,7 +82,7 @@ CREATE TABLE sale (
 
 CREATE TABLE product (
 	id INTEGER AUTO_INCREMENT,
-	name VARCHAR(75) NOT NULL,
+	name VARCHAR(75) NOT NULL UNIQUE,
 	descr TEXT NOT NULL,
 	price DECIMAL(5,2) NOT NULL,
 	stock INTEGER NOT NULL,
@@ -100,9 +101,8 @@ CREATE TABLE sale_product (
 
 CREATE TABLE supplier (
 	id INTEGER AUTO_INCREMENT,
-	name VARCHAR(75) NOT NULL,
-	iban VARCHAR(50) NOT NULL,
-	contact VARCHAR(50) NOT NULL,
+	name VARCHAR(75) NOT NULL UNIQUE,
+	iban VARCHAR(50) NOT NULL UNIQUE,
 	street VARCHAR(50) NOT NULL,
 	locale VARCHAR(30) NOT NULL,
 	postal VARCHAR(15) NOT NULL,
@@ -127,4 +127,16 @@ CREATE TABLE product_supplier_future (
 	CONSTRAINT comp_key PRIMARY KEY (product_id_psf, supplier_id_psf, dor),
 	FOREIGN KEY (product_id_psf) REFERENCES product (id),
 	FOREIGN KEY (supplier_id_psf) REFERENCES supplier (id)
+);
+
+CREATE TABLE supplier_email (
+	supplier_id_sem INTEGER NOT NULL,
+	email VARCHAR(75) NOT NULL UNIQUE,
+	FOREIGN KEY (supplier_id_sem) REFERENCES supplier (id)    
+);
+
+CREATE TABLE supplier_phone (
+	supplier_id_sp INTEGER NOT NULL,
+	phone VARCHAR(20) NOT NULL UNIQUE,
+	FOREIGN KEY (supplier_id_sp) REFERENCES supplier (id)    
 );

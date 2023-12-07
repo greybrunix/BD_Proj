@@ -1,4 +1,6 @@
 -- check who manages an employee
+USE mademoiselle_borges
+
 DELIMITER &&
 CREATE PROCEDURE GetMngr (IN id VARCHAR(10))
  BEGIN
