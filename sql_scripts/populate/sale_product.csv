@@ -1,4 +1,4 @@
-sale_id,product_id,valor,quantity
+sale_id_sp,product_id_sp,val,quantity
 1,14,16.00,4
 2,14,12.00,3
 3,15,1.98,2

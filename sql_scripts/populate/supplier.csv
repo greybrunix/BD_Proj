@@ -1,4 +1,4 @@
-Nome,IBAN,Email,Contacto,NTelemovel,Morada
+name,iban,email,Contacto,NTelemovel,Morada
 "World of Books","world-books@mdl.et","ET493958654897440","+631854-677219","Paper Valley, nº234","2710-008-ZZZ","Calecornia"
 "InovaPrint Solucciones Graficas","inovaprint@inova.es","ES6854920492946841","+583920007-90","Rua dela dama del dia, n20, Oficina I","9000-009-AAA","Mirallá"
 "Lorbeer und Lorbeer Materials Lda","materialslul@matino.ge","GE905440777332294","+68349-333-10102","Teller von Lachen, nº91, Piso 3","4000-003","Inglostadt"
