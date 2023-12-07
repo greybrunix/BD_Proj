@@ -22,5 +22,13 @@ CREATE PROCEDURE Employ (IN i VARCHAR(10),n VARCHAR(75),
        	e   VARCHAR(10))
   BEGIN
 	INSERT INTO employee (id, name, vat, birth, street, locale, postal, employee_id_e)
-	VALUES (i, n,vat,b,s,l,p,e);
+	VALUES (i,n,vat,b,s,l,p,e);
+END &&
+
+DELIMITER &&
+CREATE PROCEDURE PlanEvent (IN d TEXT,
+	b DATETIME, f DATETIME, cap INTEGER)
+  BEGIN
+	INSERT INTO event (descr, beg, fin, capacity)
+	VALUES (d, b, f , cap);
 END &&
