@@ -62,5 +62,15 @@ END &&
 DELIMITER &&
 CREATE PROCEDURE expunge_employee_data (IN e_id VARCHAR(10))
   BEGIN
-    DELETE 
+    UPDATE employee
+    SET is_del = 1
+        WHERE id = e_id;
+END &&
+
+DELIMITER &&
+CREATE PROCEDURE expunge_participant_data (IN p_id INTEGER)
+  BEGIN
+    UPDATE participant
+    SET id_del = 1
+        WHERE id = p_id;
 END &&

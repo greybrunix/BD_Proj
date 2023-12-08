@@ -5,12 +5,12 @@ USE mademoiselle_borges;
 
 CREATE TABLE event (
 	id INTEGER AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL UNIQUE,
+    name VARCHAR(75) NOT NULL UNIQUE,
 	descr TEXT NOT NULL,
 	beg DATETIME NOT NULL,
 	fin   DATETIME NOT NULL,
 	capacity INTEGER NOT NULL,
-    -- is_del   BOOLEAN DEFAULT 0,
+    is_del   BOOLEAN DEFAULT 0,
 	PRIMARY KEY (id)
 );
 
@@ -22,8 +22,9 @@ CREATE TABLE employee (
 	street VARCHAR(50) NULL,
 	locale VARCHAR(30) NULL,
 	postal VARCHAR(15) NULL,
-	employee_id_e VARCHAR(10),
-	PRIMARY KEY (id),
+    employee_id_e VARCHAR(10),
+    is_del   BOOLEAN DEFAULT 0,
+    PRIMARY KEY (id),
 	FOREIGN KEY (employee_id_e)
             REFERENCES employee (id)
 );
@@ -37,6 +38,7 @@ CREATE TABLE employee_phone (
 CREATE TABLE employee_email (
 	employee_id_eem VARCHAR(10) NOT NULL,
 	email VARCHAR(75) NOT NULL UNIQUE,
+    is_del  BOOLEAN DEFAULT 0,
 	FOREIGN KEY (employee_id_eem)
             REFERENCES employee (id)
 );
@@ -44,6 +46,7 @@ CREATE TABLE employee_email (
 CREATE TABLE event_employee (
 	event_id_ee INTEGER,
 	employee_id_ee VARCHAR(10),
+    is_del BOOLEAN DEFAULT 0,
 	CONSTRAINT comp_key PRIMARY KEY (event_id_ee , employee_id_ee),
 	FOREIGN KEY (event_id_ee)
             REFERENCES event (id),
@@ -59,12 +62,14 @@ CREATE TABLE participant (
 	street VARCHAR(50) NULL,
 	locale VARCHAR(30) NULL,
 	postal VARCHAR(15) NULL,
+    is_del BOOLEAN DEFAULT 0,
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE participant_email (
 	participant_id_pem INTEGER NOT NULL,
 	email VARCHAR(75) NULL UNIQUE,
+    is_del BOOLEAN DEFAULT 0,
 	FOREIGN KEY (participant_id_pem)
             REFERENCES participant (id)
 );
@@ -72,6 +77,7 @@ CREATE TABLE participant_email (
 CREATE TABLE participant_phone (
 	participant_id_pp INTEGER NOT NULL,
 	phone VARCHAR(20) NOT NULL UNIQUE,
+    is_del BOOLEAN DEFAULT 0,
 	FOREIGN KEY (participant_id_pp)
             REFERENCES participant (id)
 );
@@ -83,6 +89,7 @@ CREATE TABLE sale (
 	dos DATETIME NOT NULL,
 	employee_id_s VARCHAR(10) NOT NULL,
 	participant_id_s INTEGER NOT NULL,
+    is_del BOOLEAN DEFAULT 0,
 	PRIMARY KEY (id),
 	FOREIGN KEY (employee_id_s)
             REFERENCES employee (id),
@@ -96,7 +103,8 @@ CREATE TABLE product (
 	descr TEXT NOT NULL,
 	price DECIMAL(5,2) NOT NULL,
 	stock INTEGER NOT NULL,
-	PRIMARY KEY (id)
+    is_del BOOLEAN DEFAULT 0,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE sale_product (
@@ -104,7 +112,8 @@ CREATE TABLE sale_product (
 	product_id_sp INTEGER NOT NULL,
 	val DECIMAL(5,2) NOT NULL,
 	quantity INTEGER NOT NULL,
-	CONSTRAINT comp_key PRIMARY KEY (sale_id_sp, product_id_sp),
+    is_del BOOLEAN DEFAULT 0,
+    CONSTRAINT comp_key PRIMARY KEY (sale_id_sp, product_id_sp),
 	FOREIGN KEY (sale_id_sp)
             REFERENCES sale (id),
 	FOREIGN KEY (product_id_sp) REFERENCES product (id)
@@ -117,7 +126,8 @@ CREATE TABLE supplier (
 	street VARCHAR(50) NOT NULL,
 	locale VARCHAR(30) NOT NULL,
 	postal VARCHAR(15) NOT NULL,
-	PRIMARY KEY (id)
+    is_del BOOLEAN DEFAULT 0,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE product_supplier_past (
@@ -125,6 +135,7 @@ CREATE TABLE product_supplier_past (
 	supplier_id_psp INTEGER NOT NULL,
 	dod DATE NOT NULL, -- date of delivery
 	quantity INTEGER NOT NULL,
+    is_del BOOLEAN DEFAULT 0,
 	CONSTRAINT comp_key PRIMARY KEY (product_id_psp, supplier_id_psp, dod),
 	FOREIGN KEY (product_id_psp)
             REFERENCES product (id),
@@ -137,6 +148,7 @@ CREATE TABLE product_supplier_future (
 	supplier_id_psf INTEGER NOT NULL,
 	dor DATE NOT NULL, -- date of reservation
 	quantity INTEGER NOT NULL,
+    is_del BOOLEAN DEFAULT 0,
 	CONSTRAINT comp_key PRIMARY KEY (product_id_psf, supplier_id_psf, dor),
 	FOREIGN KEY (product_id_psf)
             REFERENCES product (id),
@@ -147,13 +159,15 @@ CREATE TABLE product_supplier_future (
 CREATE TABLE supplier_email (
 	supplier_id_sem INTEGER NOT NULL,
 	email VARCHAR(75) NOT NULL UNIQUE,
-	FOREIGN KEY (supplier_id_sem)
+    is_del BOOLEAN DEFAULT 0,
+    FOREIGN KEY (supplier_id_sem)
             REFERENCES supplier (id)    
 );
 
 CREATE TABLE supplier_phone (
 	supplier_id_sp INTEGER NOT NULL,
 	phone VARCHAR(20) NOT NULL UNIQUE,
+    is_del BOOLEAN DEFAULT 0,
 	FOREIGN KEY (supplier_id_sp)
             REFERENCES supplier (id)    
 );
