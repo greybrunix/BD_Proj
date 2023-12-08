@@ -1,4 +1,4 @@
--- DROP SCHEMA IF EXISTS mademoiselle_borges;
+DROP SCHEMA IF EXISTS mademoiselle_borges;
 CREATE SCHEMA IF NOT EXISTS mademoiselle_borges;
 
 USE mademoiselle_borges;
@@ -10,12 +10,13 @@ CREATE TABLE event (
 	beg DATETIME NOT NULL,
 	fin   DATETIME NOT NULL,
 	capacity INTEGER NOT NULL,
+    -- is_del   BOOLEAN DEFAULT 0,
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE employee (
 	id VARCHAR(10),
-	name VARCHAR(75) NOT NULL UNIQUE,
+	name VARCHAR(75) NOT NULL,
 	vat VARCHAR(9) NOT NULL UNIQUE,
 	birth DATE NOT NULL,
 	street VARCHAR(50) NULL,
@@ -52,7 +53,7 @@ CREATE TABLE event_employee (
 
 CREATE TABLE participant (
 	id INTEGER AUTO_INCREMENT,
-	name VARCHAR(75) NOT NULL UNIQUE,
+	name VARCHAR(75) NOT NULL,
 	vat VARCHAR(9) NULL UNIQUE,
 	birth DATE NOT NULL,
 	street VARCHAR(50) NULL,
