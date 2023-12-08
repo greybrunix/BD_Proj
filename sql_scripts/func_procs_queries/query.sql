@@ -2,26 +2,29 @@
 USE mademoiselle_borges
 
 DELIMITER &&
-CREATE PROCEDURE GetMngr (IN id VARCHAR(10))
+CREATE FUNCTION check_manager (IN id VARCHAR(10))
+RETURNS VARCHAR(10)
+DETERMINISTIC
  BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTERED' Message;
-    SELECT employee_id_e
+    DECLARE manager VARCHAR(10);
+    SELECT employee_id_e INTO manager
         FROM employee AS E
-	WHERE id = E.id;
+        WHERE id = E.id;
+    RETURN manager;
 END &&
 -- check who an employee manages
 DELIMITER &&
-CREATE PROCEDURE GetMngd (IN id VARCHAR(10))
+CREATE PROCEDURE check_managed_by (IN id VARCHAR(10))
   BEGIN
      DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTERED' Message;
      SELECT *
         FROM employee AS E
-	   WHERE E.employee_id_e = id;
+        WHERE E.employee_id_e = id;
 END &&
 
 -- check on employee sales
 DELIMITER &&
-CREATE PROCEDURE GetVendasFunc (IN id VARCHAR(10))
+CREATE PROCEDURE check_employee_sales (IN id VARCHAR(10))
  BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTERED' Message;
     SELECT *
@@ -31,7 +34,7 @@ CREATE PROCEDURE GetVendasFunc (IN id VARCHAR(10))
 END &&
 -- check all sales
 DELIMITER &&
-CREATE PROCEDURE GetVendas ()
+CREATE PROCEDURE check_all_sales ()
  BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTERED' Message;
     SELECT *
@@ -40,12 +43,12 @@ END &&
 
 -- check articles in sale
 DELIMITER &&
-CREATE PROCEDURE GetProductsInSale (IN id INTEGER)
+CREATE PROCEDURE check_products_in_sale (IN id INTEGER)
  BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
     SELECT product_id_sp
         FROM sale_product
-	WHERE sale_id_sp = id;
+        WHERE sale_id_sp = id;
 END &&
 -- check all participants of a given event
 -- DELIMITER &&
@@ -69,16 +72,19 @@ END &&
 --END &&
 -- check participant associated with a specific sale
 DELIMITER &&
-CREATE PROCEDURE GetPartInSale (IN id INTEGER)
+CREATE FUNCTION check_participant_in_sale (IN id INTEGER)
+RETURNS INTEGER
+DETERMINISTIC
   BEGIN 
-     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUTER' Message;
-     SELECT participant_id_s
+     DECLARE partic INTEGER;
+     SELECT participant_id_s INTO partic
          FROM sale AS S
-	 WHERE S.id = id;
+         WHERE S.id = id;
+     RETURN partic;
 END &&
 -- check all products
 DELIMITER &&
-CREATE PROCEDURE GetProds ()
+CREATE PROCEDURE check_all_products ()
   BEGIN 
      DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUTER' Message;
      SELECT *
@@ -86,47 +92,53 @@ CREATE PROCEDURE GetProds ()
 END &&
 -- check alls sales associated with a participant
 DELIMITER &&
-CREATE PROCEDURE GetSalesOfPart (IN id INTEGER)
+CREATE PROCEDURE check_all_participant_sales (IN id INTEGER)
   BEGIN
      DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
      SELECT id
          FROM sale AS S
-	 WHERE S.participant_id_s = id
+         WHERE S.participant_id_s = id
 END &&
 -- check part with most sales associated
 DELIMITER &&
-CREATE PROCEDURE GetPartWithMostSales ()
+CREATE FUNCTION check_participant_with_most_sales ()
+RETURNS INTEGER
+DETERMINISTIC
   BEGIN
-     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
-     SELECT P.id -- sort and get first value
+     DECLARE partic INTEGER ;
+     SELECT P.id INTO partic -- sort and get first value
          FROM sale AS S INNER JOIN participant AS P
-	 ORDER BY (COUNT(S.participant_id_s = P.id));
+         ORDER BY (COUNT(S.participant_id_s = P.id))
+     LIMIT 1;
+     RETURN partic;
 END &&
 -- check all suppliers
 DELIMITER &&
-CREATE PROCEDURE GetSuppliers ()
+CREATE PROCEDURE check_all_suppliers ()
   BEGIN
      DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
      SELECT *
          FROM supplier;
 END &&
+
+-- perhaps merge into one procedure
 -- check past suppliers of a product
 DELIMITER &&
-CREATE PROCEDURE GetProdSupplier (IN id INTEGER)
+CREATE PROCEDURE check_product_suppliers (IN id INTEGER)
   BEGIN
      DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
      SELECT supplier_id_psp
          FROM product_supplier_past
-	 WHERE id = product_id_psp;
+         WHERE id = product_id_psp;
 END &&
 -- check sales in a given day
 DELIMITER &&
-CREATE PROCEDURE GetDaySakes (IN dos DATE)
+CREATE PROCEDURE check_daily_sales (IN dos DATE)
   BEGIN
      DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
      SELECT *
          FROM sale AS S
-	 WHERE S.dos = dos;
+         WHERE S.dos = dos;
 END &&
 -- check who sold the most tickets in Event
 -- DELIMITER &&

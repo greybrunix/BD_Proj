@@ -59,18 +59,3 @@ CREATE PROCEDURE register_new_event (IN e_descr TEXT,
 END &&
 
 
-DELIMITER &&
-CREATE PROCEDURE expunge_employee_data (IN e_id VARCHAR(10))
-  BEGIN
-    UPDATE employee
-    SET is_del = True
-        WHERE id = e_id;
-END &&
-
-DELIMITER &&
-CREATE PROCEDURE expunge_participant_data (IN p_id INTEGER)
-  BEGIN
-    UPDATE participant
-    SET id_del = True
-        WHERE id = p_id;
-END &&
