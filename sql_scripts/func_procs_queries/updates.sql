@@ -61,5 +61,6 @@ END &&
 
 DELIMITER &&
 CREATE PROCEDURE expunge_employee_data (IN e_id VARCHAR(10))
-       BEGIN
+  BEGIN
+    DELETE 
 END &&
