@@ -31,15 +31,36 @@ CREATE PROCEDURE register_delivery_product (IN p_id INTEGER,
         SET stock = p_stock + p_quantity
             WHERE id = p_id;
         -- 
+	SET @last 
         INSERT INTO product_supplier_past(product_id_psp, supplier_id_psp,dod, quantity)
         VALUES(LAST_INSERT_ID(), s_id, p_dod, p_quantity);
-
-	UPDATE product_supplier_future
-	SET is_del = True
-		WHERE product_id_psp = p_id 
-		AND supplier_id_psp = s_id 
-		AND dod = p_dod;
 END &&        
+
+DELIMITER &&
+CREATE PROCEDURE add_prod_to_new_shopping_cart(IN pa_id INTEGER,
+      e_id VARCHAR(10), pd_id INTEGER, quant INTEGER)
+  BEGIN
+
+	INSERT INTO sale(dos, employee_id_s, participant_id_s)
+	  VALUES(e_id, pd_id);
+
+	SET @last_sale_id = LAST_INSERT_ID();
+	DECLARE curr_val DECIMAL(5,2);
+	DECLARE cur_stock INTEGER;
+	SELECT 
+
+	SELECT price INTO curr_val
+		FROM product
+		WHERE id = pd_id;
+
+	INSERT INTO sale_product(sale_id_sp, product_id_sp, val, quantity)
+	  VALUES(@last_sale_id, pd_id, cur_val, quant);
+
+	UPDATE product;
+	SET stock = stock - quant;
+	  WHERE id = p;
+
+END &&
 
 DELIMITER &&
 CREATE PROCEDURE register_sale (IN p_id INTEGER,
@@ -49,7 +70,8 @@ CREATE PROCEDURE register_sale (IN p_id INTEGER,
   -- update sale table
 	DECLARE s_totval DECIMAL(5,2);
 	DECLARE s_totquant INTEGER;
-	SELECT val INTO 
+	compute_total_sale_value() INTO s_totval;
+	compute_total_sale_quantity() INTO s_totquant;
         INSERT INTO sale(val, quantity, dos, employee_id_s, participant_id_s)
          VALUES (s_totval, s_totquant, s_date, e_id, p_id);
 	
@@ -75,6 +97,6 @@ CREATE PROCEDURE register_new_event (IN e_descr TEXT,
 END &&
 
 DELIMITER &&
-CREATE PROCEDURE update_info____()
+CREATE PROCEDURE update_info_()
   BEGIN
 END &&
