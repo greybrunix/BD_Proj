@@ -2,7 +2,7 @@
 USE mademoiselle_borges
 
 DELIMITER &&
-CREATE FUNCTION check_manager (IN id VARCHAR(10))
+CREATE FUNCTION check_manager (id VARCHAR(10))
 RETURNS VARCHAR(10)
 DETERMINISTIC
  BEGIN
@@ -25,11 +25,10 @@ END &&
 -- check on employee sales
 DELIMITER &&
 CREATE PROCEDURE check_employee_sales (IN id VARCHAR(10))
- BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTERED' Message;
+ BEGIN 
     SELECT *
         FROM employee AS E INNER JOIN sale as S
-            ON E.id = S.id
+            ON E.id = S.employee_id_s
         WHERE E.id = id;
 END &&
 -- check all sales
@@ -72,7 +71,7 @@ END &&
 --END &&
 -- check participant associated with a specific sale
 DELIMITER &&
-CREATE FUNCTION check_participant_in_sale (IN id INTEGER)
+CREATE FUNCTION check_participant_in_sale (id INTEGER)
 RETURNS INTEGER
 DETERMINISTIC
   BEGIN 
@@ -97,7 +96,7 @@ CREATE PROCEDURE check_all_participant_sales (IN id INTEGER)
      DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
      SELECT id
          FROM sale AS S
-         WHERE S.participant_id_s = id
+         WHERE S.participant_id_s = id;
 END &&
 -- check part with most sales associated
 DELIMITER &&
