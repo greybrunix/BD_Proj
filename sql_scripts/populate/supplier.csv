@@ -1,12 +1,12 @@
-name,iban,email,Contacto,NTelemovel,Morada
-"World of Books","world-books@mdl.et","ET493958654897440","+631854-677219","Paper Valley, nº234","2710-008-ZZZ","Calecornia"
-"InovaPrint Solucciones Graficas","inovaprint@inova.es","ES6854920492946841","+583920007-90","Rua dela dama del dia, n20, Oficina I","9000-009-AAA","Mirallá"
-"Lorbeer und Lorbeer Materials Lda","materialslul@matino.ge","GE905440777332294","+68349-333-10102","Teller von Lachen, nº91, Piso 3","4000-003","Inglostadt"
-"Badhiya Kapaas","fashionkapaas@badkap.in","IND66979302668492","+222543296584-3","Traayamph Skvaayar, nº124","4485-4432","Goa"
-"AltaPelle Distributore","altpe@dist.it","IT40330399569611111","+444-8599339-2111","Via Carlos Vallente, nº27","3-55-88895","Piza"
-"Edital Impressao","editalimp@edital.pt","PT96797397339295","+351252111116","Alameda da Vitoria, n234","4800-234","Guimarães"
-"Diavgés Sýmpan Lda","diasymp@ludico.gr","GR775588994433225566","+34002-995-033-869","Leofóros tou Mikrólaméira, n123","500-692-4","Tebas"
-"Kreativnyye Resheniya Importer","kreat@imprt.ru","RU0020105889044430","+643333020-4-3111","Arkticheskiy prospekt, n94","38948-222-01","Ufa"
-"Sangbeoggyuoppa Mungujeom","mungsbeog@psg.sc","SCOR6695593388200060","+25839443922204","jong-ijib geoli, n234","2750-008","Jeju"
-"Páginas Vivas Publicações Inc.","paginasvivas@vivas.br","BR99900299294958811","+33335434890250-111","Rua Anita Carlota, n111","4740-081","Curitiba"
-"Himno ng Kagalakan Ltda.","him@ltda.fp","FP22294939205R8687853","+3512521111121","pinggan ng mga bulaklak, n001","747484-444","Manila"
+name                                 ,iban                    ,street                                  ,locale         ,postal
+World of Books                     ,ET493958654897440     ,"Paper Valley, nº234                   ",Calecornia,2710-008-ZZZ 
+InovaPrint Solucciones Graficas    ,ES6854920492946841    ,"Rua dela dama del dia, n20, Oficina I ",Mirallá,9000-009-AAA 
+Lorbeer und Lorbeer Materials Lda  ,GE905440777332294     ,"Teller von Lachen, nº91, Piso 3       ",Inglostadt,4000-003     
+Badhiya Kapaas                     ,IND66979302668492     ,"Traayamph Skvaayar, nº124             ",Goa,4485-4432    
+AltaPelle Distributore             ,IT40330399569611111   ,"Via Carlos Vallente, nº27             ",Piza,3-55-88895   
+Edital Impressao                   ,PT96797397339295      ,"Alameda da Vitoria, n234              ",Guimarães,4800-234     
+Diavgés Sýmpan Lda                 ,GR775588994433225566  ,"Leofóros tou Mikrólaméira, n123       ",Tebas,500-692-4    
+Kreativnyye Resheniya Importer     ,RU0020105889044430    ,"Arkticheskiy prospekt, n94            ",Ufa,38948-222-01 
+Sangbeoggyuoppa Mungujeom          ,SCOR6695593388200060  ,"jong-ijib geoli, n234                 ",Jeju,2750-008     
+Páginas Vivas Publicações Inc.     ,BR99900299294958811   ,"Rua Anita Carlota, n111               ",Curitiba,4740-081     
+Himno ng Kagalakan Ltda.           ,FP22294939205R8687853 ,"pinggan ng mga bulaklak, n001         ",Manila,747484-444   
