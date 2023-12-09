@@ -91,7 +91,7 @@ CREATE TABLE sale (
         id INTEGER AUTO_INCREMENT,
         val DECIMAL(5,2) NOT NULL,
         quantity INTEGER NOT NULL,
-        dos DATETIME NOT NULL,
+        dos DATETIME NULL,
         employee_id_s VARCHAR(10) NOT NULL,
         participant_id_s INTEGER NOT NULL,
         is_del BOOLEAN DEFAULT FALSE,

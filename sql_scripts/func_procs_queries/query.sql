@@ -33,7 +33,7 @@ END &&
 
 -- check all sales (RM05)
 DELIMITER &&
-CREATE PROCEDURE check_all_sales ()
+CREATE PROCEDURE check_all_closed_sales ()
  BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTERED' Message;
     SELECT *
