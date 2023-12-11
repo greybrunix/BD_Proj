@@ -152,9 +152,10 @@ CREATE TABLE product_supplier_future (
         product_id_psf INTEGER NOT NULL,
         supplier_id_psf INTEGER NOT NULL,
         dor DATE NOT NULL, -- date of reservation
+	dos DATE NOT NULL,
         quantity INTEGER NOT NULL,
         is_del BOOLEAN DEFAULT FALSE,
-        CONSTRAINT comp_key PRIMARY KEY (product_id_psf, supplier_id_psf, dor),
+        CONSTRAINT comp_key PRIMARY KEY (product_id_psf, supplier_id_psf, dor, dos),
         FOREIGN KEY (product_id_psf)
             REFERENCES product (id),
         FOREIGN KEY (supplier_id_psf)

@@ -161,8 +161,8 @@ DELIMITER &&
 CREATE PROCEDURE check_event_most_value ()
 	BEGIN
 		DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
-	
-        SELECT EV.id, EV.name, SUM(S.val)
+        SET @sum_val
+        SELECT EV.id, EV.name
 			FROM event AS EV INNER JOIN event_employee as EE
 				ON EV.id = EE.event_id_ee
 					INNER JOIN employee as E
