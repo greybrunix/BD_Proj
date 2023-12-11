@@ -174,6 +174,21 @@ CREATE PROCEDURE check_event_most_value ()
             LIMIT 1;
 END &&
 
+--CHECK which event has more participants
+DELIMITER &&
+CREATE PROCEDURE check_event_most_participants ()
+    BEGIN
+        DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
+        DECLARE S INTEGER
+        SELECT SUM(SP.quantity) INTO S, EV.id, EV.name 
+            FROM event AS EV INNER JOIN product AS P
+                ON EV.name = P.name
+                    INNER JOIN sale_product AS SP
+                        ON P.id = SP.product_id_sp
+            GROUP BY EV.id, EV.name
+            ORDER BY S
+            LIMIT 1;
+END &&
 -- check who sold the most tickets in Event
 -- DELIMITER &&
 -- CREATE PROCEDURE GetSoldMostInEv (IN id INTEGER)
