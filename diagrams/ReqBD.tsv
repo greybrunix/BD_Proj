@@ -96,3 +96,4 @@ Nr	Hour	Description	Source	Analist	Type
 95	13:27	It must be possible to determine the event with highest volume in sales.	Henrique Borges	Aurora Matrix	ER
 96	13:28	It must be possible to differenciate completed deliveries from ongoing reservations	Henrique Borges	Aurora Matrix	ER
 97	13:28	It must be possible to differenciate failed reservations from ongoing reservations or completed reservations	Henrique Borges	Aurora Matrix	ER
+98	13:29	Administrators must have access to all data, including deleted data	Henrique Borges	Aurora Matrix	AR
