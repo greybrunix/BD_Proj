@@ -1,4 +1,4 @@
-USE mademoiselle_borges
+USE mademoiselle_borges;
 
 DELIMITER &&
 CREATE PROCEDURE register_reservation_new_product (IN p_NAME VARCHAR(75),

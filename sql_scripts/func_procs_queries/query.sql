@@ -1,4 +1,7 @@
--- check who manages an employee (RM01)
+USE mademoiselle_borges;
+
+
+-- check who manages an employee (41)
 DELIMITER &&
 CREATE FUNCTION check_manager (id VARCHAR(10))
 RETURNS VARCHAR(10)
@@ -32,13 +35,8 @@ CREATE PROCEDURE check_employee_sales (IN id VARCHAR(10))
 END &&
 
 -- check all sales (RM05)
-DELIMITER &&
-CREATE PROCEDURE check_all_closed_sales ()
- BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTERED' Message;
-    SELECT *
-        FROM sale;
-END &&
+SELECT *
+	FROM sale;
 
 -- check articles in sale (RM03)
 DELIMITER &&
@@ -68,19 +66,15 @@ CREATE PROCEDURE GetEvParticipants (IN name VARCHAR(75))
 END &&
 
 -- check all participants of all events (RM07)
-DELIMITER &&
-CREATE PROCEDURE GetAllEvParticipants ()
-BEGIN
-      DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
-      SELECT P.id, P.name
-          FROM participant AS P INNER JOIN sale as S
-			ON P.id = S.participant_id_s
-		  INNER JOIN employee as E
-			ON S.employee_id_s = E.id
-		  INNER JOIN event_employee as EE
-			ON E.id = EE.employee_id_ee
-		  INNER JOIN event as EV
-			ON EE.event_id_ee = EV.id;
+SELECT P.id, P.name
+  FROM participant AS P INNER JOIN sale as S
+		ON P.id = S.participant_id_s
+	  INNER JOIN employee as E
+		ON S.employee_id_s = E.id
+	  INNER JOIN event_employee as EE
+		ON E.id = EE.employee_id_ee
+	  INNER JOIN event as EV
+		ON EE.event_id_ee = EV.id;
 END &&
 
 -- check participant associated with a specific sale (RM08)
@@ -97,13 +91,8 @@ DETERMINISTIC
 END &&
 
 -- check all products (RM09)
-DELIMITER &&
-CREATE PROCEDURE check_all_products ()
-  BEGIN 
-     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUTER' Message;
-     SELECT *
-         FROM product;
-END &&
+SELECT *
+ FROM product;
 
 -- check all sales associated with a participant (RM11)
 DELIMITER &&
@@ -116,25 +105,16 @@ CREATE PROCEDURE check_all_participant_sales (IN id INTEGER)
 END &&
 
 -- check participant with most sales associated (RM16)
-DELIMITER &&
-CREATE PROCEDURE check_participant_with_most_sales ()
-  BEGIN 
-     SELECT P.id, P.name
-		FROM participant as P INNER JOIN sale as S
-			ON P.id = S.participant_id_s
-		GROUP BY P.id
-			ORDER BY COUNT(P.id = S.participant_id_s) DESC
-				LIMIT 1;
-END &&
+SELECT P.id, P.name
+	FROM participant as P INNER JOIN sale as S
+		ON P.id = S.participant_id_s
+	GROUP BY P.id
+		ORDER BY COUNT(P.id = S.participant_id_s) DESC
+LIMIT 1;
 
 -- check all suppliers (RM12)
-DELIMITER &&
-CREATE PROCEDURE check_all_suppliers ()
-  BEGIN
-     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
-     SELECT *
-         FROM supplier;
-END &&
+SELECT *
+ FROM supplier;
 
 -- check suppliers of a product (RM10)
 DELIMITER &&
@@ -157,38 +137,28 @@ CREATE PROCEDURE check_daily_sales (IN dos DATE)
 END &&
 
 -- check the event with the most value in sales (RM37) INCORRETO
-DELIMITER &&
-CREATE PROCEDURE check_event_most_value ()
-	BEGIN
-		DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
-	
-        SELECT EV.id, EV.name, SUM(S.val)
-			FROM event AS EV INNER JOIN event_employee as EE
-				ON EV.id = EE.event_id_ee
-					INNER JOIN employee as E
-						ON EE.employee_id_ee = E.id
-					INNER JOIN sale as S
-						ON E.id = S.employee_id_s
-			GROUP BY Ev.id, EV.name
-            ORDER BY SUM(S.val) 
-            LIMIT 1;
-END &&
 
---CHECK which event has more participants
-DELIMITER &&
-CREATE PROCEDURE check_event_most_participants ()
-    BEGIN
-        DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUNTER' Message;
-        DECLARE S INTEGER
-        SELECT SUM(SP.quantity) INTO S, EV.id, EV.name 
-            FROM event AS EV INNER JOIN product AS P
-                ON EV.name = P.name
-                    INNER JOIN sale_product AS SP
-                        ON P.id = SP.product_id_sp
-            GROUP BY EV.id, EV.name
-            ORDER BY S
-            LIMIT 1;
-END &&
+SELECT EV.id, EV.name, SUM(S.Val) AS totVal
+	FROM event AS EV INNER JOIN event_employee as EE
+		ON EV.id = EE.event_id_ee
+	INNER JOIN employee as E
+		ON EE.employee_id_ee = E.id
+	INNER JOIN sale as S
+		ON E.id = S.employee_id_s
+	GROUP BY EV.id, EV.name
+		ORDER BY totVal DESC
+LIMIT 1;
+
+-- CHECK which event has most volume sales
+SELECT EV.id, EV.name, SUM(SP.quantity) AS quant
+	FROM event AS EV INNER JOIN product AS P
+		ON EV.name = P.name
+	INNER JOIN sale_product AS SP
+		ON P.id = SP.product_id_sp
+	GROUP BY EV.id, EV.name
+		ORDER BY quant DESC
+LIMIT 1;
+
 -- check who sold the most tickets in Event
 -- DELIMITER &&
 -- CREATE PROCEDURE GetSoldMostInEv (IN id INTEGER)
