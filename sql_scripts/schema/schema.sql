@@ -27,15 +27,14 @@ CREATE TABLE employee (
         PRIMARY KEY (id),
         FOREIGN KEY (employee_id_e)
             REFERENCES employee (id)
-            ON DELETE CASCADE
 );
 
 CREATE TABLE employee_phone (
         employee_id_ep VARCHAR(10) NOT NULL,
         phone VARCHAR(20) NOT NULL UNIQUE,
+	is_del BOOLEAN DEFAULT FALSE,
         FOREIGN KEY (employee_id_ep)
             REFERENCES employee (id)
-            ON DELETE CASCADE
 );
 CREATE TABLE employee_email (
         employee_id_eem VARCHAR(10) NOT NULL,
@@ -43,7 +42,6 @@ CREATE TABLE employee_email (
         is_del  BOOLEAN DEFAULT FALSE,
         FOREIGN KEY (employee_id_eem)
             REFERENCES employee (id)
-            ON DELETE CASCADE
 );
 
 CREATE TABLE event_employee (
@@ -52,11 +50,9 @@ CREATE TABLE event_employee (
         is_del BOOLEAN DEFAULT FALSE,
         CONSTRAINT comp_key PRIMARY KEY (event_id_ee , employee_id_ee),
         FOREIGN KEY (event_id_ee)
-            REFERENCES event (id)
-            ON DELETE CASCADE,
+            REFERENCES event (id),
         FOREIGN KEY (employee_id_ee)
-            REFERENCES employee (id)
-            ON DELETE CASCADE
+            REFERENCES employee (id),
 );
 
 CREATE TABLE participant (
@@ -152,7 +148,7 @@ CREATE TABLE product_supplier_future (
         product_id_psf INTEGER NOT NULL,
         supplier_id_psf INTEGER NOT NULL,
         dor DATE NOT NULL, -- date of reservation
-	dos DATE NOT NULL,
+	dos DATE NOT NULL, -- expected date
         quantity INTEGER NOT NULL,
         is_del BOOLEAN DEFAULT FALSE,
         CONSTRAINT comp_key PRIMARY KEY (product_id_psf, supplier_id_psf, dor, dos),
