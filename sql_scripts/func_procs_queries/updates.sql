@@ -31,51 +31,52 @@ CREATE PROCEDURE register_delivery_product (IN p_id INTEGER,
         SET stock = p_stock + p_quantity
             WHERE id = p_id;
         -- 
-	SET @last 
         INSERT INTO product_supplier_past(product_id_psp, supplier_id_psp,dod, quantity)
-        VALUES(LAST_INSERT_ID(), s_id, p_dod, p_quantity);
+        VALUES(p_id, s_id, p_dod, p_quantity);
 END &&        
 
+-- Missing something to create participants
 DELIMITER &&
 CREATE PROCEDURE add_prod_to_new_shopping_cart(IN pa_id INTEGER,
       e_id VARCHAR(10), pd_id INTEGER, quant INTEGER)
   BEGIN
-
-	INSERT INTO sale(dos, employee_id_s, participant_id_s)
+	DECLARE cur_stock INTEGER;
+	INSERT INTO sale(employee_id_s, participant_id_s)
 	  VALUES(e_id, pd_id);
 
 	SET @last_sale_id = LAST_INSERT_ID();
-	DECLARE curr_val DECIMAL(5,2);
-	DECLARE cur_stock INTEGER;
-	SELECT 
 
-	SELECT price INTO curr_val
+	SELECT price AS curr_val
 		FROM product
 		WHERE id = pd_id;
 
 	INSERT INTO sale_product(sale_id_sp, product_id_sp, val, quantity)
 	  VALUES(@last_sale_id, pd_id, cur_val, quant);
 
-	UPDATE product;
-	SET stock = stock - quant;
+	UPDATE product
+	SET stock = stock - quant
 	  WHERE id = p;
 
 END &&
 
 DELIMITER &&
-CREATE PROCEDURE register_sale (IN p_id INTEGER,
-      s_date DATETIME,
-      e_id VARCHAR(10))
+CREATE PROCEDURE register_sale (IN s_id INTEGER, s_dos DATETIME)
   BEGIN
   -- update sale table
 	DECLARE s_totval DECIMAL(5,2);
 	DECLARE s_totquant INTEGER;
-	compute_total_sale_value() INTO s_totval;
-	compute_total_sale_quantity() INTO s_totquant;
-        INSERT INTO sale(val, quantity, dos, employee_id_s, participant_id_s)
-         VALUES (s_totval, s_totquant, s_date, e_id, p_id);
+	SELECT (SP.quantity * SP.val) INTO s_totval
+		FROM sale_product AS SP INNER JOIN sale AS S
+			ON s_id = S.id = SP.sale_id_sp;
+	SELECT SUM(SP.quantity) INTO s_totquant
+		FROM sale_product AS SP INNER JOIN sale AS S
+			ON s_id =  S.id = SP.sale_id_sp;
+	UPDATE sale
+	SET val = s_totval, quantity = s_totquant, dos = s_dos
+		where id = s_id;
 	
 END &&
+
 
 DELIMITER &&
 CREATE PROCEDURE register_new_employee (IN e_id VARCHAR(10), e_name VARCHAR(75),

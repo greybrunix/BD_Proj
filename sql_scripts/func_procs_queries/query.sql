@@ -138,14 +138,10 @@ END &&
 
 -- check the event with the most value in sales (RM37) INCORRETO
 
-SELECT EV.id, EV.name, SUM(S.Val) AS totVal
-	FROM event AS EV INNER JOIN event_employee as EE
-		ON EV.id = EE.event_id_ee
-	INNER JOIN employee as E
-		ON EE.employee_id_ee = E.id
-	INNER JOIN sale as S
-		ON E.id = S.employee_id_s
-	GROUP BY EV.id, EV.name
+SELECT E.id, E.name, SUM(S.Val) AS totVal
+	FROM event AS E INNER JOIN sale as S
+		ON S.dos BETWEEN E.beg AND E.fin
+	GROUP BY E.id, E.name
 		ORDER BY totVal DESC
 LIMIT 1;
 
@@ -158,13 +154,25 @@ SELECT EV.id, EV.name, SUM(SP.quantity) AS quant
 	GROUP BY EV.id, EV.name
 		ORDER BY quant DESC
 LIMIT 1;
-
 -- check who sold the most tickets in Event
--- DELIMITER &&
--- CREATE PROCEDURE GetSoldMostInEv (IN id INTEGER)
---   BEGIN
---      DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQL EXCEPTION ENCOUTER' Message;
---      SELECT *
---          FROM sale AS S
---          WHERE S
--- END &&
+DELIMITER &&
+CREATE FUNCTION GetSoldMostInEv (id INTEGER)
+RETURNS VARCHAR(10)
+DETERMINISTIC
+   BEGIN
+   DECLARE res VARCHAR(10);
+	SELECT Em.id INTO res
+		FROM event AS Ev INNER JOIN event_employee AS EE
+			ON id = Ev.id = EE.event_id_ee -- bruh
+			INNER JOIN employee AS Em
+				ON EE.employee_id_ee = Em.id -- data probs
+			INNER JOIN sale AS S
+				ON Em.id = S.employee_id_s
+		GROUP BY Ev.id, Ev.name
+			ORDER BY SUM(S.quantity);
+	-- LIMIT 1;
+    RETURN res;
+END &&
+
+DROP FUNCTION GetSoldMostInEv;
+SELECT GetSoldMostInEv(1);
