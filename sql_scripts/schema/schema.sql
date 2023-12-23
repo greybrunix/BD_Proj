@@ -52,7 +52,7 @@ CREATE TABLE event_employee (
         FOREIGN KEY (event_id_ee)
             REFERENCES event (id),
         FOREIGN KEY (employee_id_ee)
-            REFERENCES employee (id),
+            REFERENCES employee (id)
 );
 
 CREATE TABLE participant (
