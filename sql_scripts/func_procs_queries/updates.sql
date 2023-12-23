@@ -89,12 +89,13 @@ CREATE PROCEDURE register_new_employee (IN e_id VARCHAR(10), e_name VARCHAR(75),
 END &&
 
 DELIMITER &&
-CREATE PROCEDURE register_new_event (IN e_descr TEXT,
+CREATE PROCEDURE register_new_event (IN e_name VARCHAR(75),
+		 e_descr TEXT,
         e_beg DATETIME, e_fin DATETIME, e_capacity INTEGER)
   BEGIN
     -- update with new event
-        INSERT INTO event (descr, beg, fin, capacity)
-        VALUES (e_descr, e_beg, e_fin , e_capacity);
+        INSERT INTO event (name, descr, beg, fin, capacity)
+        VALUES (e_name, e_descr, e_beg, e_fin , e_capacity);
 END &&
 
 DELIMITER &&
