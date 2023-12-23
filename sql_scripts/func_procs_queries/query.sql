@@ -135,7 +135,7 @@ SELECT P.id, P.name, SUM(S.quantity) AS Volume
 	FROM participant as P INNER JOIN sale as S
 		ON P.id = S.participant_id_s
 	GROUP BY P.id
-		ORDER BY Volume DESC --COUNT(P.id = S.participant_id_s) DESC
+		ORDER BY Volume DESC -- COUNT(P.id = S.participant_id_s) DESC
 LIMIT 1;
 
 -- check which event has most volume sales (60)
@@ -150,7 +150,22 @@ LIMIT 1;
 
 -- check event with highest rate participation (61)
 
+
+
 -- check events in a given timespan (71)
+DELIMITER &&
+CREATE PROCEDURE EventsInTimespan(IN firstday DATETIME, IN lastday DATETIME)
+ BEGIN
+	SELECT id, name 
+		FROM event
+        WHERE TIMEDIFF(lastday,firstday) > '00:00:00' AND 
+			 (TIMEDIFF(firstday,beg) >= '00:00:00' AND TIMEDIFF(lastday,fin) <= '00:00:00') OR
+			 (TIMEDIFF(firstday,beg) < '00:00:00' AND TIMEDIFF(lastday,fin) <= '00:00:00' AND TIMEDIFF(lastday,beg) > '00:00:00') OR 
+			 (TIMEDIFF(firstday,beg) >= '00:00:00' AND TIMEDIFF(firstday,fin) < '00:00:00' AND TIMEDIFF(lastday,fin) > '00:00:00');
+ END&&
+CALL EventsInTimespan('2023-12-10 08:00:00','2023-12-15 20:00:00');
+
+
 -- check who sold the most tickets in Event (72)
 DELIMITER &&
 CREATE FUNCTION GetSoldMostInEv (id INTEGER)
@@ -166,7 +181,7 @@ DETERMINISTIC
 			INNER JOIN sale AS S
 				ON Em.id = S.employee_id_s
 		GROUP BY Ev.id, Ev.name
-			ORDER BY SUM(S.quantity);
+			ORDER BY SUM(S.quantity)
 	LIMIT 1;
     RETURN res;
 END &&
