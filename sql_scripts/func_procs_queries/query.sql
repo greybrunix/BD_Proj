@@ -1,5 +1,6 @@
 USE mademoiselle_borges;
 
+
 -- check who manages an employee (43)
 DELIMITER &&
 CREATE FUNCTION check_manager (id VARCHAR(10))
@@ -230,6 +231,14 @@ SELECT E.id, E.name, SUM(S.Val) AS totVal
 		ON S.dos BETWEEN E.beg AND E.fin
 	GROUP BY E.id, E.name
 		ORDER BY totVal DESC
+LIMIT 1;
+
+-- check the participant with the highest volume in sales (95)
+SELECT P.id, P.name, SUM(S.quantity) AS totQua
+	FROM sale AS S INNER JOIN participant AS P
+			ON P.id = S.participant_id_s
+	GROUP BY P.id, P.name
+		ORDER BY totQua DESC
 LIMIT 1;
 
 -- check on employee sales (98)
