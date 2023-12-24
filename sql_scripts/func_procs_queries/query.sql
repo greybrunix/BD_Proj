@@ -149,8 +149,16 @@ SELECT EV.id, EV.name, SUM(SP.quantity) AS quant
 LIMIT 1;
 
 -- check event with highest rate participation (61)
+SELECT EV.id, EV.name, SUM(SP.quantity) / EV.capacity * 100 AS rate
+	FROM event as EV INNER JOIN product as P
+		ON EV.name = P.name
+	INNER JOIN sale_product AS SP
+		ON P.id = SP.product_id_sp
+	GROUP BY EV.id, EV.name
+		ORDER BY rate DESC
+	LIMIT 1
 
-
+-- 
 
 -- check events in a given timespan (71)
 DELIMITER &&
@@ -163,8 +171,6 @@ CREATE PROCEDURE EventsInTimespan(IN firstday DATETIME, IN lastday DATETIME)
 			 (TIMEDIFF(firstday,beg) < '00:00:00' AND TIMEDIFF(lastday,fin) <= '00:00:00' AND TIMEDIFF(lastday,beg) > '00:00:00') OR 
 			 (TIMEDIFF(firstday,beg) >= '00:00:00' AND TIMEDIFF(firstday,fin) < '00:00:00' AND TIMEDIFF(lastday,fin) > '00:00:00');
  END&&
-
-
 
 -- check who sold the most tickets in Event (72)
 DELIMITER &&
