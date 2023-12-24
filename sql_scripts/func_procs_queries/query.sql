@@ -217,7 +217,15 @@ CREATE PROCEDURE check_managed_by (IN id VARCHAR(10))
         WHERE E.employee_id_e = id;
 END &&
 
--- check the event with the most value in sales (93)
+-- check the participant with the highest value in sales (93)
+SELECT P.id, P.name, SUM(S.Val) AS totVal
+	FROM sale AS S INNER JOIN participant AS P
+			ON P.id = S.participant_id_s
+	GROUP BY P.id, P.name
+		ORDER BY totVal DESC;
+LIMIT 1;
+
+-- check the event with the most value in sales (94)
 SELECT E.id, E.name, SUM(S.Val) AS totVal
 	FROM event AS E INNER JOIN sale as S
 		ON S.dos BETWEEN E.beg AND E.fin
