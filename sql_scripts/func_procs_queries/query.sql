@@ -233,14 +233,6 @@ SELECT E.id, E.name, SUM(S.Val) AS totVal
 		ORDER BY totVal DESC
 LIMIT 1;
 
--- check the participant with the highest volume in sales (95)
-SELECT P.id, P.name, SUM(S.quantity) AS totQua
-	FROM sale AS S INNER JOIN participant AS P
-			ON P.id = S.participant_id_s
-	GROUP BY P.id, P.name
-		ORDER BY totQua DESC
-LIMIT 1;
-
 -- check on employee sales (98)
 DELIMITER &&
 CREATE PROCEDURE check_employee_sales (IN id VARCHAR(10))
