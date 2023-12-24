@@ -163,7 +163,7 @@ CREATE PROCEDURE EventsInTimespan(IN firstday DATETIME, IN lastday DATETIME)
 			 (TIMEDIFF(firstday,beg) < '00:00:00' AND TIMEDIFF(lastday,fin) <= '00:00:00' AND TIMEDIFF(lastday,beg) > '00:00:00') OR 
 			 (TIMEDIFF(firstday,beg) >= '00:00:00' AND TIMEDIFF(firstday,fin) < '00:00:00' AND TIMEDIFF(lastday,fin) > '00:00:00');
  END&&
-CALL EventsInTimespan('2023-12-10 08:00:00','2023-12-15 20:00:00');
+
 
 
 -- check who sold the most tickets in Event (72)
@@ -187,7 +187,23 @@ DETERMINISTIC
 END &&
 -- FUNCTION????
 
--- events someone participated in (81)
+-- events someone participated in (81) (Nao devolve resultado pretendido nao sei pq)
+DELIMITER $$
+CREATE PROCEDURE check_events_participated(IN idP INTEGER)
+BEGIN
+	SELECT EV.id, EV.name
+		FROM event AS EV
+        INNER JOIN event_employee AS EE
+			ON EV.id = EE.event_id_ee
+		INNER JOIN employee AS E
+			ON EE.event_id_ee = E.id
+		INNER JOIN sale AS S
+			ON E.id = S.employee_id_s
+		INNER JOIN participant AS P
+			ON S.participant_id_s = P.id
+		WHERE P.id = idP;
+END
+$$
 
 -- check who an employee manages (92)
 DELIMITER &&
