@@ -150,15 +150,12 @@ LIMIT 1;
 
 -- check event with highest rate participation (61)
 SELECT EV.id, EV.name, SUM(SP.quantity) / EV.capacity * 100 AS rate
-	FROM event as EV INNER JOIN product as P
-		ON EV.name = P.name
-	INNER JOIN sale_product AS SP
-		ON P.id = SP.product_id_sp
-	GROUP BY EV.id, EV.name
-		ORDER BY rate DESC
-	LIMIT 1
-
--- 
+	FROM event as EV INNER JOIN sale_product as SP
+		INNER JOIN product AS P
+			ON P.id = SP.product_id_sp and P.name = EV.name
+		GROUP BY EV.id, EV.name
+			ORDER BY rate DESC
+		LIMIT 1
 
 -- check events in a given timespan (71)
 DELIMITER &&
