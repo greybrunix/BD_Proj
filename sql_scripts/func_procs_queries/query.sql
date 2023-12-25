@@ -45,17 +45,6 @@ CREATE PROCEDURE check_parts_in_ev (IN name VARCHAR(75))
 END &&
 
 -- check all participants of all events (47)
-SELECT P.id, P.name
-  FROM participant AS P INNER JOIN sale as S
-		ON P.id = S.participant_id_s
-	  INNER JOIN employee as E
-		ON S.employee_id_s = E.id
-	  INNER JOIN event_employee as EE
-		ON E.id = EE.employee_id_ee
-	  INNER JOIN event as EV
-		ON EE.event_id_ee = EV.id;
-
--- check all participants of all events (47)
 SELECT id, name
 	FROM participant;
 
@@ -133,7 +122,7 @@ END &&
 
 -- check participant with highest volume sales associated (59)
 SELECT P.id, P.name, SUM(S.quantity) AS Volume
-	FROM participant as P INNER JOIN sale as S
+	FROM sale AS S INNER JOIN participant AS P
 		ON P.id = S.participant_id_s
 	GROUP BY P.id
 		ORDER BY Volume DESC -- COUNT(P.id = S.participant_id_s) DESC
