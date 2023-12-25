@@ -43,6 +43,7 @@ CREATE PROCEDURE check_parts_in_ev (IN name VARCHAR(75))
 			ON EE.event_id_ee = EV.id
 		  WHERE EV.name = name;
 END &&
+-- can't change this one?
 -- check all participants of all events (47)
 SELECT P.id, P.name
   FROM participant AS P INNER JOIN sale as S
@@ -140,12 +141,14 @@ LIMIT 1;
 
 -- check which event has most volume sales (60)
 SELECT EV.id, EV.name, SUM(SP.quantity) AS quant
-	FROM event AS EV INNER JOIN product AS P
-		ON EV.name = P.name
-	INNER JOIN sale_product AS SP
-		ON P.id = SP.product_id_sp
-	GROUP BY EV.id, EV.name
-		ORDER BY quant DESC
+	FROM event AS EV INNER JOIN sale AS S
+		INNER JOIN sale_product AS SP
+			ON SP.sale_id_sp = S.id 
+		INNER JOIN product AS P
+			ON P.id = SP.product_id_sp 
+	WHERE EV.name = P.name
+		GROUP BY EV.id, EV.name
+			ORDER BY quant DESC
 LIMIT 1;
 
 -- check event with highest rate participation (61)
