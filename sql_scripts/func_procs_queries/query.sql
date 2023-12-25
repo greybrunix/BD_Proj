@@ -29,21 +29,21 @@ SELECT id
 	WHERE dos IS NOT NULL;
 
 -- check all participants of a given event (46)
+-- DROP PROCEDURE  IF EXISTS check_parts_in_ev ;
 DELIMITER &&
 CREATE PROCEDURE check_parts_in_ev (IN name VARCHAR(75))
   BEGIN
-      SELECT P.id, P.name
-          FROM participant AS P INNER JOIN sale as S
-			ON P.id = S.participant_id_s
-		  INNER JOIN employee as E
-			ON S.employee_id_s = E.id
-		  INNER JOIN event_employee as EE
-			ON E.id = EE.employee_id_ee
-		  INNER JOIN event as EV
-			ON EE.event_id_ee = EV.id
-		  WHERE EV.name = name;
+		SELECT PA.id,PA.name
+			FROM event AS EV INNER JOIN sale AS S
+				INNER JOIN participant AS PA
+					ON PA.id = participant_id_s
+				INNER JOIN sale_product AS SP
+					ON S.id = SP.sale_id_sp
+				INNER JOIN product AS PR
+					ON PR.id = SP.product_id_sp AND EV.name = name
+			WHERE name = PR.name;
 END &&
--- can't change this one?
+
 -- check all participants of all events (47)
 SELECT P.id, P.name
   FROM participant AS P INNER JOIN sale as S
