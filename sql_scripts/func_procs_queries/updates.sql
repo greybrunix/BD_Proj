@@ -91,12 +91,21 @@ END &&
 DELIMITER &&
 CREATE PROCEDURE register_new_event (IN e_name VARCHAR(75),
 		 e_descr TEXT,
-        e_beg DATETIME, e_fin DATETIME, e_capacity INTEGER)
+        e_beg DATETIME, e_fin DATETIME, e_capacity INTEGER,
+	t_descr TEXT, t_price DECIMAL(5,2))
   BEGIN
     -- update with new event
         INSERT INTO event (name, descr, beg, fin, capacity)
         VALUES (e_name, e_descr, e_beg, e_fin , e_capacity);
+	IF e_capacity IS NULL THEN
+		SET @t_stock = 4294967295; -- max int
+	ELSE 
+		SET @t_stock = e_capacity;
+	END IF;
+	INSERT INTO product (name, descr, price, stock)
+	VALUES (e_name, t_descr, t_price, t_stock);
 END &&
+
 
 DELIMITER &&
 CREATE PROCEDURE update_info_()
