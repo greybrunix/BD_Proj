@@ -202,7 +202,6 @@ BEGIN
 		INNER JOIN participant AS P
 			ON S.participant_id_s = P.id
 		WHERE P.id = idP;
-		
 END
 $$
 
