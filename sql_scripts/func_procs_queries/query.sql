@@ -196,13 +196,13 @@ CREATE PROCEDURE check_events_participated(IN idP INTEGER)
 BEGIN
 	SELECT EV.id, EV.name
 		FROM event AS EV
-        INNER JOIN product AS PR
-			ON EV.name = PR.name
-		INNER JOIN sale_product AS SP
-			ON PR.id = SP.product_id_sp
-		INNER JOIN sale AS S
-			ON SP.sale_id_sp = S.id
-		INNER JOIN participant AS P
+        INNER JOIN sale as S
+			ON S.dos BETWEEN EV.beg AND EV.fin
+		INNER JOIN sale_product as SP
+			ON S.id=SP.sale_id_sp
+		INNER JOIN product as PR
+			ON SP.product_id_sp = PR.id AND PR.name = EV.name
+		INNER JOIN participant as P
 			ON S.participant_id_s = P.id
 		WHERE P.id = idP;
 		
