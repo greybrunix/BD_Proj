@@ -31,17 +31,18 @@ SELECT id
 -- check all participants of a given event (46)
 -- DROP PROCEDURE  IF EXISTS check_parts_in_ev ;
 DELIMITER &&
-CREATE PROCEDURE check_parts_in_ev (IN name VARCHAR(75))
+CREATE PROCEDURE check_parts_in_ev (IN id INTEGER)
   BEGIN
 		SELECT PA.id,PA.name
 			FROM event AS EV INNER JOIN sale AS S
+				ON S.dos BETWEEN EV.beg AND EV.fin
 				INNER JOIN participant AS PA
 					ON PA.id = participant_id_s
 				INNER JOIN sale_product AS SP
 					ON S.id = SP.sale_id_sp
 				INNER JOIN product AS PR
-					ON PR.id = SP.product_id_sp AND EV.name = name
-			WHERE name = PR.name;
+					ON PR.id = SP.product_id_sp AND EV.name = PR.name
+			WHERE id = EV.id;
 END &&
 
 -- check all participants of all events (47)
