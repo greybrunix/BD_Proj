@@ -171,24 +171,22 @@ CREATE PROCEDURE EventsInTimespan(IN firstday DATETIME, IN lastday DATETIME)
 
 -- check who sold the most tickets in Event (72)
 DELIMITER &&
-CREATE FUNCTION GetSoldMostInEv (id INTEGER)
-RETURNS VARCHAR(10)
-DETERMINISTIC
-   BEGIN
-   DECLARE res VARCHAR(10);
-	SELECT Em.id INTO res
-		FROM event AS Ev INNER JOIN event_employee AS EE
-			ON id = Ev.id = EE.event_id_ee -- bruh
+CREATE PROCEDURE GetSoldMostInEv (id INTEGER)
+	BEGIN
+		SELECT Em.id INTO res
+			FROM event AS Ev 
+            INNER JOIN event_employee AS EE
+				ON id = Ev.id = EE.event_id_ee 
 			INNER JOIN employee AS Em
-				ON EE.employee_id_ee = Em.id -- data probs
+				ON EE.employee_id_ee = Em.id
 			INNER JOIN sale AS S
 				ON Em.id = S.employee_id_s
-		GROUP BY Ev.id, Ev.name
-			ORDER BY SUM(S.quantity)
-	LIMIT 1;
-    RETURN res;
-END &&
--- FUNCTION????
+			GROUP BY Ev.id, Ev.name
+				ORDER BY SUM(S.quantity);
+	
+	END
+&&
+
 
 -- events someone participated in (81)
 DELIMITER $$
