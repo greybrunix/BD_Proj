@@ -173,7 +173,7 @@ CREATE PROCEDURE EventsInTimespan(IN firstday DATETIME, IN lastday DATETIME)
 DELIMITER &&
 CREATE PROCEDURE GetSoldMostInEv (id INTEGER)
 	BEGIN
-		SELECT Em.id INTO res
+		SELECT Em.id AS ID, Em.name AS nome
 			FROM event AS Ev 
             INNER JOIN event_employee AS EE
 				ON id = Ev.id = EE.event_id_ee 
@@ -181,7 +181,7 @@ CREATE PROCEDURE GetSoldMostInEv (id INTEGER)
 				ON EE.employee_id_ee = Em.id
 			INNER JOIN sale AS S
 				ON Em.id = S.employee_id_s
-			GROUP BY Ev.id, Ev.name
+			GROUP BY ID, nome
 				ORDER BY SUM(S.quantity);
 	
 	END
