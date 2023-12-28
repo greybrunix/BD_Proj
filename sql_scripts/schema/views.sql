@@ -1,4 +1,7 @@
 USE mademoiselle_borges;
 
-CREATE VIEW tst.v AS SELECT * FROM t;
+CREATE VIEW announced_event AS
+SELECT *
+	FROM event
+	WHERE ;
 

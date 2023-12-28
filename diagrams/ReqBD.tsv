@@ -41,28 +41,28 @@ Nr	Hour	Description	Source	Analist	Type
 40	12:36	Maria Ivanovna Ivanova is a System Administrator	Henrique Borges	Aurora Matrix	AR
 41	12:36	Herr Otto Mustermann is a System Administrator in in the timeframe in which he has access to the database	Henrique Borges	Aurora Matrix	AR
 42	12:36	Herr Mustermann only has access to the database between 15:30 and 19:30	Henrique Borges	Aurora Matrix	AR
-43	12:37	It must be possible to consult who is the manager of an employee.	Henrique Borges	Aurora Matrix	ER
-44	12:39	It must be possible to consult products in a sale	Henrique Borges	Aurora Matrix	ER
-45	12:41	It must be possible to consult every closed sale	Henrique Borges	Aurora Matrix	ER
-46	12:42	It must be possible to consult all participants in a given event	Henrique Borges	Aurora Matrix	ER
-47	12:43	It must be possible to consult all participants in the system	Henrique Borges	Aurora Matrix	ER
-48	12:44	It must be possible to consult the participant associated with a given sale	Henrique Borges	Aurora Matrix	ER
-49	12:45	It must be possible to consult all products in stock	Henrique Borges	Aurora Matrix	ER
-50	12:46	It must be possible to consult all suppliers of a given product	Henrique Borges	Aurora Matrix	ER
-51	12:46	It must be possible to consult only past suppliers of a given product	Henrique Borges	Aurora Matrix	ER
-52	12:46	It must be possible to consult only eventual suppliers of a given product	Henrique Borges	Aurora Matrix	ER
-53	12:47	It must be possible to consult all of a participant's purchases	Henrique Borges	Aurora Matrix	ER
-54	12:48	It must be possible to consult all suppliers	Henrique Borges	Aurora Matrix	ER
-55	12:49	It must be possible to consult all employees	Henrique Borges	Aurora Matrix	ER
-56	12:50	It must be possible to consult all events	Henrique Borges	Aurora Matrix	ER
-57	12:51	It must be possible to consult the value of sales in a particular day	Henrique Borges	Aurora Matrix	ER
-58	12:51	It must be possible to consult the volume of sales in a particular day	Henrique Borges	Aurora Matrix	ER
-59	12:52	It must be possible to determine who is the participant with highest volume of sales	Henrique Borges	Aurora Matrix	ER
-60	12:53	It must be possible to determine the event with the highest volume of sales.	Henrique Borges	Aurora Matrix	ER
-61	12:54	It must be possible to determine the event with the highest rate of participation	Henrique Borges	Aurora Matrix	ER
-62	12:55	When the system closes, it must dump a sales report as a text file	Henrique Borges	Aurora Matrix	ER
-63	12:56	When the system closes, it must dump an affluence report as a text file	Henrique Borges	Aurora Matrix	ER
-64	12:57	A participant may change or update their registered informations	Henrique Borges	Aurora Matrix	ER
+43	12:36	There must be a special way of accessing the database called guest for anyone who wishes to view information on events	Henrique Borges	Aurora Matrix	AR
+44	12:37	It must be possible to consult who is the manager of an employee.	Henrique Borges	Aurora Matrix	ER
+45	12:39	It must be possible to consult products in a sale	Henrique Borges	Aurora Matrix	ER
+46	12:41	It must be possible to consult every closed sale	Henrique Borges	Aurora Matrix	ER
+47	12:42	It must be possible to consult all participants in a given event	Henrique Borges	Aurora Matrix	ER
+48	12:43	It must be possible to consult all participants in the system	Henrique Borges	Aurora Matrix	ER
+49	12:44	It must be possible to consult the participant associated with a given sale	Henrique Borges	Aurora Matrix	ER
+50	12:45	It must be possible to consult all products in stock	Henrique Borges	Aurora Matrix	ER
+51	12:46	It must be possible to consult all suppliers of a given product	Henrique Borges	Aurora Matrix	ER
+52	12:46	It must be possible to consult only past suppliers of a given product	Henrique Borges	Aurora Matrix	ER
+53	12:46	It must be possible to consult only eventual suppliers of a given product	Henrique Borges	Aurora Matrix	ER
+54	12:47	It must be possible to consult all of a participant's purchases	Henrique Borges	Aurora Matrix	ER
+55	12:48	It must be possible to consult all suppliers	Henrique Borges	Aurora Matrix	ER
+56	12:49	It must be possible to consult all employees	Henrique Borges	Aurora Matrix	ER
+57	12:50	It must be possible to consult all events	Henrique Borges	Aurora Matrix	ER
+58	12:51	It must be possible to consult the value of sales in a particular day	Henrique Borges	Aurora Matrix	ER
+59	12:51	It must be possible to consult the volume of sales in a particular day	Henrique Borges	Aurora Matrix	ER
+60	12:52	It must be possible to determine who is the participant with highest volume of sales	Henrique Borges	Aurora Matrix	ER
+61	12:53	It must be possible to determine the event with the highest volume of sales.	Henrique Borges	Aurora Matrix	ER
+62	12:54	It must be possible to determine the event with the highest rate of participation	Henrique Borges	Aurora Matrix	ER
+63	12:55	When the system closes, it must dump a sales report as a text file	Henrique Borges	Aurora Matrix	ER
+64	12:56	When the system closes, it must dump an affluence report as a text file	Henrique Borges	Aurora Matrix	ER
 65	12:58	Only administrators have access to the total event sales values	Henrique Borges	Aurora Matrix	AR
 66	12:59	A participant is inserted into the database when they buy a ticket	Henrique Borges	Aurora Matrix	ER
 67	13:00	If an event is open-entry the sale of a ticket is still registered with 0 value	Henrique Borges	Aurora Matrix	ER
@@ -76,9 +76,9 @@ Nr	Hour	Description	Source	Analist	Type
 75	13:09	An administrator has access to all and any functionalities of the database	Henrique Borges	Aurora Matrix	AR
 76	13:10	An employee has access to any and all information in which they are personally involved	Henrique Borges	Aurora Matrix	AR
 77	13:12	An employee has access to any and all functionalities that directly involves their job	Henrique Borges	Aurora Matrix	AR
-78	13:13	A participant has access to their personal information	Henrique Borges	Aurora Matrix	AR
-79	13:14	A participant has access to their purchases	Henrique Borges	Aurora Matrix	AR
-80	13:15	A participant has acces to the event they participated in.	Henrique Borges	Aurora Matrix	AR
+78	13:15	A guest has access to past events.	Henrique Borges	Aurora Matrix	AR
+79	13:15	A guest has access to current ongoing events.	Henrique Borges	Aurora Matrix	AR
+80	13:15	A guest has access to future announced events.	Henrique Borges	Aurora Matrix	AR
 81	13:16	It must be possible to consult the events in which someone participated in	Henrique Borges	Aurora Matrix	ER
 82	13:17	It must be possible to insert new events into the database	Henrique Borges	Aurora Matrix	ER
 83	13:18	It must be possible to insert new employees in to the database	Henrique Borges	Aurora Matrix	ER
@@ -88,7 +88,7 @@ Nr	Hour	Description	Source	Analist	Type
 87	13:23	Only administrators may update information	Henrique Borges	Aurora Matrix	AR
 88	13:23	Administrator info must be stored in the database as employees.	Henrique Borges	Aurora Matrix	DR
 89	13:23	Only administrators have access to the total value of sales	Henrique Borges	Aurora Matrix	AR
-90	13:23	Qualquer funcionario tem acesso às informações de fornecimento de artigos	Henrique Borges	Aurora Matrix	AR
+90	13:23	Any employee has access to informations regarding the supply of products	Henrique Borges	Aurora Matrix	AR
 91	13:24	The value of a sale is sum of the value times the quantity of all products in a sale.	Henrique Borges	Aurora Matrix	DR
 92	13:24	It must be possible to consult the employee managed by another employee.	Henrique Borges	Aurora Matrix	ER
 93	13:25	It must be possible to determine the participant with highest value of sales.	Henrique Borges	Aurora Matrix	ER

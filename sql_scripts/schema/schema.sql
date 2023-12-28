@@ -19,9 +19,9 @@ CREATE TABLE employee (
         name VARCHAR(75) NOT NULL,
         vat VARCHAR(9) NOT NULL UNIQUE,
         birth DATE NOT NULL,
-        street VARCHAR(50) NULL,
-        locale VARCHAR(30) NULL,
-        postal VARCHAR(15) NULL,
+        street VARCHAR(50) NOT NULL,
+        locale VARCHAR(30) NOT NULL,
+        postal VARCHAR(15) NOT NULL,
         employee_id_e VARCHAR(10),
         is_del   BOOLEAN DEFAULT FALSE,
         PRIMARY KEY (id),
@@ -135,8 +135,7 @@ CREATE TABLE product_supplier_past (
         product_id_psp INTEGER NOT NULL,
         supplier_id_psp INTEGER NOT NULL,
         dod DATE NOT NULL, -- date of delivery
-        quantity INTEGER NOT NULL,
-        is_del BOOLEAN DEFAULT FALSE,
+        quantity INTEGER NOT NULL, is_del BOOLEAN DEFAULT FALSE,
         CONSTRAINT comp_key PRIMARY KEY (product_id_psp, supplier_id_psp, dod),
         FOREIGN KEY (product_id_psp)
             REFERENCES product (id),
