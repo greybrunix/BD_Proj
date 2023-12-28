@@ -1,11 +1,11 @@
 USE mademoiselle_borges;
 
 CREATE ROLE admin;
-CREATE USER ADMIN00001; -- Henrique Borges
-CREATE USER ADMIN00002; -- MARIA IVANOVNA IVANOVA
+CREATE USER hen; -- Henrique Borges
+CREATE USER mii; -- MARIA IVANOVNA IVANOVA
 
 CREATE ROLE p_admin;
-CREATE USER PADM_00001; -- Herr Otto Mustermann
+CREATE USER hom; -- Herr Otto Mustermann
 
 CREATE ROLE employee;
 CREATE USER CLEAN00001;
@@ -17,4 +17,4 @@ CREATE USER ENTMT00001;
 
 
 CREATE ROLE guest;
-CREATE USER GUEST00001;
+CREATE USER guest; -- global

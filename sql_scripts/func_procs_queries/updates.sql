@@ -9,24 +9,32 @@ CREATE PROCEDURE register_reservation_new_product (IN p_NAME VARCHAR(75),
         INSERT INTO product(name, descr, price, stock)
         VALUES(p_NAME, p_descr, p_price, "0");
 
-        -- update the the future supplies table
+        -- update the future supplies table
         INSERT INTO product_supplier_future(product_id_psp, supplier_id_psp,dod, quantity)
         VALUES(LAST_INSERT_ID(), s_id, p_dod, p_quantity);
 END &&
 
 DELIMITER &&
 CREATE PROCEDURE register_reservation_exis_product (IN p_id INTEGER,
-       p_stock INTEGER, s_id INTEGER, p_dod DATETIME, p_quantity INTEGER)
+       s_id INTEGER, p_dod DATETIME, p_quantity INTEGER)
   BEGIN
-        -- update the the future supplies table
-        INSERT INTO product_supplier_future(product_id_psp, supplier_id_psp,dod, quantity)
-        VALUES(p_id, s_id, p_dod, p_quantity);
+        -- update the future supplies table
+	DECLARE is_deleted BOOLEAN;
+	SELECT is_del INTO is_deleted FROM product WHERE id = p_id;
+	IF is_deleted = True THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'ERROR! Consider creating a new product';
+		
+	ELSE
+        	INSERT INTO product_supplier_future(product_id_psp, supplier_id_psp,dod, quantity)
+        	VALUES(p_id, s_id, p_dod, p_quantity);
+	END IF;
 END &&
 DELIMITER &&
 CREATE PROCEDURE register_delivery_product (IN p_id INTEGER,
        p_stock INTEGER, s_id INTEGER, p_dod DATETIME, p_quantity INTEGER)
   BEGIN
-        -- update the remainding stock of the given product
+        -- update the remaining stock of the given product
         UPDATE product
         SET stock = p_stock + p_quantity
             WHERE id = p_id;
@@ -84,8 +92,15 @@ CREATE PROCEDURE register_new_employee (IN e_id VARCHAR(10), e_name VARCHAR(75),
        e_locale   VARCHAR(30), e_postal   VARCHAR(15), e_employee_id_e   VARCHAR(10))
   BEGIN
     -- update employee table
-        INSERT INTO employee (id, name, vat, birth, street, locale, postal, employee_id_e)
-        VALUES (e_id,e_name,e_vat,e_birth,e_street,e_locale,e_postal,e_employee_id_e);
+	DECLARE is_deleted BOOLEAN;
+	SELECT is_del INTO is_deleted FROM employee WHERE e_id = id;
+	IF THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'ERROR: Consider using a new ID and/or VAT';
+	ELSE
+		INSERT INTO employee (id, name, vat, birth, street, locale, postal, employee_id_e)
+		VALUES (e_id,e_name,e_vat,e_birth,e_street,e_locale,e_postal,e_employee_id_e);
+	END IF;
 END &&
 
 DELIMITER &&
@@ -94,10 +109,10 @@ CREATE PROCEDURE register_new_event (IN e_name VARCHAR(75),
         e_beg DATETIME, e_fin DATETIME, e_capacity INTEGER,
 	t_descr TEXT, t_price DECIMAL(5,2))
   BEGIN
-    -- update with new event
+        -- update with new event
         INSERT INTO event (name, descr, beg, fin, capacity)
         VALUES (e_name, e_descr, e_beg, e_fin , e_capacity);
-	IF e_capacity IS NULL THEN
+	IF e_capacity = 0 THEN
 		SET @t_stock = 4294967295; -- max int
 	ELSE 
 		SET @t_stock = e_capacity;
@@ -106,8 +121,3 @@ CREATE PROCEDURE register_new_event (IN e_name VARCHAR(75),
 	VALUES (e_name, t_descr, t_price, t_stock);
 END &&
 
-
-DELIMITER &&
-CREATE PROCEDURE update_info_()
-  BEGIN
-END &&
