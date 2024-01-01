@@ -3,172 +3,163 @@ CREATE SCHEMA IF NOT EXISTS mademoiselle_borges;
 
 USE mademoiselle_borges;
 
-CREATE TABLE event (
-        id INTEGER AUTO_INCREMENT,
-        name VARCHAR(75) NOT NULL UNIQUE,
-        descr TEXT NOT NULL,
-        beg DATETIME NOT NULL,
-        fin   DATETIME NOT NULL,
-        capacity INTEGER NOT NULL,
-        is_del   BOOLEAN DEFAULT FALSE,
-        PRIMARY KEY (id)
+CREATE TABLE EventCal (
+        EventID INTEGER AUTO_INCREMENT,
+        EventName VARCHAR(75) NOT NULL UNIQUE,
+        EventDescription TEXT NOT NULL,
+        EventStart DATETIME NOT NULL,
+        EventEnd   DATETIME NOT NULL,
+        Capacity INTEGER NOT NULL,
+        PRIMARY KEY (EventID)
 );
 
-CREATE TABLE employee (
-        id VARCHAR(10),
-        name VARCHAR(75) NOT NULL,
-        vat VARCHAR(9) NOT NULL UNIQUE,
-        birth DATE NOT NULL,
-        street VARCHAR(50) NOT NULL,
-        locale VARCHAR(30) NOT NULL,
-        postal VARCHAR(15) NOT NULL,
-        employee_id_e VARCHAR(10),
-        is_del   BOOLEAN DEFAULT FALSE,
-        PRIMARY KEY (id),
-        FOREIGN KEY (employee_id_e)
-            REFERENCES employee (id)
+CREATE TABLE Employee (
+        EmployeeID VARCHAR(10),
+        EmployeeName VARCHAR(75) NOT NULL,
+        EmployeeVAT VARCHAR(9) NOT NULL UNIQUE,
+        EmployeeBirthDate DATE NOT NULL,
+        Street VARCHAR(50) NOT NULL,
+        Locale VARCHAR(30) NOT NULL,
+        PostalCode VARCHAR(15) NOT NULL,
+        EmployeeID_e VARCHAR(10),
+        PRIMARY KEY (EmployeeID),
+        FOREIGN KEY (EmployeeID_e)
+            REFERENCES Employee (EmployeeID)
 );
 
-CREATE TABLE employee_phone (
-        employee_id_ep VARCHAR(10) NOT NULL,
-        phone VARCHAR(20) NOT NULL UNIQUE,
-	is_del BOOLEAN DEFAULT FALSE,
-        FOREIGN KEY (employee_id_ep)
-            REFERENCES employee (id)
+CREATE TABLE EmployeePhone (
+        EmployeeID_ep VARCHAR(10) NOT NULL,
+        Phone VARCHAR(20) NOT NULL UNIQUE,
+        FOREIGN KEY (EmployeeID_ep)
+            REFERENCES Employee (EmployeeID)
 );
-CREATE TABLE employee_email (
-        employee_id_eem VARCHAR(10) NOT NULL,
-        email VARCHAR(75) NOT NULL UNIQUE,
-        is_del  BOOLEAN DEFAULT FALSE,
-        FOREIGN KEY (employee_id_eem)
-            REFERENCES employee (id)
+CREATE TABLE EmployeeEmail (
+        EmployeeID_eem VARCHAR(10) NOT NULL,
+        Email VARCHAR(75) NOT NULL UNIQUE,
+        FOREIGN KEY (EmployeeID_eem)
+            REFERENCES Employee (EmployeeID)
 );
 
-CREATE TABLE event_employee (
-        event_id_ee INTEGER,
-        employee_id_ee VARCHAR(10),
-        is_del BOOLEAN DEFAULT FALSE,
-        CONSTRAINT comp_key PRIMARY KEY (event_id_ee , employee_id_ee),
-        FOREIGN KEY (event_id_ee)
-            REFERENCES event (id),
-        FOREIGN KEY (employee_id_ee)
-            REFERENCES employee (id)
+CREATE TABLE EventEmployee(
+        EventID_ee INTEGER,
+        EmployeeID_ee VARCHAR(10),
+        CONSTRAINT comp_key PRIMARY KEY (EventID_ee, EmployeeID_ee),
+        FOREIGN KEY (EventID_ee)
+            REFERENCES EventCal (EventID),
+        FOREIGN KEY (EmployeeID_ee)
+            REFERENCES Employee (EmployeeID)
 );
 
-CREATE TABLE participant (
-        id INTEGER AUTO_INCREMENT,
-        name VARCHAR(75) NOT NULL,
-        vat VARCHAR(9) NULL UNIQUE,
-        birth DATE NOT NULL,
-        street VARCHAR(50) NULL,
-        locale VARCHAR(30) NULL,
-        postal VARCHAR(15) NULL,
-        is_del BOOLEAN DEFAULT FALSE,
-        PRIMARY KEY (id)
+CREATE TABLE Participant (
+        ParticipantID INTEGER AUTO_INCREMENT,
+        ParticipantName VARCHAR(75) NOT NULL,
+        ParticipantVAT VARCHAR(9) NULL,
+        ParticipantBirthDate DATE NOT NULL,
+        Street VARCHAR(50) NULL,
+        Locale VARCHAR(30) NULL,
+        Postal VARCHAR(15) NULL,
+        PRIMARY KEY (ParticipantID)
 );
 
-CREATE TABLE participant_email (
-        participant_id_pem INTEGER NOT NULL,
-        email VARCHAR(75) NULL UNIQUE,
-        is_del BOOLEAN DEFAULT FALSE,
-        FOREIGN KEY (participant_id_pem)
-            REFERENCES participant (id)
+CREATE TABLE ParticipantEmail (
+        ParticipantID_pem INTEGER NOT NULL,
+        Email VARCHAR(75) NULL UNIQUE,
+        FOREIGN KEY (ParticipantID_pem)
+            REFERENCES Participant (ParticipantID)
 );
 
-CREATE TABLE participant_phone (
-        participant_id_pp INTEGER NOT NULL,
-        phone VARCHAR(20) NOT NULL UNIQUE,
-        is_del BOOLEAN DEFAULT FALSE,
-        FOREIGN KEY (participant_id_pp)
-            REFERENCES participant (id)
+CREATE TABLE ParticipantPhone (
+        ParticipantID_pp INTEGER NOT NULL,
+        Phone VARCHAR(20) NOT NULL UNIQUE,
+        FOREIGN KEY (ParticipantID_pp)
+            REFERENCES Participant (ParticipantID)
 );
 
-CREATE TABLE sale (
-        id INTEGER AUTO_INCREMENT,
-        val DECIMAL(5,2) NOT NULL,
-        quantity INTEGER NOT NULL,
-        dos DATETIME NULL,
-        employee_id_s VARCHAR(10) NOT NULL,
-        participant_id_s INTEGER NOT NULL,
-        is_del BOOLEAN DEFAULT FALSE,
-        PRIMARY KEY (id),
-        FOREIGN KEY (employee_id_s)
-            REFERENCES employee (id),
-        FOREIGN KEY (participant_id_s)
-            REFERENCES participant (id)
+CREATE TABLE Sale (
+        ReceiptNO INTEGER AUTO_INCREMENT,
+        TotalValue DECIMAL(5,2) NOT NULL,
+        TotalQuantity INTEGER NOT NULL,
+        DateOfSale DATETIME NULL,
+        EmployeeID_s VARCHAR(10) NOT NULL,
+        ParticipantID_s INTEGER NOT NULL,
+        PRIMARY KEY (ReceiptNO),
+        FOREIGN KEY (EmployeeId_s)
+            REFERENCES Employee (EmployeeID),
+        FOREIGN KEY (ParticipantID_s)
+            REFERENCES Participant (ParticipantID)
 );
 
-CREATE TABLE product (
-        id INTEGER AUTO_INCREMENT,
-        name VARCHAR(75) NOT NULL UNIQUE,
-        descr TEXT NOT NULL,
-        price DECIMAL(5,2) NOT NULL,
-        stock INTEGER NOT NULL,
-        is_del BOOLEAN DEFAULT FALSE,
-        PRIMARY KEY (id)
+CREATE TABLE Product (
+        ProductID INTEGER AUTO_INCREMENT,
+        ProductName VARCHAR(75) NOT NULL UNIQUE,
+        ProductDescription TEXT NOT NULL,
+        BasePrice DECIMAL(5,2) NOT NULL,
+        QuantityInStock INTEGER NOT NULL,
+        PRIMARY KEY (ProductID)
 );
 
-CREATE TABLE sale_product (
-        sale_id_sp INTEGER NOT NULL,
-        product_id_sp INTEGER NOT NULL,
-        val DECIMAL(5,2) NOT NULL,
-        quantity INTEGER NOT NULL,
-        is_del BOOLEAN DEFAULT FALSE,
-        CONSTRAINT comp_key PRIMARY KEY (sale_id_sp, product_id_sp),
-        FOREIGN KEY (sale_id_sp)
-            REFERENCES sale (id),
-        FOREIGN KEY (product_id_sp) REFERENCES product (id)
+CREATE TABLE SaleProduct (
+        ReceiptNO_sp INTEGER NOT NULL,
+        ProductID_sp INTEGER NOT NULL,
+        CurrentValue DECIMAL(5,2) NOT NULL,
+        Quantity INTEGER NOT NULL,
+        CONSTRAINT comp_key PRIMARY KEY (ReceiptNO_sp, ProductID_sp),
+        FOREIGN KEY (ReceiptNO_sp)
+		REFERENCES Sale (ReceiptNO),
+        FOREIGN KEY (ProductID_sp)
+		REFERENCES Product (ProductID)
 );
 
-CREATE TABLE supplier (
-        id INTEGER AUTO_INCREMENT,
-        name VARCHAR(75) NOT NULL UNIQUE,
-        iban VARCHAR(50) NOT NULL UNIQUE,
-        street VARCHAR(50) NOT NULL,
-        locale VARCHAR(30) NOT NULL,
-        postal VARCHAR(15) NOT NULL,
-        is_del BOOLEAN DEFAULT FALSE,
-        PRIMARY KEY (id)
+CREATE TABLE Supplier (
+        SupplierID INTEGER AUTO_INCREMENT,
+        SupplierName VARCHAR(75) NOT NULL UNIQUE,
+        IBAN VARCHAR(50) NOT NULL UNIQUE,
+        Street VARCHAR(50) NOT NULL,
+        Locale VARCHAR(30) NOT NULL,
+        Postal VARCHAR(15) NOT NULL,
+        PRIMARY KEY (SupplierID)
 );
 
-CREATE TABLE product_supplier_past (
-        product_id_psp INTEGER NOT NULL,
-        supplier_id_psp INTEGER NOT NULL,
-        dod DATE NOT NULL, -- date of delivery
-        quantity INTEGER NOT NULL, is_del BOOLEAN DEFAULT FALSE,
-        CONSTRAINT comp_key PRIMARY KEY (product_id_psp, supplier_id_psp, dod),
-        FOREIGN KEY (product_id_psp)
-            REFERENCES product (id),
-        FOREIGN KEY (supplier_id_psp)
-            REFERENCES supplier (id)
+CREATE TABLE ProductSupplierPast(
+        ProductID_psp INTEGER NOT NULL,
+        SupplierID_psp INTEGER NOT NULL,
+        DateOfDelivery DATE NOT NULL, -- date of delivery
+	Quantity INTEGER NOT NULL,
+        CONSTRAINT comp_key PRIMARY KEY (ProductID_psp,
+		SupplierID_psp,
+		DateOfDelivery),
+        FOREIGN KEY (ProductID_psp)
+            REFERENCES Product (ProductID),
+        FOREIGN KEY (SupplierID_psp)
+            REFERENCES Supplier (SupplierID)
 );
 
-CREATE TABLE product_supplier_future (
-        product_id_psf INTEGER NOT NULL,
-        supplier_id_psf INTEGER NOT NULL,
-        dor DATE NOT NULL, -- date of reservation
-	dos DATE NOT NULL, -- expected date
-        quantity INTEGER NOT NULL,
-        is_del BOOLEAN DEFAULT FALSE,
-        CONSTRAINT comp_key PRIMARY KEY (product_id_psf, supplier_id_psf, dor, dos),
-        FOREIGN KEY (product_id_psf)
-            REFERENCES product (id),
-        FOREIGN KEY (supplier_id_psf)
-            REFERENCES supplier (id)
+CREATE TABLE ProductSupplierFuture (
+        ProductID_psf INTEGER NOT NULL,
+        SupplierID_psf INTEGER NOT NULL,
+        DateOfReservation DATE NOT NULL, -- date of reservation
+	DateOfSchedule DATE NOT NULL, -- expected date
+        Quantity INTEGER NOT NULL,
+        CONSTRAINT comp_key PRIMARY KEY (ProductID_psf,
+		SupplierID_psf,
+		DateOfReservation,
+		DateOfSchedule),
+        FOREIGN KEY (ProductID_psf)
+            REFERENCES Product (ProductID),
+        FOREIGN KEY (SupplierID_psf)
+            REFERENCES Supplier (SupplierID)
 );
 
-CREATE TABLE supplier_email (
-        supplier_id_sem INTEGER NOT NULL,
-        email VARCHAR(75) NOT NULL UNIQUE,
-        is_del BOOLEAN DEFAULT FALSE,
-        FOREIGN KEY (supplier_id_sem)
-            REFERENCES supplier (id)    
+CREATE TABLE SupplierEmail (
+        SupplierID_sem INTEGER NOT NULL,
+        Email VARCHAR(75) NOT NULL UNIQUE,
+        FOREIGN KEY (SupplierID_sem)
+            REFERENCES Supplier (SupplierID)
 );
 
-CREATE TABLE supplier_phone (
-        supplier_id_sp INTEGER NOT NULL,
-        phone VARCHAR(20) NOT NULL UNIQUE,
-        is_del BOOLEAN DEFAULT FALSE,
-        FOREIGN KEY (supplier_id_sp)
-            REFERENCES supplier (id)    
+CREATE TABLE SupplierPhone(
+        SupplierID_sp INTEGER NOT NULL,
+        Phone VARCHAR(20) NOT NULL UNIQUE,
+        FOREIGN KEY (SupplierID_sp)
+            REFERENCES Supplier (SupplierID)
 );
