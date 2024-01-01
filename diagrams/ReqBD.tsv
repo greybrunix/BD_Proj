@@ -3,7 +3,7 @@ Nr	Hour	Description	Source	Analist	Type
 2	12:29	Each event must have an unique name	Henrique Borges	Aurora Matrix	DR
 3	12:29	Each event must have a description	Henrique Borges	Aurora Matrix	DR
 4	12:29	Each event must have a beginning and ending date	Henrique Borges	Aurora Matrix	DR
-5	12:29	Each event must have, optionally, a maximum capacity	Henrique Borges	Aurora Matrix	DR
+5	12:29	Each event must have a maximum capacity	Henrique Borges	Aurora Matrix	DR
 6	12:30	There are no concurrent events	Henrique Borges	Aurora Matrix	DR
 7	12:30	Each employee must have an unique identifier which is formatted as "XXXXXYYYYY" where XXXXX is a descriptor of rank or function and YYYYY is a number	Henrique Borges	Aurora Matrix	DR
 8	12:30	Each employee must have a name,	Henrique Borges	Aurora Matrix	DR
