@@ -21,13 +21,8 @@ CREATE PROCEDURE register_reservation_exis_product (IN p_id INTEGER,
         -- update the future supplies table
 	DECLARE is_deleted BOOLEAN;
 	SELECT is_del INTO is_deleted FROM product WHERE id = p_id;
-	IF is_deleted = True THEN
-		SIGNAL SQLSTATE '45000'
-		SET MESSAGE_TEXT = 'ERROR! Consider creating a new product';
-		
-	ELSE
-        	INSERT INTO product_supplier_future(product_id_psp, supplier_id_psp,dod, quantity)
-        	VALUES(p_id, s_id, p_dod, p_quantity);
+	INSERT INTO product_supplier_future(product_id_psp, supplier_id_psp,dod, quantity)
+	VALUES(p_id, s_id, p_dod, p_quantity);
 	END IF;
 END &&
 DELIMITER &&
@@ -94,13 +89,8 @@ CREATE PROCEDURE register_new_employee (IN e_id VARCHAR(10), e_name VARCHAR(75),
     -- update employee table
 	DECLARE is_deleted BOOLEAN;
 	SELECT is_del INTO is_deleted FROM employee WHERE e_id = id;
-	IF THEN
-		SIGNAL SQLSTATE '45000'
-		SET MESSAGE_TEXT = 'ERROR: Consider using a new ID and/or VAT';
-	ELSE
-		INSERT INTO employee (id, name, vat, birth, street, locale, postal, employee_id_e)
-		VALUES (e_id,e_name,e_vat,e_birth,e_street,e_locale,e_postal,e_employee_id_e);
-	END IF;
+	INSERT INTO employee (id, name, vat, birth, street, locale, postal, employee_id_e)
+	VALUES (e_id,e_name,e_vat,e_birth,e_street,e_locale,e_postal,e_employee_id_e);
 END &&
 
 DELIMITER &&
