@@ -1,16 +1,15 @@
 USE mademoiselle_borges;
 
-
--- check who manages an employee (43)
+-- check who manages an Employee (43)
 DELIMITER &&
 CREATE FUNCTION check_manager (id VARCHAR(10))
 RETURNS VARCHAR(10)
 DETERMINISTIC
  BEGIN
     DECLARE manager VARCHAR(10);
-    SELECT employee_id_e INTO manager
-        FROM employee AS E
-        WHERE id = E.id;
+    SELECT EmployeeID_e INTO manager
+        FROM Employee AS E
+        WHERE id = E.EmployeeID;
     RETURN manager;
 END &&
 
@@ -18,15 +17,15 @@ END &&
 DELIMITER &&
 CREATE PROCEDURE check_products_in_sale (IN id INTEGER)
  BEGIN
-    SELECT product_id_sp
-        FROM sale_product
-        WHERE sale_id_sp = id;
+    SELECT ProductID_sp
+        FROM SaleProduct
+        WHERE ReceiptNO_sp = id;
 END &&
 
 -- check all closed sales (45)
-SELECT id
-	FROM sale
-	WHERE dos IS NOT NULL;
+SELECT ReceiptNO
+	FROM Sale
+	WHERE DateOfSale IS NOT NULL;
 
 -- check all participants of a given event (46)
 -- DROP PROCEDURE  IF EXISTS check_parts_in_ev ;
@@ -34,20 +33,20 @@ DELIMITER &&
 CREATE PROCEDURE check_parts_in_ev (IN id INTEGER)
   BEGIN
 		SELECT PA.id,PA.name
-			FROM event AS EV INNER JOIN sale AS S
-				ON S.dos BETWEEN EV.beg AND EV.fin
+			FROM EventCal AS EV INNER JOIN Sale AS S
+				ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventEnd
 				INNER JOIN participant AS PA
-					ON PA.id = participant_id_s
-				INNER JOIN sale_product AS SP
-					ON S.id = SP.sale_id_sp
+					ON PA.id = ParticipantID_s
+				INNER JOIN SaleProduct AS SP
+					ON S.ReceiptNO = SP.ReceiptNO_sp
 				INNER JOIN product AS PR
-					ON PR.id = SP.product_id_sp AND EV.name = PR.name
-			WHERE id = EV.id;
+					ON PR.ProductID = SP.ProductID_sp AND EV.EventName = PR.ParticipantName
+			WHERE id = EV.EventID;
 END &&
 
 -- check all participants of all events (47)
-SELECT id, name
-	FROM participant;
+SELECT ParticipantID, ParticipantName
+	FROM Participant;
 
 -- check participant associated with a specific sale (48)
 DELIMITER &&
@@ -56,41 +55,41 @@ RETURNS INTEGER
 DETERMINISTIC
   BEGIN 
      DECLARE partic INTEGER;
-     SELECT participant_id_s INTO partic
-         FROM sale AS S
-         WHERE S.id = id;
+     SELECT ParticipantID_s INTO partic
+         FROM Sale AS S
+         WHERE S.ReceiptNO = id;
      RETURN partic;
 END &&
 
 -- check all products (49)
-SELECT id, name
- FROM product;
+SELECT ProductID, ProductName
+ FROM Product;
 
 -- check suppliers of a product (50)
 DELIMITER &&
 CREATE PROCEDURE check_product_suppliers (IN id INTEGER) 
 	BEGIN
-     SELECT PSP.id, PSP.name, PSF.id, PSF.name
-         FROM product_supplier_past AS PSP INNER JOIN product_supplier_future AS PSF
-			ON PSP.product_id_psp = id AND PSF.product_id_psf = id;
+     SELECT PSP.ProductID_psp, PSF.ProductID_psf
+         FROM ProductSupplierPast AS PSP INNER JOIN ProductSupplierFuture AS PSF
+			ON PSP.ProductID_psp = id AND PSF.ProductID_psf = id;
 END &&
 
 -- check past suppliers of a product (51)
 DELIMITER &&
 CREATE PROCEDURE check_past_suppliers_prod (IN id INTEGER)
 	BEGIN
-	SELECT PSP.id, PSP.name
-		FROM product_supplier_past AS PSP
-		WHERE PSP.id = id;
+	SELECT PSP.ProductID_psp, PSP.name
+		FROM ProductSupplierPast AS PSP
+		WHERE PSP.ProductID_psp = id;
 END &&
 
 -- check future supppliers of a product (52)
 DELIMITER &&
 CREATE PROCEDURE check_fut_suppliers_prod (IN id INTEGER)
 	BEGIN
-	SELECT PSF.id, PSP.name
-		FROM product_supplier_future AS PSF
-		WHERE PSF.id = id;
+	SELECT PSF.ProductID_psf
+		FROM ProductSupplierFuture AS PSF
+		WHERE PSF.ProductID_psf = id;
 END &&
 
 -- check all sales associated with a participant (53)
@@ -98,55 +97,55 @@ DELIMITER &&
 CREATE PROCEDURE check_all_participant_sales (IN id INTEGER)
   BEGIN
      SELECT *
-         FROM sale AS S
-         WHERE S.participant_id_s = id;
+         FROM Sale AS S
+         WHERE S.ParticipantID_s = id;
 END &&
 
 -- check all suppliers (54)
-SELECT id, name
- FROM supplier;
--- check all employees (55)
-SELECT id, name
-	FROM employee;
+SELECT SupplierID, SupplierName
+ FROM Supplier;
+-- check all Employees (55)
+SELECT EmployeeID, EmployeeName
+	FROM Employee;
 -- check all events (56)
-SELECT id, name
-	FROM event;
+SELECT EventID, EventName
+	FROM EventCal;
 
 -- check sale values and volume in a given day (57 and 58)
 DELIMITER &&
 CREATE PROCEDURE check_daily_sales (IN dos DATE)
   BEGIN
-     SELECT SUM(S.value) AS Value, SUM(S.quantity) AS Volume
-         FROM sale AS S
-         WHERE YEAR(S.dos) = YEAR(dos) AND MONTH(S.dos) = MONTH(dos) AND DAY(S.dos) = DAY(dos);
+     SELECT SUM(S.TotalValue) AS Value, SUM(S.TotalQuantity) AS Volume
+         FROM Sale AS S
+         WHERE YEAR(S.DateOfSale) = YEAR(S.DateOfSale) AND MONTH(S.DateOfSale) = MONTH(S.DateOfSale) AND DAY(S.DateOfSale) = DAY(S.DateOfSale);
 END &&
 
 -- check participant with highest volume sales associated (59)
-SELECT P.id, P.name, SUM(S.quantity) AS Volume
-	FROM sale AS S INNER JOIN participant AS P
-		ON P.id = S.participant_id_s
-	GROUP BY P.id
+SELECT P.ParticipantID, P.ParticipantName, SUM(S.TotalQuantity) AS Volume
+	FROM Sale AS S INNER JOIN Participant AS P
+		ON P.ParticipantID = S.ParticipantID_s
+	GROUP BY P.ParticipantID
 		ORDER BY Volume DESC -- COUNT(P.id = S.participant_id_s) DESC
 LIMIT 1;
 
 -- check which event has most volume sales (60)
-SELECT EV.id, EV.name, SUM(SP.quantity) AS quant
-	FROM event AS EV INNER JOIN sale AS S
-		INNER JOIN sale_product AS SP
-			ON SP.sale_id_sp = S.id 
-		INNER JOIN product AS P
-			ON P.id = SP.product_id_sp 
-	WHERE EV.name = P.name
-		GROUP BY EV.id, EV.name
+SELECT EV.EventID, EV.EventName, SUM(SP.Quantity) AS quant
+	FROM EventCal AS EV INNER JOIN Sale AS S
+		INNER JOIN SaleProduct AS SP
+			ON SP.ReceiptNO_sp = S.ReceiptNO 
+		INNER JOIN Product AS P
+			ON P.ProductID = SP.ProductID_sp 
+	WHERE EV.EventName = P.ProductName
+		GROUP BY EV.EventID, EV.EventName
 			ORDER BY quant DESC
 LIMIT 1;
 
 -- check event with highest rate participation (61)
-SELECT EV.id, EV.name, SUM(SP.quantity) / EV.capacity * 100 AS rate
-	FROM event as EV INNER JOIN sale_product as SP
-		INNER JOIN product AS P
-			ON P.id = SP.product_id_sp and P.name = EV.name
-		GROUP BY EV.id, EV.name
+SELECT EV.EventID, EV.name, SUM(SP.Quantity) / EV.Capacity * 100 AS rate
+	FROM EventCal as EV INNER JOIN SaleProduct as SP
+		INNER JOIN Product AS P
+			ON P.ProductID = SP.ProductID_sp and P.ProductName = EV.EventName
+		GROUP BY EV.EventID, EV.EventName
 			ORDER BY rate DESC
 		LIMIT 1
 
@@ -154,58 +153,56 @@ SELECT EV.id, EV.name, SUM(SP.quantity) / EV.capacity * 100 AS rate
 DELIMITER &&
 CREATE PROCEDURE EventsInTimespan(IN firstday DATETIME, IN lastday DATETIME)
  BEGIN
-	SELECT id, name 
-		FROM event
-        WHERE TIMEDIFF(lastday,firstday) > '00:00:00' AND 
-			 (TIMEDIFF(firstday,beg) >= '00:00:00' AND TIMEDIFF(lastday,fin) <= '00:00:00') OR
-			 (TIMEDIFF(firstday,beg) < '00:00:00' AND TIMEDIFF(lastday,fin) <= '00:00:00' AND TIMEDIFF(lastday,beg) > '00:00:00') OR 
-			 (TIMEDIFF(firstday,beg) >= '00:00:00' AND TIMEDIFF(firstday,fin) < '00:00:00' AND TIMEDIFF(lastday,fin) > '00:00:00');
- END&&
+	SELECT EventID, EventName 
+		FROM EventCal AS EV
+			WHERE (EV.EventStart BETWEEN firstday AND lastday) AND
+				  (EV.EventEnd BETWEEN firstday AND lastday);
+ END
+ &&
 
 -- check who sold the most tickets in Event (72)
 DELIMITER &&
 CREATE PROCEDURE GetSoldMostInEv (id INTEGER)
 	BEGIN
-		SELECT Em.id AS ID, Em.name AS nome
-			FROM event AS Ev 
-            INNER JOIN event_employee AS EE
-				ON id = Ev.id = EE.event_id_ee 
-			INNER JOIN employee AS Em
-				ON EE.employee_id_ee = Em.id
-			INNER JOIN sale AS S
-				ON Em.id = S.employee_id_s
-			GROUP BY ID, nome
-				ORDER BY SUM(S.quantity);
+		SELECT E.EmployeeID AS EmployeeID, E.EmployeeName AS EmployeeName
+			FROM EventCal AS EV 
+            INNER JOIN EventEmployee AS EE
+				ON id = EV.EventID = EE.EventID_ee 
+			INNER JOIN Employee AS E
+				ON EE.EmployeeID_ee = E.EmployeeID
+			INNER JOIN Sale AS S
+				ON E.EventID = S.EmployeeID_s
+			GROUP BY EmployeeID, EmployeeName
+				ORDER BY SUM(S.Quantity);
 	
 	END
 &&
 
-
 -- events someone participated in (81)
-DELIMITER $$
+DELIMITER &&
 CREATE PROCEDURE check_events_participated(IN idP INTEGER)
 BEGIN
-	SELECT EV.id, EV.name
-		FROM event AS EV
-        INNER JOIN sale as S
-			ON S.dos BETWEEN EV.beg AND EV.fin
-		INNER JOIN sale_product as SP
-			ON S.id=SP.sale_id_sp
-		INNER JOIN product as PR
-			ON SP.product_id_sp = PR.id AND PR.name = EV.name
-		INNER JOIN participant as P
-			ON S.participant_id_s = P.id
-		WHERE P.id = idP;
+	SELECT EV.EventID, EV.EventName
+		FROM EventCal AS EV
+        INNER JOIN Sale as S
+			ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventFin
+		INNER JOIN SaleProduct as SP
+			ON S.ReceiptNO = SP.ReceiptNO_sp
+		INNER JOIN Product as PR
+			ON SP.ProductID_sp = PR.ProductID AND PR.ProductName = EV.EventName
+		INNER JOIN Participant as P
+			ON S.ParticipantID_s = P.ParticipantID
+		WHERE P.ParticipantID = idP;
 END
-$$
+&&
 
--- check who an employee manages (92)
+-- check who an Employee manages (92)
 DELIMITER &&
 CREATE PROCEDURE check_managed_by (IN id VARCHAR(10))
   BEGIN
      SELECT *
-        FROM employee AS E
-        WHERE E.employee_id_e = id;
+        FROM Employee AS E
+			WHERE E.EmployeeID_e = id;
 END &&
 
 -- check the participant with the highest value in sales (93)
@@ -217,21 +214,18 @@ SELECT P.id, P.name, SUM(S.Val) AS totVal
 LIMIT 1;
 
 -- check the event with the most value in sales (94)
-SELECT E.id, E.name, SUM(S.Val) AS totVal
+SELECT E.EmployeeID, E.name, SUM(S.Val) AS totVal
 	FROM event AS E INNER JOIN sale as S
 		ON S.dos BETWEEN E.beg AND E.fin
-	GROUP BY E.id, E.name
+	GROUP BY E.EmployeeID, E.name
 		ORDER BY totVal DESC
 LIMIT 1;
 
--- check on employee sales (98)
+-- check on Employee sales (98)
 DELIMITER &&
-CREATE PROCEDURE check_employee_sales (IN id VARCHAR(10))
+CREATE PROCEDURE check_Employee_sales (IN id VARCHAR(10))
  BEGIN 
     SELECT S.id
         FROM sale
-        WHERE employee_id_s = id;
+			WHERE Employee_id_s = id;
 END &&
-
-DROP FUNCTION GetSoldMostInEv;
-SELECT GetSoldMostInEv(1);
