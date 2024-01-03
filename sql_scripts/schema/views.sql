@@ -1,26 +1,12 @@
 -- (65)
 CREATE VIEW total_event_sale_value AS
-	SELECT EV.id AS event_id, SUM(S.val) AS total_value
-		FROM event AS EV INNER JOIN sale AS S
-			ON S.dos BETWEEN EV.beg AND EV.fin
-	GROUP BY EV.id;
+	SELECT EV.EventID AS EventID, SUM(S.TotalValue) AS TotalValue
+		FROM EventCal AS EV INNER JOIN Sale AS S
+			ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventEnd
+	GROUP BY EV.EventID;
 
--- (78)
-CREATE VIEW past_events AS
-	SELECT * FROM event AS EV
-		WHERE EV.fin < CURDATE();
-
--- (79)
-CREATE VIEW ongoing_events AS
-	SELECT * FROM event AS EV
-		WHERE CURDATE() BETWEEN EV.beg AND EV.fin;
-       
--- (80)
-CREATE VIEW future_events AS
-	SELECT * FROM event AS EV
-		WHERE CURDATE() < EV.beg;
-        
--- (89)
-CREATE VIEW total_sale_value AS
-	SELECT SUM(S.val) AS total_value
-		FROM sale AS S;
+CREATE VIEW employee_sales AS
+	SELECT E.EmployeeID AS EmployeeID, E.EmployeeName AS EmployeeName, SUM(S.TotalValue) AS TotalValue
+		FROM Employee AS E INNER JOIN Sale AS S
+			ON E.EmployeeID = S.EmployeeID_s
+	GROUP BY E.EmployeeID;
