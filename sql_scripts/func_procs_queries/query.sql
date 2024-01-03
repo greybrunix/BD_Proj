@@ -155,8 +155,7 @@ CREATE PROCEDURE EventsInTimespan(IN firstday DATETIME, IN lastday DATETIME)
  BEGIN
 	SELECT EventID, EventName 
 		FROM EventCal AS EV
-			WHERE (EV.EventStart BETWEEN firstday AND lastday) AND
-				  (EV.EventEnd BETWEEN firstday AND lastday);
+			WHERE firstday <= EV.EventStart <= EV.EventEnd <= lastday;
  END
  &&
 
