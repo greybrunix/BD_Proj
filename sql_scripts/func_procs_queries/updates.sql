@@ -23,8 +23,8 @@ CREATE PROCEDURE register_reservation_exis_product (IN p_id INTEGER,
 	SELECT is_del INTO is_deleted FROM product WHERE id = p_id;
 	INSERT INTO product_supplier_future(product_id_psp, supplier_id_psp,dod, quantity)
 	VALUES(p_id, s_id, p_dod, p_quantity);
-	END IF;
 END &&
+
 DELIMITER &&
 CREATE PROCEDURE register_delivery_product (IN p_id INTEGER,
        p_stock INTEGER, s_id INTEGER, p_dod DATETIME, p_quantity INTEGER)
@@ -80,16 +80,13 @@ CREATE PROCEDURE register_sale (IN s_id INTEGER, s_dos DATETIME)
 	
 END &&
 
-
 DELIMITER &&
 CREATE PROCEDURE register_new_employee (IN e_id VARCHAR(10), e_name VARCHAR(75),
        e_vat VARCHAR(9), e_birth   DATE, e_street   VARCHAR(50),
        e_locale   VARCHAR(30), e_postal   VARCHAR(15), e_employee_id_e   VARCHAR(10))
   BEGIN
     -- update employee table
-	DECLARE is_deleted BOOLEAN;
-	SELECT is_del INTO is_deleted FROM employee WHERE e_id = id;
-	INSERT INTO employee (id, name, vat, birth, street, locale, postal, employee_id_e)
+	INSERT INTO Employee (EmployeeID, EmployeeName, EmployeeVAT, EmployeeBirthDate, Street, Locale, PostalCode, EmployeeID_e)
 	VALUES (e_id,e_name,e_vat,e_birth,e_street,e_locale,e_postal,e_employee_id_e);
 END &&
 
@@ -99,15 +96,15 @@ CREATE PROCEDURE register_new_event (IN e_name VARCHAR(75),
         e_beg DATETIME, e_fin DATETIME, e_capacity INTEGER,
 	t_descr TEXT, t_price DECIMAL(5,2))
   BEGIN
+		DECLARE t_stock INT;
         -- update with new event
-        INSERT INTO event (name, descr, beg, fin, capacity)
+        INSERT INTO EventCal (EventName, EventDescription, EventStart, EventEnd, Capacity)
         VALUES (e_name, e_descr, e_beg, e_fin , e_capacity);
-	IF e_capacity = 0 THEN
-		SET @t_stock = 4294967295; -- max int
-	ELSE 
-		SET @t_stock = e_capacity;
+	
+		SET t_stock = e_capacity;
+    IF e_capacity = 0 THEN
+		SET t_stock = 94967294; -- max int
 	END IF;
-	INSERT INTO product (name, descr, price, stock)
+	INSERT INTO Product (ProductName, ProductDescription, BasePrice, QuantityInStock)
 	VALUES (e_name, t_descr, t_price, t_stock);
 END &&
-
