@@ -117,7 +117,7 @@ CREATE PROCEDURE check_daily_sales (IN dos DATE)
   BEGIN
      SELECT SUM(S.TotalValue) AS Value, SUM(S.TotalQuantity) AS Volume
          FROM Sale AS S
-         WHERE YEAR(S.DateOfSale) = YEAR(S.DateOfSale) AND MONTH(S.DateOfSale) = MONTH(S.DateOfSale) AND DAY(S.DateOfSale) = DAY(S.DateOfSale);
+         WHERE YEAR(S.DateOfSale) = YEAR(dos) AND MONTH(S.DateOfSale) = MONTH(dos) AND DAY(S.DateOfSale) = DAY(dos);
 END &&
 
 -- check participant with highest volume sales associated (59)
