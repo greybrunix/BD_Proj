@@ -25,8 +25,11 @@ GRANT INSERT ON mademoiselle_borges.SaleProduct TO 'employee'@'localhost';
 GRANT INSERT ON mademoiselle_borges.Product TO 'employee'@'localhost';
 GRANT INSERT ON mademoiselle_borges.ProductSupplierPast TO 'employee'@'localhost';
 GRANT INSERT ON mademoiselle_borges.Supplier TO 'employee'@'localhost';
-GRANT INSERT ON mademoiselle_borges.SupploerEmail TO 'employee'@'localhost';
+GRANT INSERT ON mademoiselle_borges.SupplierEmail TO 'employee'@'localhost';
 GRANT INSERT ON mademoiselle_borges.SupplierPhone TO 'employee'@'localhost';
+
+GRANT SELECT ON mademoiselle_borges.EventCal TO 'marketing'@'localhost';
+GRANT INSERT ON mademoiselle_borges.EventCal TO 'marketing'@'localhost';
 
 SHOW GRANTS FOR 'guest'@'localhost';
 FLUSH PRIVILEGES;
