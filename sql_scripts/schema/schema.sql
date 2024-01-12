@@ -123,7 +123,7 @@ CREATE TABLE Supplier (
 CREATE TABLE ProductSupplierPast(
         ProductID_psp INTEGER NOT NULL,
         SupplierID_psp INTEGER NOT NULL,
-        DateOfDelivery DATE NOT NULL, -- date of delivery
+        DateOfDelivery DATETIME NOT NULL, -- date of delivery
 	Quantity INTEGER NOT NULL,
         CONSTRAINT comp_key PRIMARY KEY (ProductID_psp,
 		SupplierID_psp,
@@ -137,8 +137,8 @@ CREATE TABLE ProductSupplierPast(
 CREATE TABLE ProductSupplierFuture (
         ProductID_psf INTEGER NOT NULL,
         SupplierID_psf INTEGER NOT NULL,
-        DateOfReservation DATE NOT NULL, -- date of reservation
-	DateOfSchedule DATE NOT NULL, -- expected date
+        DateOfReservation DATETIME NOT NULL, -- date of reservation
+	DateOfSchedule DATETIME NOT NULL, -- expected date
         Quantity INTEGER NOT NULL,
         CONSTRAINT comp_key PRIMARY KEY (ProductID_psf,
 		SupplierID_psf,
