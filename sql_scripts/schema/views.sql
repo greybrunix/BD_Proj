@@ -62,6 +62,20 @@ CREATE VIEW employee_full AS
         ON E.EmployeeID = Phone.EmployeeID_ep
         GROUP BY E.EmployeeID;
         
--- SELECT * FROM employee_full;
+CREATE VIEW ParticipantFull AS
+	SELECT P.*, GROUP_CONCAT(Email.Email, Phone.Phone) AS Contacts
+		FROM Participant AS P LEFT OUTER JOIN ParticipantPhone AS Phone
+		ON P.ParticipantID = Phone.ParticipantID_pp
+		LEFT OUTER JOIN ParticipantEmail AS Email
+		ON P.ParticipantID = Email.ParticipantID_pem
+		GROUP BY P.ParticipantID;
+
+CREATE VIEW SupplierFull AS
+	SELECT S.*, GROUP_CONCAT(Email.Email, Phone.Phone) AS Contacts
+		FROM Supplier AS S LEFT OUTER JOIN SupplierEmail AS Email
+		ON S.SupplierID = Email.SupplierID_sem
+		LEFT OUTER JOIN SupplierPhone AS Phone
+		ON S.SupplierID = Phone.SupplierID_sp
+		GROUP BY S.SupplierID;
 
 -- view para sale sem valores
