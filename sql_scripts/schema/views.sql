@@ -31,7 +31,7 @@ CREATE VIEW manager_employee AS
 	GROUP BY E.EmployeeID, E.EmployeeID_e;
 
 CREATE VIEW event_volume AS
-	SELECT EC.EventID AS EventID, SUM(S.TotalValue) AS TotalSales
+	SELECT EC.EventID AS EventID, SUM(S.TotalQuantity) AS TotalQuantity
 		FROM EventCal As EC INNER JOIN Sale AS S
 			ON S.DateOfSale BETWEEN EC.EventStart AND EC.EventEnd
 	GROUP BY EC.EventID;
