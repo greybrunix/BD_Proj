@@ -78,4 +78,6 @@ CREATE VIEW SupplierFull AS
 		ON S.SupplierID = Phone.SupplierID_sp
 		GROUP BY S.SupplierID;
 
--- view para sale sem valores
+CREATE VIEW SaleNoValue AS
+	SELECT S.ReceiptNO AS ReceiptNO, S.TotalQuantity AS TotalQuantity, S.DateOfSale AS DateOfSale, S.EmployeeID_s AS EmployeeID, S.ParticipantID_s AS ParticipantID
+		FROM Sale AS S;
