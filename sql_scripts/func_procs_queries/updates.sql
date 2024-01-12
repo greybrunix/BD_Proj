@@ -12,7 +12,7 @@ BEGIN
 	INSERT INTO Product(ProductName, ProductDescription, BasePrice, QuantityInStock)
 	VALUES(product_name, descript, base_price, "0");
 
-	SET @product_id = SELECT LAST_INSERT_ID();
+	SET @product_id = LAST_INSERT_ID();
 	SET @check_error = (product_id = (SELECT ProductID FROM Product ORDER BY ProductID DESC
 		LIMIT 1));
 
