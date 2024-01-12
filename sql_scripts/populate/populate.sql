@@ -13,3 +13,12 @@ CALL register_new_employee("ADMIN00002", "Maria Ivanovna Ivanova",
                            "129293919", "1999-04-13", "Rua do blah",
                            "Eventopolis", "1111-111", NULL);
 
+CALL register_new_employee("JANIT00001", "Jacinto Ivanovich",
+						   "192382742", "1999-04-13", "Rua do blah",
+                           "Eventopolis", "1111-111", "ADMIN00001");
+CALL register_new_employee("JANIT00002", "Jacinto Ivanovich Sr",
+						   "192382743", "1999-04-13", "Rua do blah",
+                           "Eventopolis", "1111-111", "ADMIN00001");
+CALL register_new_employee("JANIT00003", "Jacinto Ivanovich Jr",
+						   "192382744", "1999-04-13", "Rua do blah",
+                           "Eventopolis", "1111-111", "ADMIN00002");

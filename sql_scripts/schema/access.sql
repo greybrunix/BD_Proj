@@ -55,3 +55,5 @@ DELIMITER ;
 
 SHOW GRANTS FOR 'guest'@'localhost';
 FLUSH PRIVILEGES;
+
+-- select product para clientes e funcionários

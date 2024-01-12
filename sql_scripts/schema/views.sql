@@ -25,10 +25,15 @@ CREATE VIEW purchase_history AS
 			ON S.ParticipantID_s = P.ParticipantID
 	GROUP BY P.ParticipantID, S.ReceiptNO;
     
-CREATE VIEW manager_employee AS
-	SELECT E.EmployeeID As EmployeeID, E.EmployeeID_e AS ManagerID
-		FROM Employee AS E
-	GROUP BY E.EmployeeID, E.EmployeeID_e;
+-- DROP VIEW IF EXISTS manager_employees;
+CREATE VIEW manager_employees AS
+    SELECT E.EmployeeID AS ManagerEmployeeID,
+		   GROUP_CONCAT(Ei.EmployeeID) AS ManagedEmployeeIDs
+    FROM Employee AS E LEFT OUTER JOIN Employee AS Ei
+    ON Ei.EmployeeID_e = E.EmployeeID
+    WHERE Ei.EmployeeID IS NOT NULL
+    GROUP BY E.EmployeeID;
+-- SELECT * FROM manager_employees;
 
 CREATE VIEW event_volume AS
 	SELECT EC.EventID AS EventID, SUM(S.TotalQuantity) AS TotalQuantity
@@ -47,3 +52,16 @@ CREATE VIEW failed_reservations AS
 		FROM ProductSupplierPast AS PSP INNER JOIN ProductSupplierFuture AS PSF
 			ON PSF.ProductID_psf NOT IN (PSF.ProductID_psf)
 				WHERE PSF.DateOfSchedule < CURDATE();
+                
+-- view para tabelas com tabelas dependentes
+CREATE VIEW employee_full AS
+	SELECT E.*, GROUP_CONCAT(Email.Email, Phone.Phone) AS Contacts
+    FROM Employee AS E LEFT OUTER JOIN EmployeeEmail AS Email
+		ON E.EmployeeID = Email.EmployeeID_eem
+        LEFT OUTER JOIN EmployeePhone AS Phone
+        ON E.EmployeeID = Phone.EmployeeID_ep
+        GROUP BY E.EmployeeID;
+        
+-- SELECT * FROM employee_full;
+
+-- view para sale sem valores
