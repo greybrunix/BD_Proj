@@ -6,22 +6,28 @@ CREATE PROCEDURE register_reservation_new_product (IN product_name VARCHAR(75),
 	stock INT, dateofreservation DATETIME)
 BEGIN
 	DECLARE product_id INTEGER;
-	DECLARE check_error BOOLEAN;
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
 	START TRANSACTION;
 
 	INSERT INTO Product(ProductName, ProductDescription, BasePrice, QuantityInStock)
 	VALUES(product_name, descript, base_price, "0");
 
-	SET @product_id = LAST_INSERT_ID();
-	SET @check_error = (product_id = (SELECT ProductID FROM Product ORDER BY ProductID DESC
-		LIMIT 1));
 
-	IF check_error = TRUE THEN
+	IF check_error = FALSE THEN
+
+		SET @product_id = SELECT ProductID FROM Product ORDER BY ProductID DESC
+			LIMIT 1;
 
 		INSERT INTO ProductSupplierFuture(ProductID_psf,SupplierID_psf,DateOfReservation,
 			DateOfSchedule, Quantity)
 		VALUES(product_id, supplierid, dateofreservation, dateofschedule, stock);
-		COMMIT;
+
+		IF check_error = FALSE THEN
+			COMMIT;
+		ELSE
+			ROLLBACK;
+		END IF;
 
 	ELSE
 		ROLLBACK;
@@ -33,17 +39,27 @@ CREATE PROCEDURE register_reservation_exis_product (IN productid INTEGER,
 	supplierid INTEGER, dateofschedule DATETIME, dateofreservation DATETIME, quantity INTEGER)
 BEGIN
 	-- update the future supplies table
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
 	START TRANSACTION;
+
 	INSERT INTO product_supplier_future(ProductID_psf, SupplierID_psf,
 		DateOfSchedule, DateOfReservation, Quantity)
 	VALUES(productid, supplierid, dateofschedule, dateofreservation, quantity);
-	COMMIT;
+
+	IF check_error = TRUE THEN
+		COMMIT;
+	ELSE
+		ROLLBACK;
+	END IF;
 END &&
 
 DELIMITER &&
 CREATE PROCEDURE register_delivery_product (IN p_id INTEGER,
 	p_stock INTEGER, s_id INTEGER, p_dod DATETIME, p_quantity INTEGER)
 BEGIN
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
 	START TRANSACTION;
 	UPDATE product
 	SET stock = p_stock + p_quantity
@@ -56,11 +72,16 @@ END &&
 
 -- Missing something to create participants
 DELIMITER &&
+
+END &&
+DELIMITER &&
 CREATE PROCEDURE add_prod_to_new_shopping_cart(IN pa_id INTEGER,
 	e_id VARCHAR(10), pd_id INTEGER, quant INTEGER)
 BEGIN
-	START TRANSACTION;
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
 	DECLARE cur_stock INTEGER;
+	START TRANSACTION;
 	INSERT INTO sale(employee_id_s, participant_id_s)
 	VALUES(e_id, pd_id);
 
@@ -84,9 +105,11 @@ DELIMITER &&
 CREATE PROCEDURE register_sale (IN s_id INTEGER, s_dos DATETIME)
 BEGIN
 	-- update sale table
-	START TRANSACTION;
 	DECLARE s_totval DECIMAL(5,2);
 	DECLARE s_totquant INTEGER;
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
+	START TRANSACTION;
 	SELECT (SP.quantity * SP.val) INTO s_totval
 		FROM sale_product AS SP INNER JOIN sale AS S
 		ON s_id = S.id = SP.sale_id_sp;
@@ -100,18 +123,6 @@ BEGIN
 	
 END &&
 
-DELIMITER &&
-CREATE PROCEDURE register_new_employee (IN e_id VARCHAR(10), e_name VARCHAR(75),
-	e_vat VARCHAR(9), e_birth   DATE, e_street   VARCHAR(50),
-	e_locale   VARCHAR(30), e_postal   VARCHAR(15), e_employee_id_e   VARCHAR(10))
-BEGIN
-	-- update employee table
-	START TRANSACTION;
-	INSERT INTO Employee (EmployeeID, EmployeeName, EmployeeVAT, 
-		EmployeeBirthDate, Street, Locale, PostalCode, EmployeeID_e)
-	VALUES (e_id,e_name,e_vat,e_birth,e_street,e_locale,e_postal,e_employee_id_e);
-	COMMIT;
-END &&
 
 DELIMITER &&
 CREATE PROCEDURE register_new_event (IN e_name VARCHAR(75),
@@ -119,8 +130,10 @@ CREATE PROCEDURE register_new_event (IN e_name VARCHAR(75),
 	e_beg DATETIME, e_fin DATETIME, e_capacity INTEGER,
 	t_descr TEXT, t_price DECIMAL(5,2))
 BEGIN
-	START TRANSACTION;
 	DECLARE t_stock INT;
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
+	START TRANSACTION;
 	-- update with new event
 	INSERT INTO EventCal (EventName, EventDescription, EventStart, EventEnd, Capacity)
 	VALUES (e_name, e_descr, e_beg, e_fin , e_capacity);
