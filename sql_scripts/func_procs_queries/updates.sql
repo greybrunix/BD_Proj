@@ -29,25 +29,29 @@ BEGIN
 END &&
 
 DELIMITER &&
-CREATE PROCEDURE register_reservation_exis_product (IN p_id INTEGER,
-	s_id INTEGER, p_dod DATETIME, p_quantity INTEGER)
+CREATE PROCEDURE register_reservation_exis_product (IN productid INTEGER,
+	supplierid INTEGER, dateofschedule DATETIME, dateofreservation DATETIME, quantity INTEGER)
 BEGIN
 	-- update the future supplies table
-	INSERT INTO product_supplier_future(product_id_psp, supplier_id_psp,dod, quantity)
-	VALUES(p_id, s_id, p_dod, p_quantity);
+	START TRANSACTION;
+	INSERT INTO product_supplier_future(ProductID_psf, SupplierID_psf,
+		DateOfSchedule, DateOfReservation, Quantity)
+	VALUES(productid, supplierid, dateofschedule, dateofreservation, quantity);
+	COMMIT;
 END &&
 
 DELIMITER &&
 CREATE PROCEDURE register_delivery_product (IN p_id INTEGER,
 	p_stock INTEGER, s_id INTEGER, p_dod DATETIME, p_quantity INTEGER)
 BEGIN
-	-- update the remaining stock of the given product
+	START TRANSACTION;
 	UPDATE product
 	SET stock = p_stock + p_quantity
 	WHERE id = p_id;
-	-- 
+
 	INSERT INTO product_supplier_past(product_id_psp, supplier_id_psp,dod, quantity)
 	VALUES(p_id, s_id, p_dod, p_quantity);
+	COMMIT;
 END &&
 
 -- Missing something to create participants
@@ -55,6 +59,7 @@ DELIMITER &&
 CREATE PROCEDURE add_prod_to_new_shopping_cart(IN pa_id INTEGER,
 	e_id VARCHAR(10), pd_id INTEGER, quant INTEGER)
 BEGIN
+	START TRANSACTION;
 	DECLARE cur_stock INTEGER;
 	INSERT INTO sale(employee_id_s, participant_id_s)
 	VALUES(e_id, pd_id);
@@ -71,6 +76,7 @@ BEGIN
 	UPDATE product
 	SET stock = stock - quant
 	WHERE id = p;
+	COMMIT;
 
 END &&
 
@@ -78,6 +84,7 @@ DELIMITER &&
 CREATE PROCEDURE register_sale (IN s_id INTEGER, s_dos DATETIME)
 BEGIN
 	-- update sale table
+	START TRANSACTION;
 	DECLARE s_totval DECIMAL(5,2);
 	DECLARE s_totquant INTEGER;
 	SELECT (SP.quantity * SP.val) INTO s_totval
@@ -89,6 +96,7 @@ BEGIN
 	UPDATE sale
 	SET val = s_totval, quantity = s_totquant, dos = s_dos
 	where id = s_id;
+	COMMIT;
 	
 END &&
 
@@ -98,8 +106,11 @@ CREATE PROCEDURE register_new_employee (IN e_id VARCHAR(10), e_name VARCHAR(75),
 	e_locale   VARCHAR(30), e_postal   VARCHAR(15), e_employee_id_e   VARCHAR(10))
 BEGIN
 	-- update employee table
-	INSERT INTO Employee (EmployeeID, EmployeeName, EmployeeVAT, EmployeeBirthDate, Street, Locale, PostalCode, EmployeeID_e)
+	START TRANSACTION;
+	INSERT INTO Employee (EmployeeID, EmployeeName, EmployeeVAT, 
+		EmployeeBirthDate, Street, Locale, PostalCode, EmployeeID_e)
 	VALUES (e_id,e_name,e_vat,e_birth,e_street,e_locale,e_postal,e_employee_id_e);
+	COMMIT;
 END &&
 
 DELIMITER &&
@@ -108,6 +119,7 @@ CREATE PROCEDURE register_new_event (IN e_name VARCHAR(75),
 	e_beg DATETIME, e_fin DATETIME, e_capacity INTEGER,
 	t_descr TEXT, t_price DECIMAL(5,2))
 BEGIN
+	START TRANSACTION;
 	DECLARE t_stock INT;
 	-- update with new event
 	INSERT INTO EventCal (EventName, EventDescription, EventStart, EventEnd, Capacity)
@@ -119,4 +131,5 @@ BEGIN
 	END IF;
 	INSERT INTO Product (ProductName, ProductDescription, BasePrice, QuantityInStock)
 	VALUES (e_name, t_descr, t_price, t_stock);
+	COMMIT;
 END &&
