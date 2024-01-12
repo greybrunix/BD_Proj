@@ -15,5 +15,18 @@ GRANT  GRANT OPTION ON mademoiselle_borges.* TO 'mii'@'localhost';
 GRANT ALL PRIVILEGES  ON mademoiselle_borges.* TO 'hom'@'localhost';
 GRANT GRANT OPTION ON mademoiselle_borges.* TO 'hom'@'localhost';
 
+GRANT SELECT ON mademoiselle_borges.EventCal TO 'employee'@'localhost';
+GRANT INSERT ON mademoiselle_borges.EventCal TO 'employee'@'localhost';
+GRANT INSERT ON mademoiselle_borges.Sale TO 'employee'@'localhost';
+GRANT INSERT ON mademoiselle_borges.Participant TO 'employee'@'localhost';
+GRANT INSERT ON mademoiselle_borges.ParticipantPhone TO 'employee'@'localhost';
+GRANT INSERT ON mademoiselle_borges.ParticipantEmail TO 'employee'@'localhost';
+GRANT INSERT ON mademoiselle_borges.SaleProduct TO 'employee'@'localhost';
+GRANT INSERT ON mademoiselle_borges.Product TO 'employee'@'localhost';
+GRANT INSERT ON mademoiselle_borges.ProductSupplierPast TO 'employee'@'localhost';
+GRANT INSERT ON mademoiselle_borges.Supplier TO 'employee'@'localhost';
+GRANT INSERT ON mademoiselle_borges.SupploerEmail TO 'employee'@'localhost';
+GRANT INSERT ON mademoiselle_borges.SupplierPhone TO 'employee'@'localhost';
+
 SHOW GRANTS FOR 'guest'@'localhost';
 FLUSH PRIVILEGES;
