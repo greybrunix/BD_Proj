@@ -129,13 +129,10 @@ SELECT P.ParticipantID, P.ParticipantName, SUM(S.TotalQuantity) AS Volume
 LIMIT 1;
 
 -- check which event has most volume sales (60)
-SELECT EV.EventID, EV.EventName, SUM(SP.Quantity) AS quant
-	FROM EventCal AS EV INNER JOIN Sale AS S
-		INNER JOIN SaleProduct AS SP
-			ON SP.ReceiptNO_sp = S.ReceiptNO 
-		INNER JOIN Product AS P
-			ON P.ProductID = SP.ProductID_sp 
-	WHERE EV.EventName = P.ProductName
+SELECT EV.EventID, EV.EventName, SUM(S.TotalQuantity) AS quant
+	FROM EventCal AS EV 
+		INNER JOIN Sale AS S
+			ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventFin 
 		GROUP BY EV.EventID, EV.EventName
 			ORDER BY quant DESC
 LIMIT 1;
@@ -172,8 +169,8 @@ CREATE PROCEDURE GetSoldMostInEv (id INTEGER)
 			INNER JOIN Sale AS S
 				ON E.EventID = S.EmployeeID_s
 			GROUP BY EmployeeID, EmployeeName
-				ORDER BY SUM(S.Quantity);
-	
+				ORDER BY SUM(S.Quantity)
+			LIMIT 1;
 	END
 &&
 
@@ -214,8 +211,8 @@ LIMIT 1;
 
 -- check the event with the most value in sales (94)
 SELECT E.EmployeeID, E.name, SUM(S.Val) AS totVal
-	FROM event AS E INNER JOIN sale as S
-		ON S.dos BETWEEN E.beg AND E.fin
+	FROM EventCal AS E INNER JOIN sale as S
+		ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventFin
 	GROUP BY E.EmployeeID, E.name
 		ORDER BY totVal DESC
 LIMIT 1;
