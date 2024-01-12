@@ -31,5 +31,27 @@ GRANT INSERT ON mademoiselle_borges.SupplierPhone TO 'employee'@'localhost';
 GRANT SELECT ON mademoiselle_borges.EventCal TO 'marketing'@'localhost';
 GRANT INSERT ON mademoiselle_borges.EventCal TO 'marketing'@'localhost';
 
+DELIMITER //
+CREATE PROCEDURE grantRevokePermissions()
+BEGIN
+    IF (CURTIME() BETWEEN '07:00:00' AND '23:59:59') OR (CURTIME() BETWEEN '00:00:00' AND '02:00:00') THEN
+        GRANT USAGE ON mademoiselle_borges.* TO 'guest'@'localhost';
+        GRANT USAGE ON mademoiselle_borges.* TO 'marketing'@'localhost';
+        GRANT USAGE ON mademoiselle_borges.* TO 'employee'@'localhost';
+        GRANT USAGE ON mademoiselle_borges.* TO 'hom'@'localhost';
+        GRANT USAGE ON mademoiselle_borges.* TO 'mii'@'localhost';
+        GRANT USAGE ON mademoiselle_borges.* TO 'hen'@'localhost';
+    ELSE 
+        REVOKE USAGE ON mademoiselle_borges.* FROM 'guest'@'localhost';
+        REVOKE USAGE ON mademoiselle_borges.* FROM 'marketing'@'localhost';
+        REVOKE USAGE ON mademoiselle_borges.* FROM 'employee'@'localhost';
+        REVOKE USAGE ON mademoiselle_borges.* FROM 'hom'@'localhost';
+        REVOKE USAGE ON mademoiselle_borges.* FROM 'mii'@'localhost';
+        REVOKE USAGE ON mademoiselle_borges.* FROM 'hen'@'localhost';
+    END IF;
+END //
+DELIMITER ;
+
+
 SHOW GRANTS FOR 'guest'@'localhost';
 FLUSH PRIVILEGES;
