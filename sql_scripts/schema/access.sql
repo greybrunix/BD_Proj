@@ -3,8 +3,6 @@ USE mademoiselle_borges;
 CREATE ROLE admin;
 CREATE USER hen; -- Henrique Borges
 CREATE USER mii; -- MARIA IVANOVNA IVANOVA
-
-CREATE ROLE p_admin;
 CREATE USER hom; -- Herr Otto Mustermann
 
 CREATE ROLE employee;
