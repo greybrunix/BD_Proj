@@ -46,7 +46,7 @@ BEGIN
 		DateOfSchedule, DateOfReservation, Quantity)
 	VALUES(productid, supplierid, dateofschedule, dateofreservation, quantity);
 
-	IF check_error = TRUE THEN
+	IF check_error = FALSE THEN
 		COMMIT;
 	ELSE
 		ROLLBACK;
@@ -229,7 +229,7 @@ BEGIN
 	INSERT INTO Employee
 	VALUES (e_id, e_name, vat, bd, street, locale, postal, manager);
 
-	IF check_error = TRUE THEN
+	IF check_error = FALSE THEN
 		COMMIT;
 	ELSE
 		ROLLBACK;
