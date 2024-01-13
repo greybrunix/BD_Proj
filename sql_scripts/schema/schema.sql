@@ -97,6 +97,8 @@ CREATE TABLE Product (
         QuantityInStock INTEGER NOT NULL,
         PRIMARY KEY (ProductID)
 );
+Alter Table Product
+		Add Constraint Stock Check ( QuantityInStock >= 0 )
 
 CREATE TABLE SaleProduct (
         ReceiptNO_sp INTEGER NOT NULL,
