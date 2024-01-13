@@ -30,12 +30,14 @@ CREATE TABLE Employee (
 CREATE TABLE EmployeePhone (
         EmployeeID_ep VARCHAR(10) NOT NULL,
         Phone VARCHAR(20) NOT NULL UNIQUE,
+        PRIMARY KEY (EmployeeID_ep),
         FOREIGN KEY (EmployeeID_ep)
             REFERENCES Employee (EmployeeID)
 );
 CREATE TABLE EmployeeEmail (
         EmployeeID_eem VARCHAR(10) NOT NULL,
         Email VARCHAR(75) NOT NULL UNIQUE,
+        PRIMARY KEY (EmployeeID_eem),
         FOREIGN KEY (EmployeeID_eem)
             REFERENCES Employee (EmployeeID)
 );
@@ -64,6 +66,7 @@ CREATE TABLE Participant (
 CREATE TABLE ParticipantEmail (
         ParticipantID_pem INTEGER NOT NULL,
         Email VARCHAR(75) NULL UNIQUE,
+        PRIMARY KEY (ParticipantID_pem),
         FOREIGN KEY (ParticipantID_pem)
             REFERENCES Participant (ParticipantID)
 );
@@ -71,6 +74,7 @@ CREATE TABLE ParticipantEmail (
 CREATE TABLE ParticipantPhone (
         ParticipantID_pp INTEGER NOT NULL,
         Phone VARCHAR(20) NOT NULL UNIQUE,
+        PRIMARY KEY (ParticipantID_pp),
         FOREIGN KEY (ParticipantID_pp)
             REFERENCES Participant (ParticipantID)
 );
@@ -126,6 +130,7 @@ CREATE TABLE Supplier (
 CREATE TABLE SupplierEmail (
         SupplierID_sem INTEGER NOT NULL,
         Email VARCHAR(75) NOT NULL UNIQUE,
+        PRIMARY KEY (SupplierID_sem),
         FOREIGN KEY (SupplierID_sem)
             REFERENCES Supplier (SupplierID)
 );
@@ -133,6 +138,7 @@ CREATE TABLE SupplierEmail (
 CREATE TABLE SupplierPhone(
         SupplierID_sp INTEGER NOT NULL,
         Phone VARCHAR(20) NOT NULL UNIQUE,
+        PRIMARY KEY (SupplierIS_sp),
         FOREIGN KEY (SupplierID_sp)
             REFERENCES Supplier (SupplierID)
 );
