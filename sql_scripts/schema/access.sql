@@ -1,9 +1,9 @@
-CREATE USER 'hen'@'localhost';
-CREATE USER 'mii'@'localhost';
-CREATE USER 'hom'@'localhost';
-CREATE USER 'employee'@'localhost';
-CREATE USER 'marketing'@'localhost';
-CREATE USER 'guest'@'localhost';
+CREATE USER IF NOT EXISTS 'hen'@'localhost';
+CREATE USER IF NOT EXISTS 'mii'@'localhost';
+CREATE USER IF NOT EXISTS 'hom'@'localhost';
+CREATE USER IF NOT EXISTS 'employee'@'localhost';
+CREATE USER IF NOT EXISTS 'marketing'@'localhost';
+CREATE USER IF NOT EXISTS 'guest'@'localhost';
 
 GRANT  ALL PRIVILEGES ON mademoiselle_borges.* TO 'hen'@'localhost';
 GRANT  GRANT OPTION ON mademoiselle_borges.* TO 'hen'@'localhost';
@@ -16,22 +16,20 @@ GRANT SELECT ON mademoiselle_borges.EventCal TO 'guest'@'localhost';
 GRANT SELECT ON mademoiselle_borges.Product TO 'guest'@'localhost';
 
 GRANT SELECT ON mademoiselle_borges.EventCal TO 'employee'@'localhost';
-GRANT INSERT ON mademoiselle_borges.EventCal TO 'employee'@'localhost';
 GRANT SELECT ON mademoiselle_borges.SaleNoValue TO 'employee'@'localhost';
-GRANT INSERT ON mademoiselle_borges.Sale TO 'employee'@'localhost';
+GRANT EXECUTE ON PROCEDURE register_sale TO 'employee'@'localhost';
 GRANT INSERT ON mademoiselle_borges.Participant TO 'employee'@'localhost';
-GRANT INSERT ON mademoiselle_borges.ParticipantPhone TO 'employee'@'localhost';
-GRANT INSERT ON mademoiselle_borges.ParticipantEmail TO 'employee'@'localhost';
-GRANT INSERT ON mademoiselle_borges.SaleProduct TO 'employee'@'localhost';
+GRANT EXECUTE ON PROCEDURE add_prod_new_shop_new_part TO 'employee'@'localhost';
 GRANT SELECT ON mademoiselle_borges.Product TO 'employee'@'localhost';
-GRANT INSERT ON mademoiselle_borges.Product TO 'employee'@'localhost';
-GRANT INSERT ON mademoiselle_borges.ProductSupplierPast TO 'employee'@'localhost';
-GRANT INSERT ON mademoiselle_borges.Supplier TO 'employee'@'localhost';
-GRANT INSERT ON mademoiselle_borges.SupplierEmail TO 'employee'@'localhost';
-GRANT INSERT ON mademoiselle_borges.SupplierPhone TO 'employee'@'localhost';
+GRANT EXECUTE ON PROCEDURE register_reservation_new_product TO 'employee'@'localhost';
+GRANT EXECUTE ON PROCEDURE register_reservation_exis_product TO 'employee'@'localhost';
+GRANT EXECUTE ON PROCEDURE register_delivery_product TO 'employee'@'localhost';
+GRANT EXECUTE ON PROCEDURE add_prod_to_new_shopping_cart TO 'employee'@'localhost';
+GRANT EXECUTE ON PROCEDURE cancel_ongoing_sale TO 'employee'@'localhost';
+# GRANT EXECUTE ON PROCEDURE register_new_supplier TO 'employee'@'localhost';
 
 GRANT SELECT ON mademoiselle_borges.EventCal TO 'marketing'@'localhost';
-GRANT INSERT ON mademoiselle_borges.EventCal TO 'marketing'@'localhost';
+GRANT EXECUTE ON PROCEDURE register_new_event TO 'marketing'@'localhost';
 
 DELIMITER &&
 CREATE PROCEDURE grantRevokePermissions()
