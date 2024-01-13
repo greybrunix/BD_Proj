@@ -192,15 +192,6 @@ BEGIN
 END
 &&
 
--- check who an Employee manages (92)
-DELIMITER &&
-CREATE PROCEDURE check_managed_by (IN id VARCHAR(10))
-  BEGIN
-     SELECT *
-        FROM Employee AS E
-			WHERE E.EmployeeID_e = id;
-END &&
-
 -- check the participant with the highest value in sales (93)
 SELECT P.id, P.name, SUM(S.Val) AS totVal
 	FROM sale AS S INNER JOIN participant AS P
