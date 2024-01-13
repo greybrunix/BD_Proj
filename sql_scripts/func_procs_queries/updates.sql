@@ -204,31 +204,63 @@ END &&
 DELIMITER &&
 CREATE PROCEDURE cancel_ongoing_sale (IN s_id INTEGER)
 BEGIN
+	DECLARE no_pds INT;
+    DECLARE pd_id INT;
+    DECLARE pd_quant_sold INT;
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
+    
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+    
 
 	START TRANSACTION;
-	DELETE FROM SaleProduct
-		WHERE ReceiptNO_sp = s_id;
-
+    SELECT COUNT(SP.ProductID_sp) INTO no_pds
+		FROM SaleProduct AS SP
+        WHERE SP.ReceiptNO_sp = s_id;
+        
 	IF check_error = FALSE THEN
-		DELETE FROM Sale
-			WHERE ReceiptNO = s_id;
+		REPEAT -- Selecionar produtos para adicionar no stock 
+			SELECT SP.ProductID_sp, SP.Quantity INTO pd_id, pd_quant_sold
+				FROM saleproduct AS SP 
+                INNER JOIN Product AS P 
+					ON SP.ProductID_sp = P.ProductID
+				WHERE SP.ReceiptNO_sp = s_id
+                ORDER BY SP.ProductID_sp DESC
+                LIMIT 1;
+                
+            -- atualizar stock do produto selecionado    
+			UPDATE Product
+			SET QuantityInStock = QuantityInStock + pd_quant_sold
+            WHERE ProductID = pd_id;
+            
+            -- retirar a venda do produto selecionado 
+            DELETE FROM SaleProduct
+				WHERE ReceiptNO_sp = s_id AND ProductID_sp = pd_id;
+                
+			SET no_pds = no_pds - 1;
+		UNTIL no_pds <= 0 OR check_error != FALSE
+		END REPEAT;
 
 		IF check_error = FALSE THEN
-			-- check if loose participant
-			DELETE FROM Participant
-				WHERE ParticipantID NOT IN (SELECT ParticipantID_s
-					FROM Sale);
+			DELETE FROM Sale
+				WHERE ReceiptNO = s_id;
+
 			IF check_error = FALSE THEN
-				COMMIT;
+				-- check if loose participant
+				DELETE FROM Participant
+					WHERE ParticipantID NOT IN (SELECT ParticipantID_s
+						FROM Sale);
+				IF check_error = FALSE THEN
+					COMMIT;
+				ELSE
+					ROLLBACK;
+				END IF;
 			ELSE
 				ROLLBACK;
 			END IF;
+
 		ELSE
 			ROLLBACK;
 		END IF;
-
 	ELSE
 		ROLLBACK;
 	END IF;
