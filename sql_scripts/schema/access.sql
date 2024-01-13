@@ -47,6 +47,9 @@ BEGIN
         REVOKE USAGE ON mademoiselle_borges.* FROM 'employee'@'localhost';
 	END IF;
 END &&
+CREATE EVENT close_open
+	ON SCHEDULE EVERY 1 HOUR
+	DO CALL grantRevokePermissions();
 
 -- SHOW GRANTS FOR 'guest'@'localhost';
 FLUSH PRIVILEGES;
