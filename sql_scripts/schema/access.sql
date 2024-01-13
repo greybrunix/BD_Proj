@@ -18,7 +18,7 @@ GRANT SELECT ON mademoiselle_borges.Product TO 'guest'@'localhost';
 GRANT SELECT ON mademoiselle_borges.EventCal TO 'employee'@'localhost';
 GRANT SELECT ON mademoiselle_borges.SaleNoValue TO 'employee'@'localhost';
 GRANT EXECUTE ON PROCEDURE register_sale TO 'employee'@'localhost';
-GRANT INSERT ON mademoiselle_borges.Participant TO 'employee'@'localhost';
+GRANT SELECT ON mademoiselle_borges.Participant TO 'employee'@'localhost';
 GRANT EXECUTE ON PROCEDURE add_prod_new_shop_new_part TO 'employee'@'localhost';
 GRANT SELECT ON mademoiselle_borges.Product TO 'employee'@'localhost';
 GRANT EXECUTE ON PROCEDURE register_reservation_new_product TO 'employee'@'localhost';
@@ -26,7 +26,7 @@ GRANT EXECUTE ON PROCEDURE register_reservation_exis_product TO 'employee'@'loca
 GRANT EXECUTE ON PROCEDURE register_delivery_product TO 'employee'@'localhost';
 GRANT EXECUTE ON PROCEDURE add_prod_to_new_shopping_cart TO 'employee'@'localhost';
 GRANT EXECUTE ON PROCEDURE cancel_ongoing_sale TO 'employee'@'localhost';
-# GRANT EXECUTE ON PROCEDURE register_new_supplier TO 'employee'@'localhost';
+GRANT EXECUTE ON PROCEDURE register_supplier TO 'employee'@'localhost';
 
 GRANT SELECT ON mademoiselle_borges.EventCal TO 'marketing'@'localhost';
 GRANT EXECUTE ON PROCEDURE register_new_event TO 'marketing'@'localhost';
@@ -48,5 +48,5 @@ BEGIN
 	END IF;
 END &&
 
-SHOW GRANTS FOR 'guest'@'localhost';
+-- SHOW GRANTS FOR 'guest'@'localhost';
 FLUSH PRIVILEGES;
