@@ -19,16 +19,14 @@ BEGIN
 		SET @product_id = SELECT ProductID FROM Product ORDER BY ProductID DESC
 			LIMIT 1;
 
-		INSERT INTO ProductSupplierFuture(ProductID_psf,SupplierID_psf,DateOfReservation,
-			DateOfSchedule, Quantity)
-		VALUES(product_id, supplierid, dateofreservation, dateofschedule, stock);
+		CALL register_reservation_exis_product (product_id, supplierid, dateofschedule,
+			dateofreservation, stock, @check_error);
 
 		IF check_error = FALSE THEN
 			COMMIT;
 		ELSE
 			ROLLBACK;
 		END IF;
-
 	ELSE
 		ROLLBACK;
 	END IF;
@@ -36,14 +34,15 @@ END &&
 
 DELIMITER &&
 CREATE PROCEDURE register_reservation_exis_product (IN productid INTEGER,
-	supplierid INTEGER, dateofschedule DATETIME, dateofreservation DATETIME, quantity INTEGER)
+	supplierid INTEGER, dateofschedule DATETIME, dateofreservation DATETIME, quantity INTEGER,
+	INOUT check_error BOOLEAN)
 BEGIN
 	-- update the future supplies table
-	DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
+	SET @check_error = FALSE;
 	START TRANSACTION;
 
-	INSERT INTO product_supplier_future(ProductID_psf, SupplierID_psf,
+	INSERT INTO ProductSupplierFuture(ProductID_psf, SupplierID_psf,
 		DateOfSchedule, DateOfReservation, Quantity)
 	VALUES(productid, supplierid, dateofschedule, dateofreservation, quantity);
 
@@ -56,49 +55,99 @@ END &&
 
 DELIMITER &&
 CREATE PROCEDURE register_delivery_product (IN p_id INTEGER,
-	p_stock INTEGER, s_id INTEGER, p_dod DATETIME, p_quantity INTEGER)
+	s_id INTEGER, p_dod DATETIME, p_quantity INTEGER)
 BEGIN
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
 	START TRANSACTION;
-	UPDATE product
-	SET stock = p_stock + p_quantity
-	WHERE id = p_id;
 
-	INSERT INTO product_supplier_past(product_id_psp, supplier_id_psp,dod, quantity)
-	VALUES(p_id, s_id, p_dod, p_quantity);
-	COMMIT;
+	UPDATE Product
+	SET QuantityInStock = QuantityInStock + p_quantity
+	WHERE ProductID = p_id;
+	IF check_error = FALSE THEN
+
+		INSERT INTO ProductSupplierPast
+		VALUES(p_id, s_id, p_dod, p_quantity);
+		IF check_error = FALSE THEN
+			COMMIT;
+		ELSE
+			ROLLBACK;
+		END IF;
+	ELSE
+		ROLLBACK;
+	END IF;
 END &&
 
--- Missing something to create participants
+-- Creates participants
 DELIMITER &&
-CREATE PROCEDURE register_new_participant(IN )
+CREATE PROCEDURE add_prod_new_shop_new_part(IN e_id VARCHAR(10), pd_id INTEGER,
+						part_name VARCHAR(75), part_vat VARCHAR(9),
+						street VARCHAR(50), locale VARCHAR(30), postal VARCHAR(15), part_bd DATE,
+						quant INTEGER)
+BEGIN
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
+	DECLARE last_ins INTEGER;
+
+	START TRANSACTION;
+
+	INSERT INTO Participant(ParticipantName, ParticipantVAT, ParticipantBirthDate,
+				Street, Locale, Postal)
+	VALUES (part_name, part_vat, part_bd, street, locale, postal);
+	IF check_error = FALSE THEN
+
+		SET @last_ins = SELECT ParticipantID FROM Participant
+			ORDER BY ParticipantID DESC LIMIT 1;
+		CALL add_prod_to_new_shopping_cart(last_ins, e_id, pd_id, quant, @check_error);
+		IF check_error = FALSE THEN
+			COMMIT;
+		ELSE
+			ROLLBACK;
+		END IF;
+	ELSE
+		ROLLBACK;
+	END IF;
 END &&
+
 DELIMITER &&
 CREATE PROCEDURE add_prod_to_new_shopping_cart(IN pa_id INTEGER,
-	e_id VARCHAR(10), pd_id INTEGER, quant INTEGER)
+	e_id VARCHAR(10), pd_id INTEGER, quant INTEGER, INOUT check_error BOOLEAN)
 BEGIN
-	DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
 	DECLARE cur_stock INTEGER;
+	SET @check_error = FALSE;
 	START TRANSACTION;
-	INSERT INTO sale(employee_id_s, participant_id_s)
+
+	INSERT INTO Sale(Employee_id_s, ParticipantID_s)
 	VALUES(e_id, pd_id);
 
-	SET @last_sale_id = LAST_INSERT_ID();
+	IF check_error = FALSE THEN
+		SET @last_sale_id = LAST_INSERT_ID();
 
-	SELECT price AS curr_val
-		FROM product
-		WHERE id = pd_id;
+		SELECT BasePrice AS curr_val
+			FROM Product
+			WHERE ProductID = pd_id;
 
-	INSERT INTO sale_product(sale_id_sp, product_id_sp, val, quantity)
-	VALUES(@last_sale_id, pd_id, cur_val, quant);
+		INSERT INTO SaleProduct(ReceiptNO_sp, ProductID_sp, CurrentValue, Quantity)
+		VALUES(last_sale_id, pd_id, cur_val, quant);
 
-	UPDATE product
-	SET stock = stock - quant
-	WHERE id = p;
-	COMMIT;
+		IF check_error = FALSE THEN
 
+			UPDATE Product
+			SET Stock = QuantityInStock - quant
+			WHERE ProductID = pd_id;
+
+			IF check_error = FALSE THEN
+				COMMIT;
+			ELSE
+				ROLLBACK;
+			END IF;
+		ELSE
+			ROLLBACK;
+		END IF;
+	ELSE
+		ROLLBACK;
+	END IF;
 END &&
 
 DELIMITER &&
@@ -109,20 +158,79 @@ BEGIN
 	DECLARE s_totquant INTEGER;
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
+
 	START TRANSACTION;
-	SELECT (SP.quantity * SP.val) INTO s_totval
-		FROM sale_product AS SP INNER JOIN sale AS S
-		ON s_id = S.id = SP.sale_id_sp;
-	SELECT SUM(SP.quantity) INTO s_totquant
-		FROM sale_product AS SP INNER JOIN sale AS S
-		ON s_id =  S.id = SP.sale_id_sp;
-	UPDATE sale
-	SET val = s_totval, quantity = s_totquant, dos = s_dos
-	where id = s_id;
-	COMMIT;
-	
+
+	SELECT (SP.Quantity * SP.CurrentValue) INTO s_totval,
+		SUM(SP.Quantity) INTO s_totquant
+			FROM SaleProduct AS SP INNER JOIN Sale AS S
+			ON S.ReceiptNO = SP.ReceiptNO_sp
+			WHERE S.ReceiptNO = s_id;
+
+	UPDATE Sale
+	SET TotalValue = s_totval, TotalQuantity = s_totquant, DateOfSale = s_dos
+	where ReceiptNO = s_id;
+
+	IF check_error = FALSE THEN
+		COMMIT;
+	ELSE
+		ROLLBACK;
+	END IF;
 END &&
 
+DELIMITER &&
+CREATE PROCEDURE cancel_ongoing_sale (IN s_id INTEGER)
+BEGIN
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
+
+	START TRANSACTION;
+	DELETE FROM SaleProduct
+		WHERE ReceiptNO_sp = s_id;
+
+	IF check = FALSE THEN
+		DELETE FROM Sale
+			WHERE ReceiptNO = s_id;
+
+		IF check_error = FALSE THEN
+			-- check if loose participant
+			DELETE FROM Participant
+				WHERE ParticipantID NOT IN (SELECT ParticipantID_s
+					FROM Sale);
+			IF check_error = FALSE THEN
+				COMMIT;
+			ELSE
+				ROLLBACK;
+			END IF;
+		ELSE
+			ROLLBACK;
+		END IF;
+
+	ELSE
+		ROLLBACK;
+	END IF;
+END &&
+
+DELIMITER &&
+CREATE PROCEDURE register_employee (IN e_id VARCHAR(10), e_name VARCHAR(75),
+		vat VARCHAR(9), bd DATE, street VARCHAR(50), locale VARCHAR(30),
+		postal VARCHAR(15), manager VARCHAR(10))
+BEGIN
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
+
+	START TRANSACTION;
+
+	INSERT INTO Employee
+	VALUES (e_id, e_name, vat, bd, street, locale, postal, manager);
+
+	IF check_error = TRUE THEN
+		COMMIT;
+	ELSE
+		ROLLBACK;
+	END IF;
+
+END &&
 
 DELIMITER &&
 CREATE PROCEDURE register_new_event (IN e_name VARCHAR(75),
@@ -138,11 +246,21 @@ BEGIN
 	INSERT INTO EventCal (EventName, EventDescription, EventStart, EventEnd, Capacity)
 	VALUES (e_name, e_descr, e_beg, e_fin , e_capacity);
 
-	SET t_stock = e_capacity;
-	IF e_capacity = 0 THEN
-		SET t_stock = 94967294; -- max int
+	IF check_error = FALSE THEN
+		SET t_stock = e_capacity;
+		IF e_capacity = 0 THEN
+			SET t_stock = 94967294; -- max int
+		END IF;
+
+		INSERT INTO Product (ProductName, ProductDescription, BasePrice, QuantityInStock)
+		VALUES (e_name, t_descr, t_price, t_stock);
+
+		IF check_error = FALSE THEN
+			COMMIT;
+		ELSE
+			ROLLBACK;
+		END IF;
+	ELSE
+		ROLLBACK;
 	END IF;
-	INSERT INTO Product (ProductName, ProductDescription, BasePrice, QuantityInStock)
-	VALUES (e_name, t_descr, t_price, t_stock);
-	COMMIT;
 END &&
