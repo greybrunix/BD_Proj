@@ -291,6 +291,78 @@ BEGIN
 END &&
 
 DELIMITER &&
+CREATE PROCEDURE register_new_employee_email (IN e_id VARCHAR(10), e_email VARCHAR(75))
+BEGIN
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+    
+    START TRANSACTION;
+    
+    INSERT INTO EmployeeEmail
+		VALUES (e_id, e_email);
+	
+    IF check_error = FALSE THEN
+		COMMIT;
+	ELSE
+		ROLLBACK;
+	END IF;
+END &&
+
+DELIMITER &&
+CREATE PROCEDURE register_new_employee_phone (IN e_id VARCHAR(10), e_phone VARCHAR(20))
+BEGIN
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+    
+    START TRANSACTION;
+    
+    INSERT INTO EmployeePhone
+		VALUES (e_id, e_phone);
+	
+    IF check_error = FALSE THEN
+		COMMIT;
+	ELSE
+		ROLLBACK;
+	END IF;
+END &&
+
+DELIMITER &&
+CREATE PROCEDURE register_new_participant_email (IN p_id INTEGER, p_email VARCHAR(75))
+BEGIN
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+    
+    START TRANSACTION;
+    
+    INSERT INTO ParticipantEmail
+		VALUES (p_id, p_email);
+	
+    IF check_error = FALSE THEN
+		COMMIT;
+	ELSE
+		ROLLBACK;
+	END IF;
+END &&
+
+DELIMITER &&
+CREATE PROCEDURE register_new_participant_phone (IN p_id INTEGER, p_phone VARCHAR(20))
+BEGIN
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+    
+    START TRANSACTION;
+    
+    INSERT INTO ParticipantPhone
+		VALUES (p_id, p_phone);
+	
+    IF check_error = FALSE THEN
+		COMMIT;
+	ELSE
+		ROLLBACK;
+	END IF;
+END &&
+
+DELIMITER &&
 CREATE PROCEDURE register_new_event (IN e_name VARCHAR(75),
 	e_descr TEXT,
 	e_beg DATETIME, e_fin DATETIME, e_capacity INTEGER,
