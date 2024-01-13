@@ -7,7 +7,7 @@ CREATE PROCEDURE register_reservation_new_product (IN product_name VARCHAR(75),
 BEGIN
 	DECLARE product_id INTEGER;
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	START TRANSACTION;
 
 	INSERT INTO Product(ProductName, ProductDescription, BasePrice, QuantityInStock)
@@ -16,8 +16,8 @@ BEGIN
 
 	IF check_error = FALSE THEN
 
-		SET @product_id = SELECT ProductID FROM Product ORDER BY ProductID DESC
-			LIMIT 1;
+		SET @product_id = (SELECT ProductID FROM Product ORDER BY ProductID DESC
+			LIMIT 1);
 
 		CALL register_reservation_exis_product (product_id, supplierid, dateofschedule,
 			dateofreservation, stock, @check_error);
@@ -38,7 +38,7 @@ CREATE PROCEDURE register_reservation_exis_product (IN productid INTEGER,
 	INOUT check_error BOOLEAN)
 BEGIN
 	-- update the future supplies table
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	SET @check_error = FALSE;
 	START TRANSACTION;
 
@@ -58,7 +58,7 @@ CREATE PROCEDURE register_delivery_product (IN p_id INTEGER,
 	s_id INTEGER, p_dod DATETIME, p_quantity INTEGER)
 BEGIN
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	START TRANSACTION;
 
 	UPDATE Product
@@ -85,9 +85,10 @@ CREATE PROCEDURE add_prod_new_shop_new_part(IN e_id VARCHAR(10), pd_id INTEGER,
 						street VARCHAR(50), locale VARCHAR(30), postal VARCHAR(15), part_bd DATE,
 						quant INTEGER)
 BEGIN
-	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
 	DECLARE last_ins INTEGER;
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+
 
 	START TRANSACTION;
 
@@ -96,8 +97,8 @@ BEGIN
 	VALUES (part_name, part_vat, part_bd, street, locale, postal);
 	IF check_error = FALSE THEN
 
-		SET @last_ins = SELECT ParticipantID FROM Participant
-			ORDER BY ParticipantID DESC LIMIT 1;
+		SET @last_ins = (SELECT ParticipantID FROM Participant
+			ORDER BY ParticipantID DESC LIMIT 1);
 		CALL add_prod_to_new_shopping_cart(last_ins, e_id, pd_id, quant, @check_error);
 		IF check_error = FALSE THEN
 			COMMIT;
@@ -113,8 +114,9 @@ DELIMITER &&
 CREATE PROCEDURE add_prod_to_new_shopping_cart(IN pa_id INTEGER,
 	e_id VARCHAR(10), pd_id INTEGER, quant INTEGER, INOUT check_error BOOLEAN)
 BEGIN
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
 	DECLARE cur_stock INTEGER;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+
 	SET @check_error = FALSE;
 	START TRANSACTION;
 
@@ -156,13 +158,16 @@ BEGIN
 	-- update sale table
 	DECLARE s_totval DECIMAL(5,2);
 	DECLARE s_totquant INTEGER;
+    
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
 	START TRANSACTION;
-
-	SELECT (SP.Quantity * SP.CurrentValue) INTO s_totval,
-		SUM(SP.Quantity) INTO s_totquant
+	SELECT SUM(SP.Quantity) INTO s_totquant 
+			FROM SaleProduct AS SP INNER JOIN Sale AS S
+			ON S.ReceiptNO = SP.ReceiptNO_sp
+			WHERE S.ReceiptNO = s_id;
+	SELECT (SP.Quantity * SP.CurrentValue) INTO s_totval
 			FROM SaleProduct AS SP INNER JOIN Sale AS S
 			ON S.ReceiptNO = SP.ReceiptNO_sp
 			WHERE S.ReceiptNO = s_id;
@@ -182,13 +187,13 @@ DELIMITER &&
 CREATE PROCEDURE cancel_ongoing_sale (IN s_id INTEGER)
 BEGIN
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
 	START TRANSACTION;
 	DELETE FROM SaleProduct
 		WHERE ReceiptNO_sp = s_id;
 
-	IF check = FALSE THEN
+	IF check_error = FALSE THEN
 		DELETE FROM Sale
 			WHERE ReceiptNO = s_id;
 
@@ -217,7 +222,7 @@ CREATE PROCEDURE register_employee (IN e_id VARCHAR(10), e_name VARCHAR(75),
 		postal VARCHAR(15), manager VARCHAR(10))
 BEGIN
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
 	START TRANSACTION;
 
@@ -240,7 +245,7 @@ CREATE PROCEDURE register_new_event (IN e_name VARCHAR(75),
 BEGIN
 	DECLARE t_stock INT;
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	START TRANSACTION;
 	-- update with new event
 	INSERT INTO EventCal (EventName, EventDescription, EventStart, EventEnd, Capacity)
