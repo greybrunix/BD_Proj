@@ -120,8 +120,8 @@ BEGIN
 	SET @check_error = FALSE;
 	START TRANSACTION;
 
-	INSERT INTO Sale(Employee_id_s, ParticipantID_s)
-	VALUES(e_id, pd_id);
+	INSERT INTO Sale(TotalValue, TotalQuantity, Employee_id_s, ParticipantID_s)
+	VALUES(0,0, e_id, pd_id);
 
 	IF check_error = FALSE THEN
 		SET @last_sale_id = LAST_INSERT_ID();
@@ -217,7 +217,7 @@ BEGIN
 END &&
 
 DELIMITER &&
-CREATE PROCEDURE register_employee (IN e_id VARCHAR(10), e_name VARCHAR(75),
+CREATE PROCEDURE register_new_employee (IN e_id VARCHAR(10), e_name VARCHAR(75),
 		vat VARCHAR(9), bd DATE, street VARCHAR(50), locale VARCHAR(30),
 		postal VARCHAR(15), manager VARCHAR(10))
 BEGIN
