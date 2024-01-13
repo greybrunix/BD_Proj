@@ -1,6 +1,24 @@
 USE mademoiselle_borges;
 
 DELIMITER &&
+CREATE PROCEDURE register_supplier (IN s_name VARCHAR(75), iban VARCHAR(50), street VARCHAR(50),
+		locale VARCHAR(30), postal VARCHAR(15))
+BEGIN
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+
+	START TRANSACTION;
+
+	INSERT INTO Supplier
+	VALUES(s_name, iban, street, locale, postal);
+	IF check_error = FALSE THEN
+		COMMIT;
+	ELSE
+		ROLLBACK;
+	END IF;
+END &&
+
+DELIMITER &&
 CREATE PROCEDURE register_reservation_new_product (IN product_name VARCHAR(75),
 	descript TEXT, baseprice DECIMAL(5,2), supplierid INTEGER, dateofschedule DATETIME,
 	stock INT, dateofreservation DATETIME)
