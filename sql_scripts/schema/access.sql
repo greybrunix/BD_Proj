@@ -47,6 +47,7 @@ BEGIN
         REVOKE USAGE ON mademoiselle_borges.* FROM 'guest'@'localhost';
         REVOKE USAGE ON mademoiselle_borges.* FROM 'marketing'@'localhost';
         REVOKE USAGE ON mademoiselle_borges.* FROM 'employee'@'localhost';
+	END IF;
 END &&
 
 SHOW GRANTS FOR 'guest'@'localhost';
