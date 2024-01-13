@@ -72,7 +72,7 @@ END &&
 
 -- Missing something to create participants
 DELIMITER &&
-
+CREATE PROCEDURE register_new_participant(IN )
 END &&
 DELIMITER &&
 CREATE PROCEDURE add_prod_to_new_shopping_cart(IN pa_id INTEGER,
