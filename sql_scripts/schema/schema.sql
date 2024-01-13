@@ -97,8 +97,9 @@ CREATE TABLE Product (
         QuantityInStock INTEGER NOT NULL,
         PRIMARY KEY (ProductID)
 );
-Alter Table Product
-		Add Constraint Stock Check ( QuantityInStock >= 0 )
+
+ALTER TABLE Product
+	ADD CONSTRAINT Stock CHECK (QuantityInStock >= 0);
 
 CREATE TABLE SaleProduct (
         ReceiptNO_sp INTEGER NOT NULL,
@@ -107,9 +108,9 @@ CREATE TABLE SaleProduct (
         Quantity INTEGER NOT NULL,
         CONSTRAINT comp_key PRIMARY KEY (ReceiptNO_sp, ProductID_sp),
         FOREIGN KEY (ReceiptNO_sp)
-		REFERENCES Sale (ReceiptNO),
+			REFERENCES Sale (ReceiptNO),
         FOREIGN KEY (ProductID_sp)
-		REFERENCES Product (ProductID)
+			REFERENCES Product (ProductID)
 );
 
 CREATE TABLE Supplier (
@@ -120,36 +121,6 @@ CREATE TABLE Supplier (
         Locale VARCHAR(30) NOT NULL,
         Postal VARCHAR(15) NOT NULL,
         PRIMARY KEY (SupplierID)
-);
-
-CREATE TABLE ProductSupplierPast(
-        ProductID_psp INTEGER NOT NULL,
-        SupplierID_psp INTEGER NOT NULL,
-        DateOfDelivery DATETIME NOT NULL, -- date of delivery
-	Quantity INTEGER NOT NULL,
-        CONSTRAINT comp_key PRIMARY KEY (ProductID_psp,
-		SupplierID_psp,
-		DateOfDelivery),
-        FOREIGN KEY (ProductID_psp)
-            REFERENCES Product (ProductID),
-        FOREIGN KEY (SupplierID_psp)
-            REFERENCES Supplier (SupplierID)
-);
-
-CREATE TABLE ProductSupplierFuture (
-        ProductID_psf INTEGER NOT NULL,
-        SupplierID_psf INTEGER NOT NULL,
-        DateOfReservation DATETIME NOT NULL, -- date of reservation
-	DateOfSchedule DATETIME NOT NULL, -- expected date
-        Quantity INTEGER NOT NULL,
-        CONSTRAINT comp_key PRIMARY KEY (ProductID_psf,
-		SupplierID_psf,
-		DateOfReservation,
-		DateOfSchedule),
-        FOREIGN KEY (ProductID_psf)
-            REFERENCES Product (ProductID),
-        FOREIGN KEY (SupplierID_psf)
-            REFERENCES Supplier (SupplierID)
 );
 
 CREATE TABLE SupplierEmail (
@@ -163,5 +134,35 @@ CREATE TABLE SupplierPhone(
         SupplierID_sp INTEGER NOT NULL,
         Phone VARCHAR(20) NOT NULL UNIQUE,
         FOREIGN KEY (SupplierID_sp)
+            REFERENCES Supplier (SupplierID)
+);
+
+CREATE TABLE ProductSupplierPast(
+        ProductID_psp INTEGER NOT NULL,
+        SupplierID_psp INTEGER NOT NULL,
+        DateOfDelivery DATETIME NOT NULL, -- date of delivery
+		Quantity INTEGER NOT NULL,
+        CONSTRAINT comp_key PRIMARY KEY (ProductID_psp,
+		SupplierID_psp,
+		DateOfDelivery),
+        FOREIGN KEY (ProductID_psp)
+            REFERENCES Product (ProductID),
+        FOREIGN KEY (SupplierID_psp)
+            REFERENCES Supplier (SupplierID)
+);
+
+CREATE TABLE ProductSupplierFuture (
+        ProductID_psf INTEGER NOT NULL,
+        SupplierID_psf INTEGER NOT NULL,
+        DateOfReservation DATETIME NOT NULL, -- date of reservation
+		DateOfSchedule DATETIME NOT NULL, -- expected date
+        Quantity INTEGER NOT NULL,
+        CONSTRAINT comp_key PRIMARY KEY (ProductID_psf,
+		SupplierID_psf,
+		DateOfReservation,
+		DateOfSchedule),
+        FOREIGN KEY (ProductID_psf)
+            REFERENCES Product (ProductID),
+        FOREIGN KEY (SupplierID_psf)
             REFERENCES Supplier (SupplierID)
 );
