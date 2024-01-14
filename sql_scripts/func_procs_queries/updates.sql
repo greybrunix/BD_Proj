@@ -314,70 +314,28 @@ CREATE PROCEDURE register_new_employee (IN e_id VARCHAR(10), e_name VARCHAR(75),
 		vat VARCHAR(9), bd DATE, street VARCHAR(50), locale VARCHAR(30),
 		postal VARCHAR(15), manager VARCHAR(10), phone VARCHAR(20), email VARCHAR(75))
 BEGIN
-	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
-
-	START TRANSACTION;
 
 	INSERT INTO Employee
 	VALUES (e_id, e_name, vat, bd, street, locale, postal, manager);
 
-	IF check_error = FALSE THEN
+	CALL register_employee_email(e_id, email);
 
-		CALL register_employee_email(e_id, email, @check_error);
-
-		IF check_error = FALSE THEN
-
-			CALL register_employee_phone(e_id, phone, @check_error);
-
-			IF check_error = FALSE THEN
-				COMMIT;
-			ELSE
-				ROLLBACK;
-			END IF;
-		ELSE
-			ROLLBACK;
-		END IF;
-	ELSE
-		ROLLBACK;
-	END IF;
+	CALL register_employee_phone(e_id, phone);
 
 END &&
 
 DELIMITER &&
 CREATE PROCEDURE register_employee_email (IN e_id VARCHAR(10), e_email VARCHAR(75))
 BEGIN
-	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
-
-	START TRANSACTION;
-	
 	INSERT INTO EmployeeEmail
 	VALUES (e_id, e_email);
-	
-	IF check_error = FALSE THEN
-		COMMIT;
-	ELSE
-		ROLLBACK;
-	END IF;
 END &&
 
 DELIMITER &&
 CREATE PROCEDURE register_employee_phone (IN e_id VARCHAR(10), e_phone VARCHAR(20))
 BEGIN
-	DECLARE check_error BOOLEAN DEFAULT FALSE;
-    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
-	
-    START TRANSACTION;
-
 	INSERT INTO EmployeePhone
 	VALUES (e_id, e_phone);
-	
-	IF check_error = FALSE THEN
-		COMMIT;
-	ELSE
-		ROLLBACK;
-	END IF;
 END &&
 
 DELIMITER &&
@@ -459,47 +417,24 @@ CREATE PROCEDURE register_new_event (IN e_name VARCHAR(75),
 	t_descr TEXT, t_price DECIMAL(5,2))
 BEGIN
 	DECLARE t_stock INT;
-	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
-	START TRANSACTION;
+	
 	-- update with new event
 	INSERT INTO EventCal (EventName, EventDescription, EventStart, EventEnd, Capacity)
 	VALUES (e_name, e_descr, e_beg, e_fin , e_capacity);
 
-	IF check_error = FALSE THEN
-		SET t_stock = e_capacity;
-		IF e_capacity = 0 THEN
-			SET t_stock = 94967294; -- max int
-		END IF;
-
-		INSERT INTO Product (ProductName, ProductDescription, BasePrice, QuantityInStock)
-		VALUES (e_name, t_descr, t_price, t_stock);
-
-		IF check_error = FALSE THEN
-			COMMIT;
-		ELSE
-			ROLLBACK;
-		END IF;
-	ELSE
-		ROLLBACK;
+	SET t_stock = e_capacity;
+	IF e_capacity = 0 THEN
+		SET t_stock = 94967294; -- max int
 	END IF;
+
+	INSERT INTO Product (ProductName, ProductDescription, BasePrice, QuantityInStock)
+	VALUES (e_name, t_descr, t_price, t_stock);
+
 END &&
 
 DELIMITER &&
 CREATE PROCEDURE assign_employee_event(IN e_id INTEGER, empl_id VARCHAR(10))
 BEGIN
-	DECLARE error_check BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @error_check = TRUE;
-
-	START TRANSACTION;
-
 	INSERT INTO EventEmployee
 	VALUES (e_id, empl_id);
-
-	IF error_check = FALSE THEN
-		COMMIT;
-	ELSE
-		ROLLBACK;
-	END IF;
-
 END &&
