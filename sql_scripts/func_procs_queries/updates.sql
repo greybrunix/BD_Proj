@@ -52,7 +52,7 @@ BEGIN
 
 		INSERT INTO ProductSupplierFuture(ProductID_psf, SupplierID_psf,
 		DateOfSchedule, DateOfReservation, Quantity)
-	VALUES(product_id, supplierid, dateofschedule, dateofreservation, quantity);
+	VALUES(product_id, supplierid, dateofschedule, dateofreservation, stock);
 
 	IF check_error = FALSE THEN
 		COMMIT;
@@ -140,8 +140,8 @@ BEGIN
 				CALL register_participant_email(last_ins, email);
 			END IF;
 			IF check_error = FALSE THEN
-				INSERT INTO Sale(TotalValue, Quantity, Employee_id_s, ParticipantID_s)
-				VALUES("0","0", e_id, pa_id);
+				INSERT INTO Sale(TotalValue, TotalQuantity, DateOfSale, Employee_id_s, ParticipantID_s)
+				VALUES("0","0", NULL, e_id, pa_id);
 
 				IF check_error = FALSE THEN
 					SET last_sale_id = (SELECT ReceiptNO FROM Sale
