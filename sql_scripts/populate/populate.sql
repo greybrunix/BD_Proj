@@ -3,52 +3,52 @@ USE mademoiselle_borges;
 -- Inserção de funcionários
 CALL register_new_employee("ADMIN00001", "Henrique Borges",
 												 "382923812", "1968-12-24", "Rua do blah",
-												 "Eventopolis", "1111-111", NULL);
+												 "Eventopolis", "1111-111", NULL, "+1111111111","henriquinho@borges.et");
 CALL register_new_employee("ADMIN00002", "Maria Ivanovna Ivanova",
 												 "129293919", "1999-04-13", "Rua do blah",
-												 "Eventopolis", "1111-111", NULL);
+												 "Eventopolis", "1111-111", NULL, "+2222222222","miva2@iva.et");
 CALL register_new_employee("ADMIN00003", "Herr Otto Mustermann",
 								"198263843", "2002-07-19", "Rua do blah",
-								"Eventopolis", "1111-111", NULL);
+								"Eventopolis", "1111-111", NULL, "+33333333333","herr@motto.et");
 CALL register_new_employee("JANIT00001", "Jacinto Ivanovich",
 							 "192382742", "1979-04-13", "Rua do blah",
-                           "Eventopolis", "1111-111", NULL);
+                           "Eventopolis", "1111-111", NULL, "+4444444444","orig@jacinto.et");
 CALL register_new_employee("JANIT00002", "Jacinto Ivanovich Sr",
 						   "192382743", "1959-04-13", "Rua do blah",
-                           "Eventopolis", "1111-111", "JANIT00001");
+                           "Eventopolis", "1111-111", "JANIT00001", "+555553555","sen@jacinto.et");
 CALL register_new_employee("JANIT00003", "Jacinto Ivanovich Jr",
 						   "192382744", "1999-04-13", "Rua do blah",
-                           "Eventopolis", "1111-111", "JANIT00001");
+                           "Eventopolis", "1111-111", "JANIT00001", "+6666666666","jr@jacinto.et");
 CALL register_new_employee("MARKT00001", "Miguel Mata Migalhas",
 						   "999999999", "1974-04-25", "Avenida dos Vampiros",
-                           "Eventopolis", "5555-555", NULL);
+                           "Eventopolis", "5555-555", NULL, "+7777777777","mimami@mar.et");
 CALL register_new_employee("MARKT00002", "Ruis Luis",
 						   "444444444", "2004-04-04", "Rua da Praça Proibida",
-                           "Lon Gedaki", "4444-444", "MARKT00001");
+                           "Lon Gedaki", "4444-444", "MARKT00001", "+8888888888","uiui@mar.et");
 CALL register_new_employee("SALES00001", "Artur Doffensmirtz",
 						   "333333333", "1979-03-03", "Rua do Ornitorrinco",
-                           "Eventopolis", "1111-132", "MARKT00002");
+                           "Eventopolis", "1111-132", "MARKT00002", "+9999999999","doff@krr.et");
 CALL register_new_employee("SALES00002", "Benilde Portas de Madeira",
 						   "222222222", "1970-02-22", "Rua do Centro nº1, 5B",
-                           "Eventopolis", "1111-221", "SALES00001");
+                           "Eventopolis", "1111-221", "SALES00001", "+10101101010","bpm@sal.et");
 CALL register_new_employee("SECUR00001", "José Carlos Malandro",
 						   "111111111", "2000-11-11", "Rua do Centro nº1, 5A",
-                           "Eventopolis", "1111-221", NULL);
+                           "Eventopolis", "1111-221", NULL, "+20202022020","jcm@secur.et");
 CALL register_new_employee("JANIT00004", "Aknostr Grust Hings",
 						   "666666666", "1996-29-01", "Trilho da Bananeira",
-                           "Hsombra", "1169-111", "JANIT00001");
+                           "Hsombra", "1169-111", "JANIT00001", "+303033030303","agh@jacinto.et");
 CALL register_new_employee("SECUR00002", "Alice Grande Pequena",
 						   "777777777", "1968-07-21", "Travessa da Lua",
-                           "Ham Strong City", "7777-221", "SECUR00001");
+                           "Ham Strong City", "7777-221", "SECUR00001", "+40404044404","agp@secur.et");
 CALL register_new_employee("MARKT00003", "Bernardo Fernado Ferrari",
 						   "888888888", "1988-08-15", "Rua da Boa Corrida"
-                           "Eventopolis", "8888-111", "MARKT00001");
+                           "Eventopolis", "8888-111", "MARKT00001", "+5050505050","bff@mar.et");
 CALL register_new_employee("SALES00003", "Ines Luis Grust Hings",
 						   "6666666661", "1996-01-11", "TRilho da Bananeira",
-                           "Hsombra", "1169-111", "SALES00001");
+                           "Hsombra", "1169-111", "SALES00001", "+6060660606","ilu@sal.et");
 CALL register_new_employee("MARKT00004", "Yuppi May Catrindottir Alavason",
 						   "101010101", "2000-11-11", "Rua Doutor Felis Felizardo Felisberto",
-                           "Eventopolis", "1010-101", "MARKT00001");
+                           "Eventopolis", "1010-101", "MARKT00001", "+707707700707","ymca@mar.et");
 
 
                            
