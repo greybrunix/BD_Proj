@@ -92,8 +92,7 @@ CALL register_reservation_new_product ("Lápis de Cor Faber-Castell","Caixa com 
 CALL register_reservation_new_product ("Livro para Colorir","Livro com imagens de locais e eventos importantes de Eventopolis para colorir ",6.00,
 										1,"2023-12-10 08:30:00",1,"2023-11-10 19:00:00");
 CALL register_reservation_new_product ("Livro 'Historia de Eventopolis, do século XV até modernidade'",
-									   "Livro do autor Benedito Leão, onde ele escreve sobre vários eventos históricos da antiga cidade de Eventopolis",
-                                        30.00,
+									   "Livro do autor Benedito Leão, onde ele escreve sobre vários eventos históricos da antiga cidade de Eventopolis",30.00,
 										1,"2023-12-10 08:30:00",1,"2023-11-10 19:00:00");
 CALL register_reservation_new_product ("Assinatura Mensal de Livros Locais",
 									   "Receba mensalmente um livro de um autor local ou com temática da cidade",10.99,
@@ -107,6 +106,36 @@ CALL register_reservation_new_product ("Caneca 'I LOVE Eventopolis'","Caneca de 
 CALL register_reservation_new_product ("Jogo de Tabuleiro 'Descubra Eventopolis'",
 									   "Jogo interativo para explorar a história e geografia de Eventopolis",24.55,
 										11,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
-CALL register_reservation_new_product ("Jogo de Tabuleiro 'Descubra Eventopolis'",
-									   "Jogo interativo para explorar a história e geografia de Eventopolis",24.55,
-										11,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
+CALL register_reservation_new_product ("Livro 'A vida secreta de Carlos Valente'",
+									   "Uma Biografia escrita por Maria Alves, acerca da escandalosa vida do mais importante arquiteto de Eventopolis",30.00,
+										0,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
+CALL register_reservation_new_product ("Bloco de Notas de Couro",
+									   "Bloco de notas elegante com capa de couro sintético",9.75,
+										0,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
+CALL register_reservation_new_product ("Livro de Receitas 'Sabores de Eventopolis'",
+									   "Receitas locais e tradicionais da região copiladas pelo enigmatico chefe Roy Mustang",49.95,
+										1,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
+CALL register_reservation_new_product ("Bilhete: Teatro Marionetas",
+									   "ilhete necessário para usufruir de todos os beneficios do evento",4.00,
+										40,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
+CALL register_reservation_new_product ("Bilhete: Feira Natalicia do Livro",
+									   "Bilhete necessário para usufruir de todos os beneficios do evento",4.00,
+										300,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
+CALL register_reservation_new_product ("Bilhete: Feira de Artesanato",
+									   "Bilhete necessário para usufruir de todos os beneficios do evento",4.00,
+										80,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
+CALL register_reservation_new_product ("Bilhete: Procissao Festiva de Sao Celestino de Rabo de Peixe",
+									   "Bilhete necessário para usufruir de todos os beneficios do evento",4.00,
+										150,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
+CALL register_reservation_new_product ("Bilhete: Peca de Teatro 'A Madame Escondida'",
+									   "Bilhete necessário para usufruir de todos os beneficios do evento",4.00,
+										150,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
+CALL register_reservation_new_product ("Agenda Anual Gatos 2024",
+									   "BAgenda com páginas para cada dia do ano com imagens de vários felinos",12.99,
+										1,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
+CALL register_reservation_new_product ("Conjunto de Postais de Eventopolis",
+									   "Pacote com 10 postais ilustrados de vários monumentos da cidade, incluido a famosa estufa construida por Carlos Valente no inicio do seculo XX",9.99,
+										1,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
+CALL register_reservation_new_product ("Bloco de Desenho A4",
+									   "BBloco de papel para desenho tamanho A4, 50 folhas",12.95,
+										0,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
