@@ -476,3 +476,22 @@ BEGIN
 		ROLLBACK;
 	END IF;
 END &&
+
+DELIMITER &&
+CREATE PROCEDURE assign_employee_event(IN e_id INTEGER, empl_id VARCHAR(10))
+BEGIN
+	DECLARE error_check DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @error_check = TRUE;
+
+	START TRANSACTION;
+
+	INSERT INTO EventEmployee
+	VALUES (e_id, empl_id);
+
+	IF error_check = FALSE THEN
+		COMMIT;
+	ELSE
+		ROLLBACK;
+	END IF;
+
+END &&
