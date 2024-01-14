@@ -142,7 +142,7 @@ CREATE VIEW BestSellersEmployee AS
 		INNER JOIN Sale AS S
 			ON E.EmployeeID = S.EmployeeID_s
 		INNER JOIN SaleProduct AS SP
-			ON S.EmployeeID_s = SP.EmployeeID_sp
+			ON S.ReceiptNO = SP.ReceiptNO_sp
 		INNER JOIN Product AS P
 			ON P.ProductName = EV.EventName
 	GROUP BY EV.EventID, S.EmployeeID_s
@@ -153,7 +153,7 @@ CREATE VIEW EventsParticipated AS
 	SELECT S.ParticipantID_s AS ParticipantID, GROUP_CONCAT(EV.EventID, EV.EventName) AS EventID, EventName
 		FROM Sale AS S INNER JOIN SaleProduct AS SP
 			ON S.ReceiptNO = SP.ReceiptNO_sp
-		INNER JOIN Produto AS P
+		INNER JOIN Product AS P
 			ON SP.ProductID_sp = P.ProductID
 		INNER JOIN EventCal AS EV
 			ON P.ProductName = EV.EventName

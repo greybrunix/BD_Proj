@@ -138,12 +138,37 @@ BEGIN
 				CALL register_new_participant_email(last_ins, email, @check_error);
 			END IF;
 			IF check_error = FALSE THEN
-				CALL add_prod_to_new_shopping_cart(last_ins, e_id, pd_id, quant, @check_error);
-				IF check_error = FALSE THEN
-					COMMIT;
-				ELSE
-					ROLLBACK;
-				END IF;
+				INSERT INTO Sale(TotalValue, TotalQuantity, Employee_id_s, ParticipantID_s)
+	VALUES(0,0, e_id, pa_id);
+
+	IF check_error = FALSE THEN
+		SET @last_sale_id = (SELECT ReceiptNO FROM Sale
+			ORDER BY ReceiptNO DESC LIMIT 1);
+
+		SELECT BasePrice AS curr_val
+			FROM Product
+			WHERE ProductID = pd_id;
+
+		INSERT INTO SaleProduct(ReceiptNO_sp, ProductID_sp, CurrentValue, Quantity)
+		VALUES(last_sale_id, pd_id, cur_val, quant);
+
+		IF check_error = FALSE THEN
+
+			UPDATE Product
+			SET Stock = QuantityInStock - quant
+			WHERE ProductID = pd_id;
+
+			IF check_error = FALSE THEN
+				COMMIT;
+			ELSE
+				ROLLBACK;
+			END IF;
+		ELSE
+			ROLLBACK;
+		END IF;
+	ELSE
+		ROLLBACK;
+	END IF;
 			ELSE
 					ROLLBACK;
 			END IF;
@@ -155,14 +180,14 @@ BEGIN
 	END IF;
 END &&
 
+
 DELIMITER &&
 CREATE PROCEDURE add_prod_to_new_shopping_cart(IN pa_id INTEGER,
-	e_id VARCHAR(10), pd_id INTEGER, quant INTEGER, INOUT check_error BOOLEAN)
+	e_id VARCHAR(10), pd_id INTEGER, quant INTEGER)
 BEGIN
 	DECLARE cur_stock INTEGER;
+    DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
-
-	SET @check_error = FALSE;
 	START TRANSACTION;
 
 	INSERT INTO Sale(TotalValue, TotalQuantity, Employee_id_s, ParticipantID_s)

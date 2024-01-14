@@ -88,17 +88,17 @@ CREATE PROCEDURE EventsInTimespan(IN firstday DATETIME, IN lastday DATETIME)
  &&
 
 -- check the participant with the highest value in sales (93)
-SELECT P.id, P.name, SUM(S.Val) AS totVal
-	FROM sale AS S INNER JOIN participant AS P
-			ON P.id = S.participant_id_s
-	GROUP BY P.id, P.name
-		ORDER BY totVal DESC;
+SELECT P.ParticipantID, P.ParticipantName, SUM(S.TotalValue) AS totVal
+	FROM Sale AS S INNER JOIN Participant AS P
+			ON P.ParticipantID = S.ParticipantID_s
+	GROUP BY P.ParticipantID, P.ParticipantName
+		ORDER BY totVal DESC
 LIMIT 1;
 
 -- check the event with the most value in sales (94)
-SELECT E.EmployeeID, E.name, SUM(S.Val) AS totVal
-	FROM EventCal AS E INNER JOIN sale as S
+SELECT EV.EventID, EV.EventName, SUM(S.TotalValue) AS totVal
+	FROM EventCal AS E INNER JOIN Sale as S
 		ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventFin
-	GROUP BY E.EmployeeID, E.name
+	GROUP BY EV.EventID, EV.EventName
 		ORDER BY totVal DESC
 LIMIT 1;
