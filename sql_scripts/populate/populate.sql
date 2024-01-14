@@ -1,6 +1,7 @@
 USE mademoiselle_borges;
 
 -- Inserção de funcionários
+SELECT * FROM Sale;
 CALL register_new_employee("ADMIN00001", "Henrique Borges",
 												 "382923812", "1968-12-24", "Rua do blah",
 												 "Eventopolis", "1111-111", NULL, "+1111111111","henriquinho@borges.et");
@@ -165,7 +166,31 @@ CALL assign_employee_event(6, "MARKT00002");
 CALL assign_employee_event(6, "MARKT00003");
 CALL assign_employee_event(6, "MARKT00004");
 
-                         
+-- Inserçao de fornecedores
+CALL register_supplier ("World of Books","ET493958654897440","Paper Valley, nº234","Calecornia","2710-008-ZZZ" , 
+						"world-books@mdl.et", "+631854-677219");
+CALL register_supplier ("Lorbeer und Lorbeer Materials Lda","GE905440777332294","Teller von Lachen, nº91, Piso 3","Inglostadt","4000-003", 
+						"materialslul@matino.ge", "+68349-333-10102");
+CALL register_supplier ("Badhiya Kapaas","IND66979302668492","Traayamph Skvaayar, nº124","Goa","4485-4432", 
+						"fashionkapaas@badkap.in", "+222543296584-3");
+CALL register_supplier ("AltaPelle Distributore","IT40330399569611111","Via Carlos Vallente, nº27","Piza","3-55-88895", 
+						"altpe@dist.it", "+444-8599339-2111");
+CALL register_supplier ("Edital Impressao","PT96797397339295","Alameda da Vitoria, n234","Guimarães","4800-234", 
+						"editalimp@edital.pt", "+351252111116");
+CALL register_supplier ("Diavges Sympan Lda","GR775588994433225566","Leoforos tou Mikrolameira, n123","Tebas","500-692-4", 
+						"diasymp@ludico.gr", "+34002-995-033-869");
+CALL register_supplier ("Kreativnyye Resheniya Importer","RU0020105889044430","Arkticheskiy prospekt, n94","Ufa","38948-222-01", 
+						"kreat@imprt.ru", "+643333020-4-3111");
+CALL register_supplier ("InovaPrint Solucciones Graficas","ES6854920492946841","Rua dela dama del dia, n20, Oficina I ","Mirallá","9000-009-AAA", 
+						"inovaprint@inova.es", "+583920007-90");
+CALL register_supplier ("Sangbeoggyuoppa Mungujeom","SCOR6695593388200060","jong-ijib geoli, n234","Jeju","2750-008", 
+						"mungsbeog@psg.sc", "+25839443922204");
+CALL register_supplier ("Páginas Vivas Publicações Inc.","BR99900299294958811","Rua Anita Carlota, n111","Curitiba","4740-081", 
+						"paginasvivas@vivas.br", "+33335434890250-111");
+CALL register_supplier ("Himno ng Kagalakan Ltda.","FP22294939205R8687853" ,"pinggan ng mga bulaklak, n001","Manila","747484-444", 
+						"him@ltda.fp", "+3512521111121");
+                        
+                        
 -- Inserção de Produtos
 CALL register_reservation_new_product ("Pacote Caneta Azul Bic",
 									   "Pacote de 10 Canetas da Marca Bic, cor azul", 
@@ -214,33 +239,9 @@ CALL register_reservation_new_product ("Livro 'A vida secreta de Carlos Valente'
 CALL register_reservation_new_product ("Bloco de Desenho A4","Bloco de papel para desenho tamanho A4, 50 folhas",12.95,
 									    9,"2024-03-19 16:00:00",1,"2023-12-25 10:00:00");
 
-                                        
--- Inserçao de fornecedores
-CALL register_supplier ("World of Books","ET493958654897440","Paper Valley, nº234","Calecornia","2710-008-ZZZ" , 
-						"world-books@mdl.et", "+631854-677219");
-CALL register_supplier ("Lorbeer und Lorbeer Materials Lda","GE905440777332294","Teller von Lachen, nº91, Piso 3","Inglostadt","4000-003", 
-						"materialslul@matino.ge", "+68349-333-10102");
-CALL register_supplier ("Badhiya Kapaas","IND66979302668492","Traayamph Skvaayar, nº124","Goa","4485-4432", 
-						"fashionkapaas@badkap.in", "+222543296584-3");
-CALL register_supplier ("AltaPelle Distributore","IT40330399569611111","Via Carlos Vallente, nº27","Piza","3-55-88895", 
-						"altpe@dist.it", "+444-8599339-2111");
-CALL register_supplier ("Edital Impressao","PT96797397339295","Alameda da Vitoria, n234","Guimarães","4800-234", 
-						"editalimp@edital.pt", "+351252111116");
-CALL register_supplier ("Diavges Sympan Lda","GR775588994433225566","Leoforos tou Mikrolameira, n123","Tebas","500-692-4", 
-						"diasymp@ludico.gr", "+34002-995-033-869");
-CALL register_supplier ("Kreativnyye Resheniya Importer","RU0020105889044430","Arkticheskiy prospekt, n94","Ufa","38948-222-01", 
-						"kreat@imprt.ru", "+643333020-4-3111");
-CALL register_supplier ("InovaPrint Solucciones Graficas","ES6854920492946841","Rua dela dama del dia, n20, Oficina I ","Mirallá","9000-009-AAA", 
-						"inovaprint@inova.es", "+583920007-90");
-CALL register_supplier ("Sangbeoggyuoppa Mungujeom","SCOR6695593388200060","jong-ijib geoli, n234","Jeju","2750-008", 
-						"mungsbeog@psg.sc", "+25839443922204");
-CALL register_supplier ("Páginas Vivas Publicações Inc.","BR99900299294958811","Rua Anita Carlota, n111","Curitiba","4740-081", 
-						"paginasvivas@vivas.br", "+33335434890250-111");
-CALL register_supplier ("Himno ng Kagalakan Ltda.","FP22294939205R8687853" ,"pinggan ng mga bulaklak, n001","Manila","747484-444", 
-						"him@ltda.fp", "+3512521111121");
 
 -- Inserçao de produtos encomendados pelos respetivos fornecedores
-SELECT * FROM Product;
+
 CALL register_delivery_product (7,3,"2023-11-30 13:00:00", 1);
 CALL register_delivery_product (8,3,"2023-11-30 13:00:00", 1);
 CALL register_delivery_product (9,3,"2023-11-30 13:00:00", 1);
@@ -266,6 +267,7 @@ CALL register_delivery_product (25,1,"2024-03-19 16:00:00", 1);
 CALL add_prod_new_shop_new_part("SALES00001", 1,
 						"Ana Alves Aves",NULL,"Rua Antonio Malheiro","Atchim","4406-333","2000-10-03",
 						1, "+351101092200", "aaa@machadinha.et");
+
 CALL add_prod_new_shop_new_part("SALES00001", 1,
 						"Beto Bartolomeu Broa","500402204","Sitio do Pica-pau","Amarelo","5504-999","1960-01-03",
 						1, "+351101092201", "bbb@tvi.et");

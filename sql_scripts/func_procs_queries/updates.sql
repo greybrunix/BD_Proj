@@ -225,7 +225,7 @@ BEGIN
 END &&
 DELIMITER &&
 CREATE PROCEDURE add_prod_to_shopping_cart(IN s_id INTEGER, pa_id INTEGER,
-	e_id VARCHAR(10), pd_id INTEGER, quant INTEGER)
+	pd_id INTEGER, quant INTEGER)
 BEGIN
 	DECLARE cur_stock INTEGER;
     DECLARE last_sale_id INTEGER;
