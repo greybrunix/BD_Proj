@@ -114,8 +114,53 @@ CREATE VIEW ProductPastSuppliers AS
 		FROM ProductSupplierPast AS PSP
 	GROUP BY PSP.ProductID_psp;
 
+-- check future suppliers of a product (52)
+CREATE VIEW ProductFutureSuppliers AS
+	SELECT PSF.ProductID_psf AS ProductID, GROUP_CONCAT(PSF.SupplierID_psf, PSF.SupplierName_psf) AS SupplierIDs, SupplierNames
+		FROM ProductSupplierFuture AS PSF
+	GROUP BY PSF.ProductID_psf;
 
+-- check all sales associated with a participant (53)
+CREATE VIEW SalesParticipant AS
+	SELECT S.ParticipantID_s AS ParticipantID, GROUP_CONCAT(S.ReceiptNO)
+		FROM Sales AS S
+	GROUP BY S.ParticipantID_s;
 
+-- check sale values and volume in a given day (57 and 58)
+CREATE VIEW DailySales AS
+	SELECT S.DateOfSale AS DateOfSale, SUM(S.TotalValue) AS TotalValue, SUM(S.TotalQuantity) AS TotalQuantity
+		FROM Sales AS S
+	GROUP BY S.DateOfSale;
 
-    
-    
+-- check who sold the most ticket in Event (72)
+CREATE VIEW BestSellersEmployee AS
+	SELECT EV.EventID AS EventID, S.EmployeeID_s AS EmployeeID, SUM(SP.Quantity) AS Quantity
+		FROM EventCal AS EV INNER JOIN EventEmployee AS EE
+			ON EV.EventID = EE.EventID_ee
+		INNER JOIN Employee AS E
+			ON EE.EmployeeID_ee = E.EmployeeID
+		INNER JOIN Sale AS S
+			ON E.EmployeeID = S.EmployeeID_s
+		INNER JOIN SaleProduct AS SP
+			ON S.EmployeeID_s = SP.EmployeeID_sp
+		INNER JOIN Product AS P
+			ON P.ProductName = EV.EventName
+	GROUP BY EV.EventID, S.EmployeeID_s
+		ORDER BY SUM(SP.Quantity) DESC;
+
+-- events someone participated in (81)
+CREATE VIEW EventsParticipated AS
+	SELECT S.ParticipantID_s AS ParticipantID, GROUP_CONCAT(EV.EventID, EV.EventName) AS EventID, EventName
+		FROM Sale AS S INNER JOIN SaleProduct AS SP
+			ON S.ReceiptNO = SP.ReceiptNO_sp
+		INNER JOIN Produto AS P
+			ON SP.ProductID_sp = P.ProductID
+		INNER JOIN EventCal AS EV
+			ON P.ProductName = EV.EventName
+	GROUP BY S.ParticipantID_s;
+
+-- check on employee sales (98)
+CREATE VIEW EmployeeSales AS
+	SELECT S.EmployeeID_s, GROUP_CONCAT(S.ReceiptNO) AS ReceiptNO
+		FROM Sales AS S
+	GROUP BY S.EmployeeID_s;

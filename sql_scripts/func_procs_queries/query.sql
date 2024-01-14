@@ -39,51 +39,17 @@ END &&
 SELECT ProductID, ProductName
  FROM Product;
 
--- check past suppliers of a product (51)
-DELIMITER &&
-CREATE PROCEDURE check_past_suppliers_prod (IN id INTEGER)
-	BEGIN
-	SELECT PSP.ProductID_psp, PSP.name
-		FROM ProductSupplierPast AS PSP
-		WHERE PSP.ProductID_psp = id;
-END &&
-
--- check future supppliers of a product (52)
-DELIMITER &&
-CREATE PROCEDURE check_fut_suppliers_prod (IN id INTEGER)
-	BEGIN
-	SELECT PSF.ProductID_psf
-		FROM ProductSupplierFuture AS PSF
-		WHERE PSF.ProductID_psf = id;
-END &&
-
--- check all sales associated with a participant (53)
-DELIMITER &&
-CREATE PROCEDURE check_all_participant_sales (IN id INTEGER)
-  BEGIN
-     SELECT *
-         FROM Sale AS S
-         WHERE S.ParticipantID_s = id;
-END &&
-
 -- check all suppliers (54)
 SELECT SupplierID, SupplierName
  FROM Supplier;
+
 -- check all Employees (55)
 SELECT EmployeeID, EmployeeName
 	FROM Employee;
+
 -- check all events (56)
 SELECT EventID, EventName
 	FROM EventCal;
-
--- check sale values and volume in a given day (57 and 58)
-DELIMITER &&
-CREATE PROCEDURE check_daily_sales (IN dos DATE)
-  BEGIN
-     SELECT SUM(S.TotalValue) AS Value, SUM(S.TotalQuantity) AS Volume
-         FROM Sale AS S
-         WHERE YEAR(S.DateOfSale) = YEAR(dos) AND MONTH(S.DateOfSale) = MONTH(dos) AND DAY(S.DateOfSale) = DAY(dos);
-END &&
 
 -- check participant with highest volume sales associated (59)
 SELECT P.ParticipantID, P.ParticipantName, SUM(S.TotalQuantity) AS Volume
@@ -121,42 +87,6 @@ CREATE PROCEDURE EventsInTimespan(IN firstday DATETIME, IN lastday DATETIME)
  END
  &&
 
--- check who sold the most tickets in Event (72)
-DELIMITER &&
-CREATE PROCEDURE GetSoldMostInEv (id INTEGER)
-	BEGIN
-		SELECT E.EmployeeID AS EmployeeID, E.EmployeeName AS EmployeeName
-			FROM EventCal AS EV 
-            INNER JOIN EventEmployee AS EE
-				ON id = EV.EventID = EE.EventID_ee 
-			INNER JOIN Employee AS E
-				ON EE.EmployeeID_ee = E.EmployeeID
-			INNER JOIN Sale AS S
-				ON E.EventID = S.EmployeeID_s
-			GROUP BY EmployeeID, EmployeeName
-				ORDER BY SUM(S.Quantity)
-			LIMIT 1;
-	END
-&&
-
--- events someone participated in (81)
-DELIMITER &&
-CREATE PROCEDURE check_events_participated(IN idP INTEGER)
-BEGIN
-	SELECT EV.EventID, EV.EventName
-		FROM EventCal AS EV
-        INNER JOIN Sale as S
-			ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventFin
-		INNER JOIN SaleProduct as SP
-			ON S.ReceiptNO = SP.ReceiptNO_sp
-		INNER JOIN Product as PR
-			ON SP.ProductID_sp = PR.ProductID AND PR.ProductName = EV.EventName
-		INNER JOIN Participant as P
-			ON S.ParticipantID_s = P.ParticipantID
-		WHERE P.ParticipantID = idP;
-END
-&&
-
 -- check the participant with the highest value in sales (93)
 SELECT P.id, P.name, SUM(S.Val) AS totVal
 	FROM sale AS S INNER JOIN participant AS P
@@ -172,12 +102,3 @@ SELECT E.EmployeeID, E.name, SUM(S.Val) AS totVal
 	GROUP BY E.EmployeeID, E.name
 		ORDER BY totVal DESC
 LIMIT 1;
-
--- check on Employee sales (98)
-DELIMITER &&
-CREATE PROCEDURE check_Employee_sales (IN id VARCHAR(10))
- BEGIN 
-    SELECT S.id
-        FROM sale
-			WHERE Employee_id_s = id;
-END &&
