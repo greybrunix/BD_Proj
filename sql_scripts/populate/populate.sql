@@ -2,13 +2,16 @@ USE mademoiselle_borges;
 
 -- Inserção de funcionários
 CALL register_new_employee("ADMIN00001", "Henrique Borges",
-                           "382923812", "1968-12-24", "Rua do blah",
-                           "Eventopolis", "1111-111", NULL);
+												 "382923812", "1968-12-24", "Rua do blah",
+												 "Eventopolis", "1111-111", NULL);
 CALL register_new_employee("ADMIN00002", "Maria Ivanovna Ivanova",
-                           "129293919", "1999-04-13", "Rua do blah",
-                           "Eventopolis", "1111-111", NULL);
+												 "129293919", "1999-04-13", "Rua do blah",
+												 "Eventopolis", "1111-111", NULL);
+CALL register_new_employee("ADMIN00003", "Herr Otto Mustermann",
+								"198263843", "2002-07-19", "Rua do blah",
+								"Eventopolis", "1111-111", NULL);
 CALL register_new_employee("JANIT00001", "Jacinto Ivanovich",
-						   "192382742", "1979-04-13", "Rua do blah",
+							 "192382742", "1979-04-13", "Rua do blah",
                            "Eventopolis", "1111-111", "ADMIN00001");
 CALL register_new_employee("JANIT00002", "Jacinto Ivanovich Sr",
 						   "192382743", "1959-04-13", "Rua do blah",
@@ -16,37 +19,34 @@ CALL register_new_employee("JANIT00002", "Jacinto Ivanovich Sr",
 CALL register_new_employee("JANIT00003", "Jacinto Ivanovich Jr",
 						   "192382744", "1999-04-13", "Rua do blah",
                            "Eventopolis", "1111-111", "ADMIN00002");
-CALL register_new_employee("JANIT00003", "Jacinto Ivanovich Jr",
-						   "192382744", "1999-04-13", "Rua do blah",
-                           "Eventopolis", "1111-111", "ADMIN00002");
-CALL register_new_employee("FLADM00005", "Miguel Mata Migalhas",
+CALL register_new_employee("MARKT00001", "Miguel Mata Migalhas",
 						   "999999999", "1974-04-25", "Avenida dos Vampiros",
                            "Eventopolis", "5555-555", NULL);
-CALL register_new_employee("FCADM00004", "Ruis Luis",
+CALL register_new_employee("MARKT00002", "Ruis Luis",
 						   "444444444", "2004-04-04", "Rua da Praça Proibida",
                            "Lon Gedaki", "4444-444", NULL);
-CALL register_new_employee("FIND-00003", "Artur Doffensmirtz",
+CALL register_new_employee("SALES00001", "Artur Doffensmirtz",
 						   "333333333", "1979-03-03", "Rua do Ornitorrinco",
                            "Eventopolis", "1111-132", NULL);
-CALL register_new_employee("FADM-00002", "Benilde Portas de Madeira",
+CALL register_new_employee("SALES00002", "Benilde Portas de Madeira",
 						   "222222222", "1970-02-22", "Rua do Centro nº1, 5B",
                            "Eventopolis", "1111-221", "FCADM00004");
-CALL register_new_employee("EST-00001", "José Carlos Malandro",
+CALL register_new_employee("SECUR00001", "José Carlos Malandro",
 						   "111111111", "2000-11-11", "Rua do Centro nº1, 5A",
                            "Eventopolis", "1111-221", "FADM-00002");
-CALL register_new_employee("fl---00006", "Aknostr Grust Hings",
+CALL register_new_employee("JANIT00004", "Aknostr Grust Hings",
 						   "666666666", "1996-29-01", "Trilho da Bananeira",
                            "Hsombra", "1169-111", "FLADM0005");
-CALL register_new_employee("F----00007", "Alice Grande Pequena",
+CALL register_new_employee("SECUR00002", "Alice Grande Pequena",
 						   "777777777", "1968-07-21", "Travessa da Lua",
                            "Ham Strong City", "7777-221", "FADM-00002");
-CALL register_new_employee("FADM-00008", "Bernardo Fernado Ferrari",
+CALL register_new_employee("MARKT00003", "Bernardo Fernado Ferrari",
 						   "888888888", "1988-08-15", "Rua da Boa Corrida"
                            "Eventopolis", "8888-111", "FCADM-00002");
-CALL register_new_employee("EST-00009", "Ines Luis Grust Hings",
+CALL register_new_employee("SALES00003", "Ines Luis Grust Hings",
 						   "6666666661", "1996-01-11", "TRilho da Bananeira",
                            "Hsombra", "1169-111", "FADM-00002");
-CALL register_new_employee("F----00010", "Yuppi May Catrindottir Alavason",
+CALL register_new_employee("MARKT00004", "Yuppi May Catrindottir Alavason",
 						   "101010101", "2000-11-11", "Rua Doutor Felis Felizardo Felisberto",
                            "Eventopolis", "1010-101", "FADM-00008");
 
@@ -115,21 +115,6 @@ CALL register_reservation_new_product ("Bloco de Notas de Couro",
 CALL register_reservation_new_product ("Livro de Receitas 'Sabores de Eventopolis'",
 									   "Receitas locais e tradicionais da região copiladas pelo enigmatico chefe Roy Mustang",49.95,
 										1,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
-CALL register_reservation_new_product ("Bilhete: Teatro Marionetas",
-									   "ilhete necessário para usufruir de todos os beneficios do evento",4.00,
-										40,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
-CALL register_reservation_new_product ("Bilhete: Feira Natalicia do Livro",
-									   "Bilhete necessário para usufruir de todos os beneficios do evento",4.00,
-										300,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
-CALL register_reservation_new_product ("Bilhete: Feira de Artesanato",
-									   "Bilhete necessário para usufruir de todos os beneficios do evento",4.00,
-										80,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
-CALL register_reservation_new_product ("Bilhete: Procissao Festiva de Sao Celestino de Rabo de Peixe",
-									   "Bilhete necessário para usufruir de todos os beneficios do evento",4.00,
-										150,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
-CALL register_reservation_new_product ("Bilhete: Peca de Teatro 'A Madame Escondida'",
-									   "Bilhete necessário para usufruir de todos os beneficios do evento",4.00,
-										150,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
 CALL register_reservation_new_product ("Agenda Anual Gatos 2024",
 									   "Agenda com páginas para cada dia do ano com imagens de vários felinos",12.99,
 										1,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
