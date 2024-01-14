@@ -101,29 +101,35 @@ DELIMITER &&
 CREATE PROCEDURE add_prod_new_shop_new_part(IN e_id VARCHAR(10), pd_id INTEGER,
 						part_name VARCHAR(75), part_vat VARCHAR(9),
 						street VARCHAR(50), locale VARCHAR(30), postal VARCHAR(15), part_bd DATE,
-						quant INTEGER)
+						quant INTEGER, part_phone VARCHAR(20))
 BEGIN
 	DECLARE last_ins INTEGER;
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
-
 
 	START TRANSACTION;
 
 	INSERT INTO Participant(ParticipantName, ParticipantVAT, ParticipantBirthDate,
 				Street, Locale, Postal)
 	VALUES (part_name, part_vat, part_bd, street, locale, postal);
-	IF check_error = FALSE THEN
-
-		SET @last_ins = (SELECT ParticipantID FROM Participant
-			ORDER BY ParticipantID DESC LIMIT 1);
-		CALL add_prod_to_new_shopping_cart(last_ins, e_id, pd_id, quant, @check_error);
+    
+    IF check_error = FALSE THEN
+		INSERT INTO ParticipantPhone(Phone)
+			VALUES(part_phone);
 		IF check_error = FALSE THEN
-			COMMIT;
+
+			SET @last_ins = (SELECT ParticipantID FROM Participant
+				ORDER BY ParticipantID DESC LIMIT 1);
+			CALL add_prod_to_new_shopping_cart(last_ins, e_id, pd_id, quant, @check_error);
+			IF check_error = FALSE THEN
+				COMMIT;
+			ELSE
+				ROLLBACK;
+			END IF;
 		ELSE
 			ROLLBACK;
 		END IF;
-	ELSE
+	ELSE 
 		ROLLBACK;
 	END IF;
 END &&
@@ -354,6 +360,42 @@ BEGIN
     
     INSERT INTO ParticipantPhone
 		VALUES (p_id, p_phone);
+	
+    IF check_error = FALSE THEN
+		COMMIT;
+	ELSE
+		ROLLBACK;
+	END IF;
+END &&
+
+DELIMITER &&
+CREATE PROCEDURE register_new_supplier_email (IN s_id INTEGER, s_email VARCHAR(75))
+BEGIN
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+    
+    START TRANSACTION;
+    
+    INSERT INTO SupplierEmail
+		VALUES (s_id, s_email);
+	
+    IF check_error = FALSE THEN
+		COMMIT;
+	ELSE
+		ROLLBACK;
+	END IF;
+END &&
+
+DELIMITER &&
+CREATE PROCEDURE register_new_supplier_phone (IN s_id INTEGER, s_phone VARCHAR(20))
+BEGIN
+	DECLARE check_error BOOLEAN DEFAULT FALSE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+    
+    START TRANSACTION;
+    
+    INSERT INTO SupplierPhone
+		VALUES (s_id, s_phone);
 	
     IF check_error = FALSE THEN
 		COMMIT;
