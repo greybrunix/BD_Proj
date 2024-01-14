@@ -10,13 +10,13 @@ BEGIN
 	START TRANSACTION;
 
 	INSERT INTO Supplier
-		VALUES(s_name, iban, street, locale, postal);
+	VALUES(s_name, iban, street, locale, postal);
 	IF check_error = FALSE THEN
 		SET @last_ins = (SELECT SupplierID FROM Supplier
 			ORDER BY SupplierID DESC LIMIT 1);
-		CALL register_supplier_phone(last_ins, phone);
-        IF check_error = FALSE THEN
-			CALL register_supplier_email(last_ins, email);
+		CALL register_supplier_phone(last_ins, phone, @check_error);
+		IF check_error = FALSE THEN
+			CALL register_supplier_email(last_ins, email, @check_error);
 			IF check_error = FALSE THEN
 				COMMIT;
 			ELSE
@@ -113,7 +113,7 @@ DELIMITER &&
 CREATE PROCEDURE add_prod_new_shop_new_part(IN e_id VARCHAR(10), pd_id INTEGER,
 						part_name VARCHAR(75), part_vat VARCHAR(9),
 						street VARCHAR(50), locale VARCHAR(30), postal VARCHAR(15), part_bd DATE,
-						quant INTEGER, phone VARCHAR(20), email VARCHAR(75))
+						quant INTEGER, phone VARCHAR(20), email VARCAHR(75))
 BEGIN
 	DECLARE last_ins INTEGER;
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
@@ -127,15 +127,24 @@ BEGIN
 	VALUES (part_name, part_vat, part_bd, street, locale, postal);
         
 	IF check_error = FALSE THEN
+
 		SET @last_ins = (SELECT ParticipantID FROM Participant
-			ORDER BY ParticipantID DESC LIMIT 1);
-		CALL register_new_participant_number(last_ins, part_phone);
-        IF check_error = FALSE THEN
-			CALL add_prod_to_new_shopping_cart(last_ins, e_id, pd_id, quant, @check_error);
+				ORDER BY ParticipantID DESC LIMIT 1);
+		CALL register_new_participant_number(last_ins, phone, @check_error);
+
+		IF check_error = FALSE THEN
+			IF email IS NOT NULL THEN
+				CALL register_new_participant_email(last_ins, email, @check_error);
+			END IF;
 			IF check_error = FALSE THEN
-				COMMIT;
+				CALL add_prod_to_new_shopping_cart(last_ins, e_id, pd_id, quant, @check_error);
+				IF check_error = FALSE THEN
+					COMMIT;
+				ELSE
+					ROLLBACK;
+				END IF;
 			ELSE
-				ROLLBACK;
+					ROLLBACK;
 			END IF;
 		ELSE
 			ROLLBACK;
@@ -289,7 +298,7 @@ END &&
 DELIMITER &&
 CREATE PROCEDURE register_new_employee (IN e_id VARCHAR(10), e_name VARCHAR(75),
 		vat VARCHAR(9), bd DATE, street VARCHAR(50), locale VARCHAR(30),
-		postal VARCHAR(15), manager VARCHAR(10))
+		postal VARCHAR(15), manager VARCHAR(10), phone VARCHAR(20), email VARCHAR(75))
 BEGIN
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
@@ -300,7 +309,21 @@ BEGIN
 	VALUES (e_id, e_name, vat, bd, street, locale, postal, manager);
 
 	IF check_error = FALSE THEN
-		COMMIT;
+
+		CALL register_new_employee_email(e_id, email, @check_error);
+
+		IF check_error = FALSE THEN
+
+			CALL register_new_employee_phone(e_id, phone, @check_error);
+
+			IF check_error = FALSE THEN
+				COMMIT;
+			ELSE
+				ROLLBACK;
+			END IF;
+		ELSE
+			ROLLBACK;
+		END IF;
 	ELSE
 		ROLLBACK;
 	END IF;
@@ -308,17 +331,18 @@ BEGIN
 END &&
 
 DELIMITER &&
-CREATE PROCEDURE register_new_employee_email (IN e_id VARCHAR(10), e_email VARCHAR(75))
+CREATE PROCEDURE register_new_employee_email (IN e_id VARCHAR(10), e_email VARCHAR(75),
+		INOUT check_error BOOLEAN)
 BEGIN
-	DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+	SET @check_error = FALSE;
     
-    START TRANSACTION;
-    
-    INSERT INTO EmployeeEmail
-		VALUES (e_id, e_email);
+	START TRANSACTION;
 	
-    IF check_error = FALSE THEN
+	INSERT INTO EmployeeEmail
+	VALUES (e_id, e_email);
+	
+	IF check_error = FALSE THEN
 		COMMIT;
 	ELSE
 		ROLLBACK;
@@ -326,17 +350,18 @@ BEGIN
 END &&
 
 DELIMITER &&
-CREATE PROCEDURE register_new_employee_phone (IN e_id VARCHAR(10), e_phone VARCHAR(20))
+CREATE PROCEDURE register_new_employee_phone (IN e_id VARCHAR(10), e_phone VARCHAR(20),
+		INOUT check_error BOOLEAN)
 BEGIN
-	DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+	SET @check_error = FALSE;
     
-    START TRANSACTION;
+	START TRANSACTION;
     
-    INSERT INTO EmployeePhone
-		VALUES (e_id, e_phone);
+	INSERT INTO EmployeePhone
+	VALUES (e_id, e_phone);
 	
-    IF check_error = FALSE THEN
+	IF check_error = FALSE THEN
 		COMMIT;
 	ELSE
 		ROLLBACK;
@@ -344,17 +369,18 @@ BEGIN
 END &&
 
 DELIMITER &&
-CREATE PROCEDURE register_new_participant_email (IN p_id INTEGER, p_email VARCHAR(75))
+CREATE PROCEDURE register_new_participant_email (IN p_id INTEGER, p_email VARCHAR(75),
+		INOUT check_error BOOLEAN)
 BEGIN
-	DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+	SET @check_error = FALSE;
     
-    START TRANSACTION;
+	START TRANSACTION;
     
-    INSERT INTO ParticipantEmail
-		VALUES (p_id, p_email);
+	INSERT INTO ParticipantEmail
+	VALUES (p_id, p_email);
 	
-    IF check_error = FALSE THEN
+	IF check_error = FALSE THEN
 		COMMIT;
 	ELSE
 		ROLLBACK;
@@ -362,17 +388,18 @@ BEGIN
 END &&
 
 DELIMITER &&
-CREATE PROCEDURE register_new_participant_phone (IN p_id INTEGER, p_phone VARCHAR(20))
+CREATE PROCEDURE register_new_participant_phone (IN p_id INTEGER, p_phone VARCHAR(20),
+		INOUT check_error BOOLEAN)
 BEGIN
-	DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+	SET @check_error = FALSE;
     
-    START TRANSACTION;
+	START TRANSACTION;
     
-    INSERT INTO ParticipantPhone
-		VALUES (p_id, p_phone);
+	INSERT INTO ParticipantPhone
+	VALUES (p_id, p_phone);
 	
-    IF check_error = FALSE THEN
+	IF check_error = FALSE THEN
 		COMMIT;
 	ELSE
 		ROLLBACK;
@@ -380,17 +407,18 @@ BEGIN
 END &&
 
 DELIMITER &&
-CREATE PROCEDURE register_new_supplier_email (IN s_id INTEGER, s_email VARCHAR(75))
+CREATE PROCEDURE register_new_supplier_email (IN s_id INTEGER, s_email VARCHAR(75),
+		INOUT check_error BOOLEAN)
 BEGIN
-	DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+	SET @check_error = FALSE;
     
-    START TRANSACTION;
+	START TRANSACTION;
     
-    INSERT INTO SupplierEmail
-		VALUES (s_id, s_email);
+	INSERT INTO SupplierEmail
+	VALUES (s_id, s_email);
 	
-    IF check_error = FALSE THEN
+	IF check_error = FALSE THEN
 		COMMIT;
 	ELSE
 		ROLLBACK;
@@ -398,18 +426,19 @@ BEGIN
 END &&
 
 DELIMITER &&
-CREATE PROCEDURE register_new_supplier_phone (IN s_id INTEGER, s_phone VARCHAR(20))
+CREATE PROCEDURE register_new_supplier_phone (IN s_id INTEGER, s_phone VARCHAR(20),
+		INOUT check_error BOOLEAN)
 BEGIN
-	DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
+	SET @check_error = FALSE;
     
-    START TRANSACTION;
+	START TRANSACTION;
     
-    INSERT INTO SupplierPhone
-		VALUES (s_id, s_phone);
+	INSERT INTO SupplierPhone
+	VALUES (s_id, s_phone);
 	
-    IF check_error = FALSE THEN
-		COMMIT;
+	IF check_error = FALSE THEN
+	COMMIT;
 	ELSE
 		ROLLBACK;
 	END IF;
