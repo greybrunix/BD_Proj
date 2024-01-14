@@ -13,6 +13,7 @@ BEGIN
     VALUES (s_name, iban, street, locale, postal);
 
     IF ROW_COUNT() = 0 THEN
+		ROLLBACK;
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error inserting into Supplier.';
     END IF;
@@ -22,6 +23,7 @@ BEGIN
     CALL register_supplier_phone(last_ins, phone);
 
     IF ROW_COUNT() = 0 THEN
+		ROLLBACK;
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error calling register_supplier_phone.';
     END IF;
@@ -29,6 +31,7 @@ BEGIN
     CALL register_supplier_email(last_ins, email);
 
     IF ROW_COUNT() = 0 THEN
+		ROLLBACK;
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error calling register_supplier_email.';
     END IF;
@@ -49,6 +52,7 @@ BEGIN
     VALUES(product_name, descript, baseprice, 0);
 
     IF ROW_COUNT() = 0 THEN
+		ROLLBACK;
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error inserting into Product.';
     END IF;
@@ -60,6 +64,7 @@ BEGIN
     VALUES(product_id, supplierid, dateofschedule, dateofreservation, stock);
 
     IF ROW_COUNT() = 0 THEN
+		ROLLBACK;
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error inserting into ProductSupplierFuture.';
     END IF;
