@@ -2,7 +2,7 @@ DROP SCHEMA IF EXISTS mademoiselle_borges;
 CREATE SCHEMA IF NOT EXISTS mademoiselle_borges;
 
 USE mademoiselle_borges;
-
+SET GLOBAL event_scheduler = ON;
 CREATE TABLE EventCal (
         EventID INTEGER AUTO_INCREMENT,
         EventName VARCHAR(75) NOT NULL UNIQUE,
