@@ -99,11 +99,9 @@ CREATE TABLE Product (
         ProductDescription TEXT NOT NULL,
         BasePrice DECIMAL(5,2) NOT NULL,
         QuantityInStock INTEGER NOT NULL,
+        CONSTRAINT Stock CHECK (QuantityInStock >= 0),
         PRIMARY KEY (ProductID)
 );
-
-ALTER TABLE Product
-	ADD CONSTRAINT Stock CHECK (QuantityInStock >= 0);
 
 CREATE TABLE SaleProduct (
         ReceiptNO_sp INTEGER NOT NULL,
