@@ -1,7 +1,6 @@
 USE mademoiselle_borges;
 
 -- Inserção de funcionários
-SELECT * FROM Sale;
 CALL register_new_employee("ADMIN00001", "Henrique Borges",
 												 "382923812", "1968-12-24", "Rua do blah",
 												 "Eventopolis", "1111-111", NULL, "+1111111111","henriquinho@borges.et");
@@ -190,11 +189,12 @@ CALL register_supplier ("Páginas Vivas Publicações Inc.","BR99900299294958811
 CALL register_supplier ("Himno ng Kagalakan Ltda.","FP22294939205R8687853" ,"pinggan ng mga bulaklak, n001","Manila","747484-444", 
 						"him@ltda.fp", "+3512521111121");
                         
-                        
+
+
 -- Inserção de Produtos
 CALL register_reservation_new_product ("Pacote Caneta Azul Bic",
 									   "Pacote de 10 Canetas da Marca Bic, cor azul", 
-                                       3.89,3,"2023-11-30 13:00:00",1,"2023-10-30 09:00:00");
+                                       "3.89","3","2023-11-30 13:00:00",1,"2023-10-30 09:00:00");
 CALL register_reservation_new_product ("Borracha Branca","2 Borrachas MAPPED",1.10,
 										3,"2023-11-30 13:00:00",1,"2023-10-30 09:00:00");
 CALL register_reservation_new_product ("Pacote Caneta Vermelha Bic","Pacote de 10 Canetas da Marca Bic, cor vermelha",3.89,
@@ -238,7 +238,7 @@ CALL register_reservation_new_product ("Livro 'A vida secreta de Carlos Valente'
 									    1,"2024-03-19 08:30:00",1,"2023-11-10 19:00:00");
 CALL register_reservation_new_product ("Bloco de Desenho A4","Bloco de papel para desenho tamanho A4, 50 folhas",12.95,
 									    9,"2024-03-19 16:00:00",1,"2023-12-25 10:00:00");
-
+SELECT * FROM Product;
 
 -- Inserçao de produtos encomendados pelos respetivos fornecedores
 
@@ -267,7 +267,8 @@ CALL register_delivery_product (25,1,"2024-03-19 16:00:00", 1);
 CALL add_prod_new_shop_new_part("SALES00001", 1,
 						"Ana Alves Aves",NULL,"Rua Antonio Malheiro","Atchim","4406-333","2000-10-03",
 						1, "+351101092200", "aaa@machadinha.et");
-
+SELECT * FROM Sale;
+SELECT * FROM ParticipantPhone;
 CALL add_prod_new_shop_new_part("SALES00001", 1,
 						"Beto Bartolomeu Broa","500402204","Sitio do Pica-pau","Amarelo","5504-999","1960-01-03",
 						1, "+351101092201", "bbb@tvi.et");

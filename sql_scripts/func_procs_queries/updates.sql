@@ -6,7 +6,7 @@ CREATE PROCEDURE register_supplier (IN s_name VARCHAR(75), iban VARCHAR(50), str
 BEGIN
 	DECLARE last_ins INTEGER;
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
 	START TRANSACTION;
 
@@ -38,26 +38,27 @@ CREATE PROCEDURE register_reservation_new_product (IN product_name VARCHAR(75),
 BEGIN
 	DECLARE product_id INTEGER;
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	START TRANSACTION;
 
-	INSERT INTO Product(ProductName, ProductDescription, BasePrice, QuantityInStock)
-	VALUES(product_name, descript, base_price, "0");
+	INSERT INTO Product (ProductName, ProductDescription, BasePrice, QuantityInStock)
+	VALUES(product_name, descript, baseprice, '0');
 
 
 	IF check_error = FALSE THEN
 
-		SET product_id = (SELECT ProductID FROM Product ORDER BY ProductID DESC
-			LIMIT 1);
+		SELECT ProductID INTO product_id FROM Product ORDER BY ProductID DESC
+			LIMIT 1;
 
-		CALL register_reservation_exis_product (product_id, supplierid, dateofschedule,
-			dateofreservation, stock);
+		INSERT INTO ProductSupplierFuture(ProductID_psf, SupplierID_psf,
+		DateOfSchedule, DateOfReservation, Quantity)
+	VALUES(product_id, supplierid, dateofschedule, dateofreservation, quantity);
 
-		IF check_error = FALSE THEN
-			COMMIT;
-		ELSE
-			ROLLBACK;
-		END IF;
+	IF check_error = FALSE THEN
+		COMMIT;
+	ELSE
+		ROLLBACK;
+	END IF;
 	ELSE
 		ROLLBACK;
 	END IF;
@@ -88,7 +89,7 @@ CREATE PROCEDURE register_delivery_product (IN p_id INTEGER,
 	s_id INTEGER, p_dod DATETIME, p_quantity INTEGER)
 BEGIN
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	START TRANSACTION;
 
 	UPDATE Product
@@ -117,8 +118,9 @@ CREATE PROCEDURE add_prod_new_shop_new_part(IN e_id VARCHAR(10), pd_id INTEGER,
 BEGIN
 	DECLARE last_ins INTEGER;
     DECLARE last_sale_id INTEGER;
+    DECLARE cur_val DECIMAL(5,2);
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
 
 	START TRANSACTION;
@@ -129,48 +131,48 @@ BEGIN
 
 	IF check_error = FALSE THEN
 
-		SET last_ins = (SELECT ParticipantID FROM Participant
-				ORDER BY ParticipantID DESC LIMIT 1);
-		CALL register_participant_number(last_ins, phone);
+		SELECT ParticipantID INTO last_ins FROM Participant
+				ORDER BY ParticipantID DESC LIMIT 1;
+		CALL register_participant_phone(last_ins, phone);
 
 		IF check_error = FALSE THEN
 			IF email IS NOT NULL THEN
 				CALL register_participant_email(last_ins, email);
 			END IF;
 			IF check_error = FALSE THEN
-				INSERT INTO Sale(TotalValue, TotalQuantity, Employee_id_s, ParticipantID_s)
-	VALUES(0,0, e_id, pa_id);
+				INSERT INTO Sale(TotalValue, Quantity, Employee_id_s, ParticipantID_s)
+				VALUES("0","0", e_id, pa_id);
 
-	IF check_error = FALSE THEN
-		SET last_sale_id = (SELECT ReceiptNO FROM Sale
-			ORDER BY ReceiptNO DESC LIMIT 1);
+				IF check_error = FALSE THEN
+					SET last_sale_id = (SELECT ReceiptNO FROM Sale
+						ORDER BY ReceiptNO DESC LIMIT 1);
 
-		SELECT BasePrice AS curr_val
-			FROM Product
-			WHERE ProductID = pd_id;
+					SELECT BasePrice INTO cur_val
+					FROM Product
+					WHERE ProductID = pd_id;
 
-		INSERT INTO SaleProduct(ReceiptNO_sp, ProductID_sp, CurrentValue, Quantity)
-		VALUES(last_sale_id, pd_id, cur_val, quant);
+					INSERT INTO SaleProduct(ReceiptNO_sp, ProductID_sp, CurrentValue, Quantity)
+					VALUES(last_sale_id, pd_id, cur_val, quant);
 
-		IF check_error = FALSE THEN
+					IF check_error = FALSE THEN
 
-			UPDATE Product
-			SET Stock = QuantityInStock - quant
-			WHERE ProductID = pd_id;
+						UPDATE Product
+						SET Stock = QuantityInStock - quant
+						WHERE ProductID = pd_id;
 
-			IF check_error = FALSE THEN
-				COMMIT;
+						IF check_error = FALSE THEN
+							COMMIT;
+						ELSE
+							ROLLBACK;
+						END IF;
+					ELSE
+						ROLLBACK;
+					END IF;
+				ELSE
+					ROLLBACK;
+				END IF;
 			ELSE
 				ROLLBACK;
-			END IF;
-		ELSE
-			ROLLBACK;
-		END IF;
-	ELSE
-		ROLLBACK;
-	END IF;
-			ELSE
-					ROLLBACK;
 			END IF;
 		ELSE
 			ROLLBACK;
@@ -188,7 +190,7 @@ BEGIN
 	DECLARE cur_stock INTEGER;
     DECLARE last_sale_id INTEGER;
     DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	START TRANSACTION;
 
 	INSERT INTO Sale(TotalValue, TotalQuantity, Employee_id_s, ParticipantID_s)
@@ -230,7 +232,7 @@ BEGIN
 	DECLARE cur_stock INTEGER;
     DECLARE last_sale_id INTEGER;
     DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	START TRANSACTION;
 
 		SELECT BasePrice AS curr_val
@@ -263,7 +265,7 @@ BEGIN
 	DECLARE s_totquant INTEGER;
 
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
 	START TRANSACTION;
 	SELECT SUM(SP.Quantity) INTO s_totquant
@@ -294,7 +296,7 @@ BEGIN
 	DECLARE pd_quant_sold INT;
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
 
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
 
 	START TRANSACTION;
@@ -360,7 +362,7 @@ CREATE PROCEDURE register_new_employee (IN e_id VARCHAR(10), e_name VARCHAR(75),
 		postal VARCHAR(15), manager VARCHAR(10), phone VARCHAR(20), email VARCHAR(75))
 BEGIN
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
 	START TRANSACTION;
 
@@ -393,7 +395,7 @@ DELIMITER &&
 CREATE PROCEDURE register_employee_email (IN e_id VARCHAR(10), e_email VARCHAR(75))
 BEGIN
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
 	START TRANSACTION;
 	
@@ -431,7 +433,7 @@ CREATE PROCEDURE register_participant_email (IN p_id INTEGER, p_email VARCHAR(75
 BEGIN
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
 
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
 	START TRANSACTION;
 
@@ -450,7 +452,7 @@ CREATE PROCEDURE register_participant_phone (IN p_id INTEGER, p_phone VARCHAR(20
 BEGIN
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
 
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
 	START TRANSACTION;
 
@@ -469,7 +471,7 @@ CREATE PROCEDURE register_supplier_email (IN s_id INTEGER, s_email VARCHAR(75))
 BEGIN
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
 
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
 	START TRANSACTION;
 
@@ -488,7 +490,7 @@ CREATE PROCEDURE register_supplier_phone (IN s_id INTEGER, s_phone VARCHAR(20))
 BEGIN
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
 
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
 	START TRANSACTION;
 
@@ -510,7 +512,7 @@ CREATE PROCEDURE register_new_event (IN e_name VARCHAR(75),
 BEGIN
 	DECLARE t_stock INT;
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	START TRANSACTION;
 	-- update with new event
 	INSERT INTO EventCal (EventName, EventDescription, EventStart, EventEnd, Capacity)
@@ -539,7 +541,7 @@ DELIMITER &&
 CREATE PROCEDURE assign_employee_event(IN e_id INTEGER, empl_id VARCHAR(10))
 BEGIN
 	DECLARE error_check BOOLEAN DEFAULT FALSE;
-	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET error_check = TRUE;
+	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @error_check = TRUE;
 
 	START TRANSACTION;
 
