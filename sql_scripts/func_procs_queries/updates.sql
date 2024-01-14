@@ -125,7 +125,7 @@ BEGIN
 	INSERT INTO Participant(ParticipantName, ParticipantVAT, ParticipantBirthDate,
 				Street, Locale, Postal)
 	VALUES (part_name, part_vat, part_bd, street, locale, postal);
-        
+
 	IF check_error = FALSE THEN
 
 		SET @last_ins = (SELECT ParticipantID FROM Participant
@@ -202,12 +202,12 @@ BEGIN
 	-- update sale table
 	DECLARE s_totval DECIMAL(5,2);
 	DECLARE s_totquant INTEGER;
-    
+
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
 	START TRANSACTION;
-	SELECT SUM(SP.Quantity) INTO s_totquant 
+	SELECT SUM(SP.Quantity) INTO s_totquant
 			FROM SaleProduct AS SP INNER JOIN Sale AS S
 			ON S.ReceiptNO = SP.ReceiptNO_sp
 			WHERE S.ReceiptNO = s_id;
@@ -234,35 +234,35 @@ BEGIN
 	DECLARE pd_id INT;
 	DECLARE pd_quant_sold INT;
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
-    
+
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
-    
+
 
 	START TRANSACTION;
-    SELECT COUNT(SP.ProductID_sp) INTO no_pds
+	SELECT COUNT(SP.ProductID_sp) INTO no_pds
 		FROM SaleProduct AS SP
-        WHERE SP.ReceiptNO_sp = s_id;
-        
+		WHERE SP.ReceiptNO_sp = s_id;
+
 	IF check_error = FALSE THEN
-		REPEAT -- Selecionar produtos para adicionar no stock 
+		REPEAT -- Selecionar produtos para adicionar no stock
 			SELECT SP.ProductID_sp, SP.Quantity INTO pd_id, pd_quant_sold
-				FROM saleproduct AS SP 
-				INNER JOIN Product AS P 
+				FROM saleproduct AS SP
+				INNER JOIN Product AS P
 				ON SP.ProductID_sp = P.ProductID
 				WHERE SP.ReceiptNO_sp = s_id
 				ORDER BY SP.ProductID_sp DESC
 				LIMIT 1;
-                
-            -- atualizar stock do produto selecionado    
+
+	-- atualizar stock do produto selecionado
 			UPDATE Product
 			SET QuantityInStock = QuantityInStock + pd_quant_sold
 			WHERE ProductID = pd_id;
 
 			IF check_error = FALSE THEN
-				-- retirar a venda do produto selecionado 
+				-- retirar a venda do produto selecionado
 				DELETE FROM SaleProduct
 				WHERE ReceiptNO_sp = s_id AND ProductID_sp = pd_id;
-                
+
 				SET no_pds = no_pds - 1;
 			END IF;
 
@@ -336,7 +336,7 @@ CREATE PROCEDURE register_new_employee_email (IN e_id VARCHAR(10), e_email VARCH
 BEGIN
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	SET @check_error = FALSE;
-    
+
 	START TRANSACTION;
 	
 	INSERT INTO EmployeeEmail
@@ -355,9 +355,9 @@ CREATE PROCEDURE register_new_employee_phone (IN e_id VARCHAR(10), e_phone VARCH
 BEGIN
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	SET @check_error = FALSE;
-    
+
 	START TRANSACTION;
-    
+
 	INSERT INTO EmployeePhone
 	VALUES (e_id, e_phone);
 	
@@ -374,9 +374,9 @@ CREATE PROCEDURE register_new_participant_email (IN p_id INTEGER, p_email VARCHA
 BEGIN
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	SET @check_error = FALSE;
-    
+
 	START TRANSACTION;
-    
+
 	INSERT INTO ParticipantEmail
 	VALUES (p_id, p_email);
 	
@@ -393,9 +393,9 @@ CREATE PROCEDURE register_new_participant_phone (IN p_id INTEGER, p_phone VARCHA
 BEGIN
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	SET @check_error = FALSE;
-    
+
 	START TRANSACTION;
-    
+
 	INSERT INTO ParticipantPhone
 	VALUES (p_id, p_phone);
 	
@@ -412,9 +412,9 @@ CREATE PROCEDURE register_new_supplier_email (IN s_id INTEGER, s_email VARCHAR(7
 BEGIN
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	SET @check_error = FALSE;
-    
+
 	START TRANSACTION;
-    
+
 	INSERT INTO SupplierEmail
 	VALUES (s_id, s_email);
 	
@@ -431,9 +431,9 @@ CREATE PROCEDURE register_new_supplier_phone (IN s_id INTEGER, s_phone VARCHAR(2
 BEGIN
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	SET @check_error = FALSE;
-    
+
 	START TRANSACTION;
-    
+
 	INSERT INTO SupplierPhone
 	VALUES (s_id, s_phone);
 	
