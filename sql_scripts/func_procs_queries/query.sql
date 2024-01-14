@@ -97,8 +97,8 @@ LIMIT 1;
 
 -- check the event with the most value in sales (94)
 SELECT EV.EventID, EV.EventName, SUM(S.TotalValue) AS totVal
-	FROM EventCal AS E INNER JOIN Sale as S
-		ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventFin
+	FROM EventCal AS EV INNER JOIN Sale as S
+		ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventEnd
 	GROUP BY EV.EventID, EV.EventName
 		ORDER BY totVal DESC
 LIMIT 1;
