@@ -224,7 +224,7 @@ BEGIN
 	END IF;
 END &&
 DELIMITER &&
-CREATE PROCEDURE add_prod_to_new_shopping_cart(IN pa_id INTEGER,
+CREATE PROCEDURE add_prod_to_shopping_cart(IN s_id INTEGER, pa_id INTEGER,
 	e_id VARCHAR(10), pd_id INTEGER, quant INTEGER)
 BEGIN
 	DECLARE cur_stock INTEGER;
@@ -232,9 +232,6 @@ BEGIN
     DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET check_error = TRUE;
 	START TRANSACTION;
-
-		SET last_sale_id = (SELECT ReceiptNO FROM Sale
-			ORDER BY ReceiptNO DESC LIMIT 1);
 
 		SELECT BasePrice AS curr_val
 			FROM Product
