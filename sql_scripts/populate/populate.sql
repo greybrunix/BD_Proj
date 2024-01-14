@@ -194,50 +194,51 @@ CALL register_supplier ("Himno ng Kagalakan Ltda.","FP22294939205R8687853" ,"pin
 -- Inserção de Produtos
 CALL register_reservation_new_product ("Pacote Caneta Azul Bic",
 									   "Pacote de 10 Canetas da Marca Bic, cor azul", 
-                                       "3.89","3","2023-11-30 13:00:00",1,"2023-10-30 09:00:00");
+                                       "3.89","3","2023-11-30 13:00:00",35,"2023-10-30 09:00:00");
 CALL register_reservation_new_product ("Borracha Branca","2 Borrachas MAPPED",1.10,
-										3,"2023-11-30 13:00:00",1,"2023-10-30 09:00:00");
+										3,"2023-11-30 13:00:00",21,"2023-10-30 09:00:00");
 CALL register_reservation_new_product ("Pacote Caneta Vermelha Bic","Pacote de 10 Canetas da Marca Bic, cor vermelha",3.89,
-										3,"2023-11-30 13:00:00",1,"2023-10-30 09:00:00");
+										3,"2023-11-30 13:00:00",30,"2023-10-30 09:00:00");
 CALL register_reservation_new_product ("Lápis de Cor Faber-Castell","Caixa com 36 lápis de cor vibrantes",29.99,
-										3,"2023-11-30 13:00:00",1,"2023-10-30 09:00:00");
+										3,"2023-11-30 13:00:00",13,"2023-10-30 09:00:00");
 CALL register_reservation_new_product ("Livro para Colorir","Livro com imagens de locais e eventos importantes de Eventopolis para colorir ",6.00,
-										1,"2023-12-10 08:30:00",1,"2023-11-10 19:00:00");
+										1,"2023-12-10 08:30:00",7,"2023-11-10 19:00:00");
 CALL register_reservation_new_product ("Livro 'Historia de Eventopolis, do século XV até modernidade'",
 									   "Livro do autor Benedito Leão, onde ele escreve sobre vários eventos históricos da antiga cidade de Eventopolis",30.00,
-										1,"2023-12-10 08:30:00",1,"2023-11-10 19:00:00");
+										1,"2023-12-10 08:30:00",6,"2023-11-10 19:00:00");
 CALL register_reservation_new_product ("Assinatura Mensal de Livros Locais",
 									   "Receba mensalmente um livro de um autor local ou com temática da cidade",10.99,
-										1,"2023-12-10 08:30:00",1,"2023-11-10 19:00:00");
+										1,"2023-12-10 08:30:00",22,"2023-11-10 19:00:00");
 CALL register_reservation_new_product ("Caderno Pautado","Caderno com 100 folhas pautadas",1.50,
-										9,"2024-01-25 16:00:00",1,"2023-12-25 10:00:00");
+										9,"2024-01-25 16:00:00",30,"2023-12-25 10:00:00");
 CALL register_reservation_new_product ("Caderno Quadriculado","Caderno com 100 folhas quadriculadas",1.50,
-										9,"2024-01-25 16:00:00",1,"2023-12-25 10:00:00");
+										9,"2024-01-25 16:00:00",30,"2023-12-25 10:00:00");
 CALL register_reservation_new_product ("Caneca 'I LOVE Eventopolis'","Caneca de ceramica com o slogan da cidade",7.50,
-										2,"2023-11-30 14:45:00",1,"2023-10-30 17:00:00");
+										2,"2023-11-30 14:45:00",20,"2023-10-30 17:00:00");
 CALL register_reservation_new_product ("Jogo de Tabuleiro 'Descubra Eventopolis'",
 									   "Jogo interativo para explorar a história e geografia de Eventopolis",24.55,
-										11,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
+										11,"2023-12-10 13:00:00",5,"2023-11-10 11:11:11");
 CALL register_reservation_new_product ("Livro de Receitas 'Sabores de Eventopolis'",
 									   "Receitas locais e tradicionais da região copiladas pelo enigmatico chefe Roy Mustang",49.95,
-										10,"2023-12-10 00:00:48",1,"2023-11-10 15:00:00");
+										10,"2023-12-10 00:00:48",4,"2023-11-10 15:00:00");
 CALL register_reservation_new_product ("Agenda Anual Gatos 2024",
 									   "Agenda com páginas para cada dia do ano com imagens de vários felinos",12.99,
-										4,"2024-03-18 09:30:00",1,"2024-02-18 14:00:00");
+										4,"2024-03-18 09:30:00",100,"2024-02-18 14:00:00");
 CALL register_reservation_new_product ("Conjunto de Postais de Eventopolis",
 									   "Pacote com 10 postais ilustrados de vários monumentos da cidade, incluido a famosa estufa construida por Carlos Valente no inicio do seculo XX",9.99,
-										5,"2023-12-10 13:00:00",1,"2023-11-10 12:45:00");
+										5,"2023-12-10 13:00:00",23,"2023-11-10 12:45:00");
 CALL register_reservation_new_product ("Guia Turístico de Eventopolis","Livro informativo com destinos, atrações e lendas da cidade",11.50,
-										8,"2023-12-10 13:00:00",1,"2023-11-10 12:45:00");
+										8,"2023-12-10 13:00:00",10,"2023-11-10 12:45:00");
                                         
 CALL register_reservation_new_product ("T-shirt 'I LOVE EVENTOPOLIS'","Uma t-shirt de tamanho S com o famoso logo'",10.00,
-									    2,"2024-03-20 11:00:00",1,"2023-11-16 10:00:00");                                        
+									    2,"2024-03-20 11:00:00",30,"2023-11-16 10:00:00");                                        
 CALL register_reservation_new_product ("Bloco de Notas de Couro","Bloco de notas elegante com capa de couro sintético",9.75,
-									    7,"2024-03-20 08:00:00",1,"2023-11-16 19:45:00");
+									    7,"2024-03-20 08:00:00",12,"2023-11-16 19:45:00");
 CALL register_reservation_new_product ("Livro 'A vida secreta de Carlos Valente'","Uma Biografia escrita por Maria Alves, acerca da escandalosa vida do mais importante arquiteto de Eventopolis",35.00,
-									    1,"2024-03-19 08:30:00",1,"2023-11-10 19:00:00");
+									    1,"2024-03-19 08:30:00",9,"2023-11-10 19:00:00");
 CALL register_reservation_new_product ("Bloco de Desenho A4","Bloco de papel para desenho tamanho A4, 50 folhas",12.95,
-									    9,"2024-03-19 16:00:00",1,"2023-12-25 10:00:00");
+									    9,"2024-03-19 16:00:00",19,"2023-12-25 10:00:00");
+
 SELECT * FROM Product;
 
 -- Inserçao de produtos encomendados pelos respetivos fornecedores
