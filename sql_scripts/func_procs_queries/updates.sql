@@ -113,7 +113,7 @@ DELIMITER &&
 CREATE PROCEDURE add_prod_new_shop_new_part(IN e_id VARCHAR(10), pd_id INTEGER,
 						part_name VARCHAR(75), part_vat VARCHAR(9),
 						street VARCHAR(50), locale VARCHAR(30), postal VARCHAR(15), part_bd DATE,
-						quant INTEGER, part_phone VARCHAR(20))
+						quant INTEGER, phone VARCHAR(20), email VARCHAR(75))
 BEGIN
 	DECLARE last_ins INTEGER;
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
