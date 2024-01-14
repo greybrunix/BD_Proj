@@ -91,7 +91,7 @@ CREATE VIEW ProductsInSale AS
 -- check all participants of a given event (46)
 CREATE VIEW ParticipantsEvent AS
 	SELECT EV.EventID AS EventID, GROUP_CONCAT(PA.ParticipantID) AS ParticipantIDs
-		FROM EventCal AS EV INNER JOIN SALE AS S
+		FROM EventCal AS EV INNER JOIN Sale AS S
 			ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventEnd
             INNER JOIN Participant AS PA
 				ON PA.ParticipantID = S.ParticipantID_s
@@ -110,26 +110,26 @@ CREATE VIEW ProductSuppliers AS
     
 -- check past suppliers of a product (51)
 CREATE VIEW ProductPastSuppliers AS
-	SELECT PSP.ProductID_psp AS ProductID, GROUP_CONCAT(PSP.SupplierID_psp, PSP.SupplierName_psp) AS SupplierIDs, SupplierNames
+	SELECT PSP.ProductID_psp AS ProductID, GROUP_CONCAT(PSP.SupplierID_psp) AS SupplierIDs
 		FROM ProductSupplierPast AS PSP
 	GROUP BY PSP.ProductID_psp;
 
 -- check future suppliers of a product (52)
 CREATE VIEW ProductFutureSuppliers AS
-	SELECT PSF.ProductID_psf AS ProductID, GROUP_CONCAT(PSF.SupplierID_psf, PSF.SupplierName_psf) AS SupplierIDs, SupplierNames
+	SELECT PSF.ProductID_psf AS ProductID, PSF.SupplierID_psf  AS Suppliers
 		FROM ProductSupplierFuture AS PSF
 	GROUP BY PSF.ProductID_psf;
 
 -- check all sales associated with a participant (53)
 CREATE VIEW SalesParticipant AS
 	SELECT S.ParticipantID_s AS ParticipantID, GROUP_CONCAT(S.ReceiptNO)
-		FROM Sales AS S
+		FROM Sale AS S
 	GROUP BY S.ParticipantID_s;
 
 -- check sale values and volume in a given day (57 and 58)
 CREATE VIEW DailySales AS
 	SELECT S.DateOfSale AS DateOfSale, SUM(S.TotalValue) AS TotalValue, SUM(S.TotalQuantity) AS TotalQuantity
-		FROM Sales AS S
+		FROM Sale AS S
 	GROUP BY S.DateOfSale;
 
 -- check who sold the most ticket in Event (72)
@@ -162,5 +162,5 @@ CREATE VIEW EventsParticipated AS
 -- check on employee sales (98)
 CREATE VIEW EmployeeSales AS
 	SELECT S.EmployeeID_s, GROUP_CONCAT(S.ReceiptNO) AS ReceiptNO
-		FROM Sales AS S
+		FROM Sale AS S
 	GROUP BY S.EmployeeID_s;

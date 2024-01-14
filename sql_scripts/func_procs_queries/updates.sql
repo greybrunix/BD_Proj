@@ -4,6 +4,7 @@ DELIMITER &&
 CREATE PROCEDURE register_supplier (IN s_name VARCHAR(75), iban VARCHAR(50), street VARCHAR(50),
 		locale VARCHAR(30), postal VARCHAR(15), email VARCHAR(75), phone VARCHAR(20))
 BEGIN
+	DECLARE last_ins INTEGER;
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 
@@ -168,7 +169,8 @@ BEGIN
 	VALUES(0,0, e_id, pa_id);
 
 	IF check_error = FALSE THEN
-		SET @last_sale_id = LAST_INSERT_ID();
+		SET @last_sale_id = (SELECT ReceiptNO FROM Sale
+			ORDER BY ReceiptNO DESC LIMIT 1);
 
 		SELECT BasePrice AS curr_val
 			FROM Product

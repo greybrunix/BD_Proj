@@ -45,7 +45,7 @@ CREATE TABLE EmployeeEmail (
 CREATE TABLE EventEmployee(
         EventID_ee INTEGER,
         EmployeeID_ee VARCHAR(10),
-        CONSTRAINT comp_key PRIMARY KEY (EventID_ee, EmployeeID_ee),
+        PRIMARY KEY (EventID_ee, EmployeeID_ee),
         FOREIGN KEY (EventID_ee)
             REFERENCES EventCal (EventID),
         FOREIGN KEY (EmployeeID_ee)
@@ -108,7 +108,7 @@ CREATE TABLE SaleProduct (
         ProductID_sp INTEGER NOT NULL,
         CurrentValue DECIMAL(5,2) NOT NULL,
         Quantity INTEGER NOT NULL,
-        CONSTRAINT comp_key PRIMARY KEY (ReceiptNO_sp, ProductID_sp),
+        PRIMARY KEY (ReceiptNO_sp, ProductID_sp),
         FOREIGN KEY (ReceiptNO_sp)
 			REFERENCES Sale (ReceiptNO),
         FOREIGN KEY (ProductID_sp)
@@ -136,7 +136,7 @@ CREATE TABLE SupplierEmail (
 CREATE TABLE SupplierPhone(
         SupplierID_sp INTEGER NOT NULL,
         Phone VARCHAR(20) NOT NULL UNIQUE,
-        PRIMARY KEY (SupplierIS_sp),
+        PRIMARY KEY (SupplierID_sp),
         FOREIGN KEY (SupplierID_sp)
             REFERENCES Supplier (SupplierID)
 );
@@ -146,7 +146,7 @@ CREATE TABLE ProductSupplierPast(
         SupplierID_psp INTEGER NOT NULL,
         DateOfDelivery DATETIME NOT NULL, -- date of delivery
 		Quantity INTEGER NOT NULL,
-        CONSTRAINT comp_key PRIMARY KEY (ProductID_psp,
+		PRIMARY KEY (ProductID_psp,
 		SupplierID_psp,
 		DateOfDelivery),
         FOREIGN KEY (ProductID_psp)
@@ -161,7 +161,7 @@ CREATE TABLE ProductSupplierFuture (
         DateOfReservation DATETIME NOT NULL, -- date of reservation
 		DateOfSchedule DATETIME NOT NULL, -- expected date
         Quantity INTEGER NOT NULL,
-        CONSTRAINT comp_key PRIMARY KEY (ProductID_psf,
+        PRIMARY KEY (ProductID_psf,
 		SupplierID_psf,
 		DateOfReservation,
 		DateOfSchedule),
