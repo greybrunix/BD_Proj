@@ -13,36 +13,10 @@ DETERMINISTIC
     RETURN manager;
 END &&
 
--- check products in sale (44)
-DELIMITER &&
-CREATE PROCEDURE check_products_in_sale (IN id INTEGER)
- BEGIN
-    SELECT ProductID_sp
-        FROM SaleProduct
-        WHERE ReceiptNO_sp = id;
-END &&
-
 -- check all closed sales (45)
 SELECT ReceiptNO
 	FROM Sale
 	WHERE DateOfSale IS NOT NULL;
-
--- check all participants of a given event (46)
--- DROP PROCEDURE  IF EXISTS check_parts_in_ev ;
-DELIMITER &&
-CREATE PROCEDURE check_parts_in_ev (IN id INTEGER)
-  BEGIN
-		SELECT PA.id,PA.name
-			FROM EventCal AS EV INNER JOIN Sale AS S
-				ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventEnd
-				INNER JOIN participant AS PA
-					ON PA.id = ParticipantID_s
-				INNER JOIN SaleProduct AS SP
-					ON S.ReceiptNO = SP.ReceiptNO_sp
-				INNER JOIN product AS PR
-					ON PR.ProductID = SP.ProductID_sp AND EV.EventName = PR.ParticipantName
-			WHERE id = EV.EventID;
-END &&
 
 -- check all participants of all events (47)
 SELECT ParticipantID, ParticipantName
@@ -64,15 +38,6 @@ END &&
 -- check all products (49)
 SELECT ProductID, ProductName
  FROM Product;
-
--- check suppliers of a product (50)
-DELIMITER &&
-CREATE PROCEDURE check_product_suppliers (IN id INTEGER) 
-	BEGIN
-     SELECT PSP.ProductID_psp, PSF.ProductID_psf
-         FROM ProductSupplierPast AS PSP INNER JOIN ProductSupplierFuture AS PSF
-			ON PSP.ProductID_psp = id AND PSF.ProductID_psf = id;
-END &&
 
 -- check past suppliers of a product (51)
 DELIMITER &&

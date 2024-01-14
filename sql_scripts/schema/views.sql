@@ -81,3 +81,41 @@ CREATE VIEW SupplierFull AS
 CREATE VIEW SaleNoValue AS
 	SELECT S.ReceiptNO AS ReceiptNO, S.TotalQuantity AS TotalQuantity, S.DateOfSale AS DateOfSale, S.EmployeeID_s AS EmployeeID, S.ParticipantID_s AS ParticipantID
 		FROM Sale AS S;
+
+-- check product in sale (44)
+CREATE VIEW ProductsInSale AS
+	SELECT ReceiptNO_sp AS ReceiptNO, GROUP_CONCAT(ProductID_sp) AS ProductIDs
+		FROM SaleProduct
+	GROUP BY ReceiptNO_sp;
+
+-- check all participants of a given event (46)
+CREATE VIEW ParticipantsEvent AS
+	SELECT EV.EventID AS EventID, GROUP_CONCAT(PA.ParticipantID) AS ParticipantIDs
+		FROM EventCal AS EV INNER JOIN SALE AS S
+			ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventEnd
+            INNER JOIN Participant AS PA
+				ON PA.ParticipantID = S.ParticipantID_s
+			INNER JOIN SaleProduct AS SP
+				ON S.ReceiptNO = SP.ReceiptNO_sp
+			INNER JOIN Product AS PR
+				ON PR.ProductID = SP.ProductID_sp AND EV.EventName = PR.ProductName
+	GROUP BY EV.EventID;
+
+-- check suppliers of a product (50)
+CREATE VIEW ProductSuppliers AS
+	SELECT PSP.ProductID_psp AS ProductID, GROUP_CONCAT(PSP.SupplierID_psp) AS SupplierIDs
+		FROM ProductSupplierPast AS PSP INNER JOIN ProductSupplierFuture AS PSF
+			ON PSP.ProductID_psp = PSF.ProductID_psf
+	GROUP BY PSP.ProductID_psp;
+    
+-- check past suppliers of a product (51)
+CREATE VIEW ProductPastSuppliers AS
+	SELECT PSP.ProductID_psp AS ProductID, GROUP_CONCAT(PSP.SupplierID_psp, PSP.SupplierName_psp) AS SupplierIDs, SupplierNames
+		FROM ProductSupplierPast AS PSP
+	GROUP BY PSP.ProductID_psp;
+
+
+
+
+    
+    
