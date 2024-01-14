@@ -131,7 +131,7 @@ CALL register_reservation_new_product ("Bilhete: Peca de Teatro 'A Madame Escond
 									   "Bilhete necessário para usufruir de todos os beneficios do evento",4.00,
 										150,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
 CALL register_reservation_new_product ("Agenda Anual Gatos 2024",
-									   "BAgenda com páginas para cada dia do ano com imagens de vários felinos",12.99,
+									   "Agenda com páginas para cada dia do ano com imagens de vários felinos",12.99,
 										1,"2023-12-10 13:00:00",1,"2023-11-10 11:11:11");
 CALL register_reservation_new_product ("Conjunto de Postais de Eventopolis",
 									   "Pacote com 10 postais ilustrados de vários monumentos da cidade, incluido a famosa estufa construida por Carlos Valente no inicio do seculo XX",9.99,
