@@ -87,7 +87,6 @@ CALL assign_employee_event(1, "JANIT00001");
 CALL assign_employee_event(1, "JANIT00002");
 CALL assign_employee_event(1, "JANIT00003");
 CALL assign_employee_event(1, "JANIT00004");
-CALL assign_employee_event(1, "JANIT00004");
 CALL assign_employee_event(1, "SECUR00001");
 CALL assign_employee_event(1, "SECUR00002");
 CALL assign_employee_event(1, "MARKT00001");
@@ -189,7 +188,7 @@ CALL register_supplier ("Páginas Vivas Publicações Inc.","BR99900299294958811
 CALL register_supplier ("Himno ng Kagalakan Ltda.","FP22294939205R8687853" ,"pinggan ng mga bulaklak, n001","Manila","747484-444", 
 						"him@ltda.fp", "+3512521111121");
                         
-
+SELECT * FROM Product;
 
 -- Inserção de Produtos
 CALL register_reservation_new_product ("Pacote Caneta Azul Bic",
@@ -240,6 +239,7 @@ CALL register_reservation_new_product ("Bloco de Desenho A4","Bloco de papel par
 									    9,"2024-03-19 16:00:00",19,"2023-12-25 10:00:00");
 
 SELECT * FROM Product;
+SELECT * FROM SaleProduct;
 
 -- Inserçao de produtos encomendados pelos respetivos fornecedores
 
@@ -268,9 +268,7 @@ CALL register_delivery_product (25,1,"2024-03-19 16:00:00", 1);
 CALL add_prod_new_shop_new_part("SALES00001", 1,
 						"Ana Alves Aves",NULL,"Rua Antonio Malheiro","Atchim","4406-333","2000-10-03",
 						1, "+351101092200", "aaa@machadinha.et");
-SELECT * FROM Sale;
-SELECT * FROM ParticipantPhone;
-SELECT * FROM Product;
+
 CALL add_prod_new_shop_new_part("SALES00001", 1,
 						"Beto Bartolomeu Broa","500402204","Sitio do Pica-pau","Amarelo","5504-999","1960-01-03",
 						1, "+351101092201", "bbb@tvi.et");
