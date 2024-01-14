@@ -269,6 +269,7 @@ CALL add_prod_new_shop_new_part("SALES00001", 1,
 						1, "+351101092200", "aaa@machadinha.et");
 SELECT * FROM Sale;
 SELECT * FROM ParticipantPhone;
+SELECT * FROM Product;
 CALL add_prod_new_shop_new_part("SALES00001", 1,
 						"Beto Bartolomeu Broa","500402204","Sitio do Pica-pau","Amarelo","5504-999","1960-01-03",
 						1, "+351101092201", "bbb@tvi.et");

@@ -140,8 +140,8 @@ BEGIN
 				CALL register_participant_email(last_ins, email);
 			END IF;
 			IF check_error = FALSE THEN
-				INSERT INTO Sale(TotalValue, TotalQuantity, Employee_id_s, ParticipantID_s)
-				VALUES("0","0", e_id, last_ins);
+				INSERT INTO Sale(TotalValue, TotalQuantity, DateOfSale, Employee_id_s, ParticipantID_s)
+				VALUES("0","0", NULL, e_id, last_ins);
 
 				IF check_error = FALSE THEN
 					SET last_sale_id = (SELECT ReceiptNO FROM Sale
