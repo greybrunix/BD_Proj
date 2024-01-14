@@ -113,7 +113,7 @@ DELIMITER &&
 CREATE PROCEDURE add_prod_new_shop_new_part(IN e_id VARCHAR(10), pd_id INTEGER,
 						part_name VARCHAR(75), part_vat VARCHAR(9),
 						street VARCHAR(50), locale VARCHAR(30), postal VARCHAR(15), part_bd DATE,
-						quant INTEGER, phone VARCHAR(20), email VARCAHR(75))
+						quant INTEGER, phone VARCHAR(20), email VARCHAR(75))
 BEGIN
 	DECLARE last_ins INTEGER;
 	DECLARE check_error BOOLEAN DEFAULT FALSE;
@@ -165,7 +165,7 @@ BEGIN
 	START TRANSACTION;
 
 	INSERT INTO Sale(TotalValue, TotalQuantity, Employee_id_s, ParticipantID_s)
-	VALUES(0,0, e_id, pd_id);
+	VALUES(0,0, e_id, pa_id);
 
 	IF check_error = FALSE THEN
 		SET @last_sale_id = LAST_INSERT_ID();
@@ -480,7 +480,7 @@ END &&
 DELIMITER &&
 CREATE PROCEDURE assign_employee_event(IN e_id INTEGER, empl_id VARCHAR(10))
 BEGIN
-	DECLARE error_check DEFAULT FALSE;
+	DECLARE error_check BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @error_check = TRUE;
 
 	START TRANSACTION;
