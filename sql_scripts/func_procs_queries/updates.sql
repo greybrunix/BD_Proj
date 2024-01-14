@@ -13,8 +13,8 @@ BEGIN
 	INSERT INTO Supplier (SupplierName, IBAN, Street, Locale, Postal)
 	VALUES(s_name, iban, street, locale, postal);
 	IF check_error = FALSE THEN
-		SET last_ins = (SELECT SupplierID FROM Supplier
-			ORDER BY SupplierID DESC LIMIT 1);
+		SELECT SupplierID INTO last_ins FROM Supplier
+			ORDER BY SupplierID DESC LIMIT 1;
 		CALL register_supplier_phone(last_ins, phone);
 		IF check_error = FALSE THEN
 			CALL register_supplier_email(last_ins, email);
@@ -144,8 +144,8 @@ BEGIN
 				VALUES("0","0", NULL, e_id, last_ins);
 
 				IF check_error = FALSE THEN
-					SET last_sale_id = (SELECT ReceiptNO FROM Sale
-						ORDER BY ReceiptNO DESC LIMIT 1);
+					SELECT ReceiptNO INTO last_sale_id FROM Sale
+						ORDER BY ReceiptNO DESC LIMIT 1;
 
 					SELECT BasePrice INTO cur_val
 					FROM Product
@@ -188,6 +188,7 @@ CREATE PROCEDURE add_prod_to_new_shopping_cart(IN pa_id INTEGER,
 	e_id VARCHAR(10), pd_id INTEGER, quant INTEGER)
 BEGIN
 	DECLARE cur_stock INTEGER;
+    DECLARE cur_val DECIMAL(5,2);
     DECLARE last_sale_id INTEGER;
     DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
@@ -197,10 +198,10 @@ BEGIN
 	VALUES(0,0, e_id, pa_id);
 
 	IF check_error = FALSE THEN
-		SET last_sale_id = (SELECT ReceiptNO FROM Sale
-			ORDER BY ReceiptNO DESC LIMIT 1);
+		SELECT ReceiptNO INTO last_sale_id FROM Sale
+			ORDER BY ReceiptNO DESC LIMIT 1;
 
-		SELECT BasePrice AS curr_val
+		SELECT BasePrice INTO cur_val
 			FROM Product
 			WHERE ProductID = pd_id;
 
@@ -230,12 +231,13 @@ CREATE PROCEDURE add_prod_to_shopping_cart(IN s_id INTEGER, pa_id INTEGER,
 	pd_id INTEGER, quant INTEGER)
 BEGIN
 	DECLARE cur_stock INTEGER;
+    DECLARE cur_val DECIMAL(5,2);
     DECLARE last_sale_id INTEGER;
     DECLARE check_error BOOLEAN DEFAULT FALSE;
 	DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET @check_error = TRUE;
 	START TRANSACTION;
 
-		SELECT BasePrice AS curr_val
+		SELECT BasePrice INTO cur_val
 			FROM Product
 			WHERE ProductID = pd_id;
 
