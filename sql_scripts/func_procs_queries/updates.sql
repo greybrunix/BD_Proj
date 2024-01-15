@@ -14,8 +14,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting into Supplier.';
     END IF;
 
     SELECT SupplierID INTO last_ins FROM Supplier ORDER BY SupplierID DESC LIMIT 1;
@@ -24,16 +22,12 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error calling register_supplier_phone.';
     END IF;
 
     CALL register_supplier_email(last_ins, email);
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error calling register_supplier_email.';
     END IF;
 
     COMMIT;
@@ -53,8 +47,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting into Product.';
     END IF;
 
     SELECT ProductID INTO product_id FROM Product ORDER BY ProductID DESC LIMIT 1;
@@ -65,8 +57,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting into ProductSupplierFuture.';
     END IF;
 
     COMMIT;
@@ -85,8 +75,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting into ProductSupplierFuture.';
     END IF;
     COMMIT;
 END &&
@@ -105,8 +93,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error updating product quantity.';
     END IF;
 
     INSERT INTO ProductSupplierPast
@@ -114,8 +100,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting into ProductSupplierPast.';
     END IF;
 
     COMMIT;
@@ -140,8 +124,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting participant information.';
     END IF;
 
     SELECT ParticipantID INTO last_ins FROM Participant
@@ -152,8 +134,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting participant phone information.';
     END IF;
 
     IF email IS NOT NULL THEN
@@ -162,8 +142,6 @@ BEGIN
 
         IF ROW_COUNT() = 0 THEN
 			ROLLBACK;
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Error inserting participant email information.';
         END IF;
     END IF;
 
@@ -172,8 +150,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting sale information.';
     END IF;
 
     SELECT ReceiptNO INTO last_sale_id FROM Sale
@@ -188,8 +164,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting sale product information.';
     END IF;
 
     UPDATE Product
@@ -198,8 +172,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error updating product quantity.';
     END IF;
     COMMIT;
 END &&
@@ -219,8 +191,6 @@ START TRANSACTION;
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting sale information.';
     END IF;
 
     SELECT ReceiptNO INTO last_sale_id FROM Sale
@@ -235,8 +205,6 @@ START TRANSACTION;
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting sale product information.';
     END IF;
 
     UPDATE Product
@@ -245,8 +213,6 @@ START TRANSACTION;
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error updating product quantity.';
     END IF;
     COMMIT;
 END &&
@@ -271,8 +237,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting into SaleProduct.';
     END IF;
 
     UPDATE Product
@@ -281,8 +245,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error updating product quantity.';
     END IF;
     COMMIT;
 END &&
@@ -314,8 +276,6 @@ DECLARE pd_id INTEGER;
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error updating Sale.';
     END IF;
 
     COMMIT;
@@ -352,8 +312,6 @@ BEGIN
 
         IF ROW_COUNT() = 0 THEN
 			ROLLBACK;
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Error updating product stock.';
         END IF;
 
         DELETE FROM SaleProduct
@@ -361,8 +319,6 @@ BEGIN
 
         IF ROW_COUNT() = 0 THEN
 			ROLLBACK;
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Error removing sale of the product.';
         END IF;
 
         SET no_pds = no_pds - 1;
@@ -375,8 +331,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error removing the sale.';
     END IF;
 
     DELETE FROM Participant
@@ -384,8 +338,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error removing loose participants.';
     END IF;
 
     COMMIT;
@@ -405,26 +357,19 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting into Employee.';
     END IF;
-
-    CALL register_employee_email(e_id, email);
+	
+	CALL register_employee_email(e_id, email);
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error calling register_employee_email.';
     END IF;
-
-    CALL register_employee_phone(e_id, phone);
+    
+	CALL register_employee_phone(e_id, phone);
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error calling register_employee_phone.';
     END IF;
-
     COMMIT;
 END &&
 
@@ -437,13 +382,12 @@ BEGIN
 	START TRANSACTION;
 	
 	INSERT INTO EmployeeEmail
-	VALUES (e_id, e_email);
-	
-	IF check_error = FALSE THEN
-		COMMIT;
-	ELSE
+		VALUES (e_id, e_email);
+	    
+	IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-	END IF;
+    END IF;
+    COMMIT;
 END &&
 
 DELIMITER &&
@@ -555,8 +499,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting into EventCal.';
     END IF;
 
     SET t_stock = e_capacity;
@@ -569,8 +511,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting into Product.';
     END IF;
 
     COMMIT;
@@ -587,8 +527,6 @@ BEGIN
 
     IF ROW_COUNT() = 0 THEN
 		ROLLBACK;
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error inserting into EventEmployee.';
     END IF;
 
     -- Commit the transaction if all operations are successful
