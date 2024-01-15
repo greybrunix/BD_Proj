@@ -235,25 +235,25 @@ CALL register_reservation_new_product ("Bloco de Desenho A4","Bloco de papel par
 
 -- Inserçao de produtos encomendados pelos respetivos fornecedores
 
-CALL register_delivery_product (7,3,"2023-11-30 13:00:00", 1);
-CALL register_delivery_product (8,3,"2023-11-30 13:00:00", 1);
-CALL register_delivery_product (9,3,"2023-11-30 13:00:00", 1);
-CALL register_delivery_product (10,3,"2023-11-30 13:00:00", 1);
-CALL register_delivery_product (11,1,"2023-12-10 08:30:00", 1);
-CALL register_delivery_product (12,1,"2023-12-10 08:30:00", 1);
-CALL register_delivery_product (13,1,"2023-12-10 08:30:00", 1);
-CALL register_delivery_product (14,9,"2024-01-25 16:00:00", 1);
-CALL register_delivery_product (15,9,"2024-01-25 16:00:00", 1);
-CALL register_delivery_product (16,2,"2023-11-30 14:45:00", 1);
-CALL register_delivery_product (17,11,"2023-12-10 13:00:00", 1);
-CALL register_delivery_product (18,10,"2023-12-10 00:00:48", 1);
-CALL register_delivery_product (19,4,"2024-03-18 09:30:00", 1);
-CALL register_delivery_product (20,5,"2023-12-10 13:00:00", 1);
-CALL register_delivery_product (21,8,"2023-12-10 13:00:00", 1);
-CALL register_delivery_product (22,2,"2024-03-20 11:00:00", 1);
-CALL register_delivery_product (23,7,"2024-03-20 08:00:00", 1);
-CALL register_delivery_product (24,1,"2024-03-19 08:30:00", 1);
-CALL register_delivery_product (25,1,"2024-03-19 16:00:00", 1);
+CALL register_delivery_product (7,3,"2023-11-30 13:00:00", 35);
+CALL register_delivery_product (8,3,"2023-11-30 13:00:00", 21);
+CALL register_delivery_product (9,3,"2023-11-30 13:00:00", 30);
+CALL register_delivery_product (10,3,"2023-11-30 13:00:00", 13);
+CALL register_delivery_product (11,1,"2023-12-10 08:30:00", 7);
+CALL register_delivery_product (12,1,"2023-12-10 08:30:00", 6);
+CALL register_delivery_product (13,1,"2023-12-10 08:30:00", 22);
+CALL register_delivery_product (14,9,"2024-01-25 16:00:00", 30);
+CALL register_delivery_product (15,9,"2024-01-25 16:00:00", 30);
+CALL register_delivery_product (16,2,"2023-11-30 14:45:00", 20);
+CALL register_delivery_product (17,11,"2023-12-10 13:00:00", 5);
+CALL register_delivery_product (18,10,"2023-12-10 00:00:48", 4);
+CALL register_delivery_product (19,4,"2024-03-18 09:30:00", 100);
+CALL register_delivery_product (20,5,"2023-12-10 13:00:00", 23);
+CALL register_delivery_product (21,8,"2023-12-10 13:00:00", 10);
+CALL register_delivery_product (22,2,"2024-03-20 11:00:00", 30);
+CALL register_delivery_product (23,7,"2024-03-20 08:00:00", 12);
+CALL register_delivery_product (24,1,"2024-03-19 08:30:00", 9);
+CALL register_delivery_product (25,1,"2024-03-19 16:00:00", 19);
 
 -- Inserçao de carrinho de compras (Participante novo)
 
