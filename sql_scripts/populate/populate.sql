@@ -268,71 +268,113 @@ CALL register_delivery_product (25,1,"2024-03-19 16:00:00", 1);
 CALL add_prod_new_shop_new_part("SALES00001", 1,
 						"Ana Alves Aves",NULL,"Rua Antonio Malheiro","Atchim","4406-333","2000-10-03",
 						1, "+351101092200", "aaa@machadinha.et");
-
+CALL register_sale (1, "2023-12-19 15:30:00");
 CALL add_prod_new_shop_new_part("SALES00001", 1,
 						"Beto Bartolomeu Broa","500402204","Sitio do Pica-pau","Amarelo","5504-999","1960-01-03",
 						1, "+351101092201", "bbb@tvi.et");
-CALL add_prod_new_shop_new_part("SALES00001", 2,
-						"Carlos Coentrao Cavaco",null,"Rua do Palhaco Mudo","Palhaca","1566-839","1970-05-04",
-						1, "+351101092202", "ccc@cerpente.et");
-CALL add_prod_new_shop_new_part("SALES00002", 2,
-						"Diofantina Duarte Dias","295839290","Avenida da Real Virtualidade","Mato da Beira","0119-703","1990-11-11",
-						1, "+351101092203", "ddd@nutmax.yp");
-CALL add_prod_new_shop_new_part("SALES00002", 3,
-						"Eduardo Ernesto","667438290","Travessa Entre-Riachos","Puarto","7777-431","2003-08-30",
-						1, "+351101092204", "ee@hehe.he");
-CALL add_prod_new_shop_new_part("SALES00002", 4,
-						"Fhatima Alkhashour",null,"Bairro do Gato Maltes","Pianno Valletta","4403-752","2013-12-25",
-						1, "+351101092205", "fhaal@tapoporto.uz");
-CALL add_prod_new_shop_new_part("SALES00003", 4,
-						"Gilberto Gloria Gomes Galhardo","555444333","Praca of Alliances","En-Guardinton","6659-330","2010-03-02",
-						1, "+351101092206", "gegegege@togeee.ge");
-CALL add_prod_new_shop_new_part("SALES00003", 5,
-						"Blake Edwards","448395907","Rua Pantera Cor-de-Rosa","Panan-Panan","3302-544","1994-09-22",
-						1, "+351101092207", "hhh@aaaaa.tchin");
-CALL add_prod_new_shop_new_part("SALES00003", 5,
-						"Ivo Ilhas","200019776","Rua do Ivo","Ilhotas do Ivo","1111-000","1000-01-01",
-						1, "+351101092208", "iilhas@dunas.dv");
-CALL add_prod_new_shop_new_part("SALES00003", 6,
-						"Anatoliyy Curie","559430210","Rua da Menina do Polonio","Eurehka","5077-496","2007-11-07",
-						1, "+24199504421", "ak47@boom.cs");
-CALL add_prod_new_shop_new_part("SALES00003", 6,
-						"Hector Hernandez","604449622","Ruelha de la Pas","Bolicau","3019-301","2001-09-10",
-						1, "+24199504422", "hhplus1@aaaaa.tchin");
+CALL register_sale (2, "2023-12-19 15:31:00");
+
 CALL add_prod_new_shop_new_part("SALES00002", 1,
 						"Pavel Nguissa","330209763","Avenida da Gritaria","Onda","1039-586","2004-02-29",
 						1, "+24199504423", "sigmat@golo.afk");
-CALL add_prod_new_shop_new_part("SALES00003", 2,
-						"Jay Okocha","069411194","Travessa Costa Dourada","Praia de Matosinhos","7732-410","2016-07-10",
-						1, "+24199504424", "jjayokoctha@psg.fr");
+CALL register_sale (3, "2023-12-19 15:32:00");
+
+CALL add_prod_new_shop_new_part("SALES00002", 3,
+						"Eduardo Ernesto","667438290","Travessa Entre-Riachos","Puarto","7777-431","2003-08-30",
+						1, "+351101092204", "ee@hehe.he");
+CALL register_sale (4, "2023-12-15 18:30:00");
+                        
 CALL add_prod_new_shop_new_part("SALES00003", 3,
 						"Jasper Lindkrug","110097832","Rua Mas Marias","Gotland","6000-256","1936-05-23",
 						1, "+24199504425", "jaspenkrug@ger.sw");
+CALL register_sale (5, "2023-12-15 18:31:00");
+
+CALL add_prod_new_shop_new_part("SALES00001", 2,
+						"Carlos Coentrao Cavaco",null,"Rua do Palhaco Mudo","Palhaca","1566-839","1970-05-04",
+						1, "+351101092202", "ccc@cerpente.et");
+CALL register_sale (6, "2024-02-02 21:30:00");
+
+CALL add_prod_new_shop_new_part("SALES00002", 2,
+						"Diofantina Duarte Dias","295839290","Avenida da Real Virtualidade","Mato da Beira","0119-703","1990-11-11",
+						1, "+351101092203", "ddd@nutmax.yp");
+CALL register_sale (7, "2024-02-02 21:31:00");
+
+CALL add_prod_new_shop_new_part("SALES00003", 2,
+						"Jay Okocha","069411194","Travessa Costa Dourada","Praia de Matosinhos","7732-410","2016-07-10",
+						1, "+24199504424", "jjayokoctha@psg.fr");
+CALL register_sale (8, "2024-02-02 21:32:00");
+   
+CALL add_prod_new_shop_new_part("SALES00002", 4,
+						"Fhatima Alkhashour",null,"Bairro do Gato Maltes","Pianno Valletta","4403-752","2013-12-25",
+						1, "+351101092205", "fhaal@tapoporto.uz");
+CALL register_sale (9, "2024-02-05 15:00:00");
+
+CALL add_prod_new_shop_new_part("SALES00003", 4,
+						"Gilberto Gloria Gomes Galhardo","555444333","Praca of Alliances","En-Guardinton","6659-330","2010-03-02",
+						1, "+351101092206", "gegegege@togeee.ge");
+CALL register_sale (10, "2024-02-05 15:01:00");
+
 CALL add_prod_new_shop_new_part("SALES00002", 4,
 						"Yang Lee-sang","559302119","Bairro Tia Ying-Yang","Principado de Qin","5094-333","2174-10-31",
 						1, "+24199504426", "ylsneg@soc.pts");
+CALL register_sale (11, "2024-02-05 15:02:00");
+
+CALL add_prod_new_shop_new_part("SALES00003", 5,
+						"Blake Edwards","448395907","Rua Pantera Cor-de-Rosa","Panan-Panan","3302-544","1994-09-22",
+						1, "+351101092207", "hhh@aaaaa.tchin");
+CALL register_sale (12, "2024-02-07 13:30:00");       
+              
+CALL add_prod_new_shop_new_part("SALES00003", 5,
+						"Ivo Ilhas","200019776","Rua do Ivo","Ilhotas do Ivo","1111-000","1000-01-01",
+						1, "+351101092208", "iilhas@dunas.dv");
+CALL register_sale (13, "2024-02-07 13:31:00");
+					
 CALL add_prod_new_shop_new_part("SALES00001", 5,
 						"Mizutsuki Yamatora",null,"Baia de Oda","Wan Pice","6039-777","1953-04-16",
 						1, "+24199504427", "WEAREONTHECRUISEEE@onepiece.oda");
+CALL register_sale (14, "2024-02-07 13:32:00");
+                       
+CALL add_prod_new_shop_new_part("SALES00003", 6,
+						"Anatoliyy Curie","559430210","Rua da Menina do Polonio","Eurehka","5077-496","2007-11-07",
+						1, "+24199504421", "ak47@boom.cs");
+CALL register_sale (15, "2024-02-08 13:00:00");
+CALL add_prod_new_shop_new_part("SALES00003", 6,
+						"Hector Hernandez","604449622","Ruelha de la Pas","Bolicau","3019-301","2001-09-10",
+						1, "+24199504422", "hhplus1@aaaaa.tchin");
+CALL register_sale (16, "2024-02-08 13:01:00");
+
                         
 -- Inserção de carrinho que compras (Participantes existentes)
 CALL add_prod_to_new_shopping_cart(1,"SALES00001", 10, 1);
-CALL add_prod_to_new_shopping_cart(1,"SALES00001", 14, 1);
-CALL add_prod_to_new_shopping_cart(1,"SALES00001", 24, 1);
-CALL add_prod_to_new_shopping_cart(3,"SALES00002", 23, 1);
-CALL add_prod_to_new_shopping_cart(3,"SALES00002", 11, 1);
-CALL add_prod_to_new_shopping_cart(5,"SALES00003", 7, 1);
-CALL add_prod_to_new_shopping_cart(5,"SALES00003", 8, 1);
-CALL add_prod_to_new_shopping_cart(5,"SALES00003", 17, 1);
-CALL add_prod_to_new_shopping_cart(5,"SALES00003", 12, 1);
-CALL add_prod_to_new_shopping_cart(7,"SALES00001", 16, 1);
-CALL add_prod_to_new_shopping_cart(9,"SALES00003", 20, 1);
-CALL add_prod_to_new_shopping_cart(9,"SALES00003", 21, 1);
-CALL add_prod_to_new_shopping_cart(9,"SALES00003", 25, 1);
-CALL add_prod_to_new_shopping_cart(11,"SALES00002", 18, 1);
-CALL add_prod_to_new_shopping_cart(13,"SALES00001", 9, 1);
-CALL add_prod_to_new_shopping_cart(13,"SALES00001", 22, 1);
-CALL add_prod_to_new_shopping_cart(13,"SALES00001", 19, 1);
+CALL add_prod_to_shopping_cart(17, 1,14, 1);
+CALL add_prod_to_shopping_cart(17, 1,24, 1);
+CALL register_sale (17, "2023-12-19 15:33:00");
 
--- Inserçao de vendas
+CALL add_prod_to_new_shopping_cart(3,"SALES00002", 23, 1);
+CALL add_prod_to_shopping_cart(18, 3,11, 1);
+CALL register_sale (18, "2023-12-19 15:34:00");
+
+CALL add_prod_to_new_shopping_cart(5,"SALES00003", 7, 1);
+CALL add_prod_to_shopping_cart(19, 5,8, 1);
+CALL add_prod_to_shopping_cart(19, 5,17, 1);
+CALL add_prod_to_shopping_cart(19, 5,12, 1);
+CALL register_sale (19, "2023-12-15 18:40:00");
+
+CALL add_prod_to_new_shopping_cart(7,"SALES00001", 16, 1);
+CALL register_sale (20, "2024-02-02 21:40:00");
+
+CALL add_prod_to_new_shopping_cart(9,"SALES00003", 20, 1);
+CALL add_prod_to_shopping_cart(21, 9,21, 1);
+CALL add_prod_to_shopping_cart(21, 9,25, 1);
+CALL register_sale (21, "2024-02-05 15:10:00");
+
+
+CALL add_prod_to_new_shopping_cart(11,"SALES00002", 18, 1);
+CALL register_sale (22, "2024-02-05 15:12:00");
+
+CALL add_prod_to_new_shopping_cart(13,"SALES00001", 9, 1);
+CALL add_prod_to_shopping_cart(23, 13,22, 1);
+CALL add_prod_to_shopping_cart(23, 13,19, 1);
+CALL register_sale (23, "2024-02-07 13:41:00");
+
 
