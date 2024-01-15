@@ -49,8 +49,6 @@ CALL register_new_employee("MARKT00004", "Yuppi May Catrindottir Alavason",
 						   "101010101", "2000-11-11", "Rua Doutor Felis Felizardo Felisberto",
                            "Eventopolis", "1010-101", "MARKT00001", "+707707700707","ymca@mar.et");
 
-
-                           
 -- Inserção de Eventos
 CALL register_new_event("Christmas Booksale - Mademoiselle Borges",
                         "Discover a world of literary wonders at our Christmas Booksale, in honor of the memory of Lady Borges",
@@ -236,9 +234,6 @@ CALL register_reservation_new_product ("Livro 'A vida secreta de Carlos Valente'
 									    1,"2024-03-19 08:30:00",9,"2023-11-10 19:00:00");
 CALL register_reservation_new_product ("Bloco de Desenho A4","Bloco de papel para desenho tamanho A4, 50 folhas",12.95,
 									    9,"2024-03-19 16:00:00",19,"2023-12-25 10:00:00");
-
-SELECT * FROM Product;
-SELECT * FROM SaleProduct;
 
 -- Inserçao de produtos encomendados pelos respetivos fornecedores
 
