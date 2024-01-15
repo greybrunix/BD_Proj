@@ -25,8 +25,11 @@ GRANT EXECUTE ON PROCEDURE register_reservation_new_product TO 'employee'@'local
 GRANT EXECUTE ON PROCEDURE register_reservation_exis_product TO 'employee'@'localhost';
 GRANT EXECUTE ON PROCEDURE register_delivery_product TO 'employee'@'localhost';
 GRANT EXECUTE ON PROCEDURE add_prod_to_new_shopping_cart TO 'employee'@'localhost';
+GRANT EXECUTE ON PROCEDURE add_prod_to_shopping_cart TO 'employee'@'localhost';
 GRANT EXECUTE ON PROCEDURE cancel_ongoing_sale TO 'employee'@'localhost';
 GRANT EXECUTE ON PROCEDURE register_supplier TO 'employee'@'localhost';
+GRANT EXECUTE ON PROCEDURE register_supplier_email TO 'employee'@'localhost';
+GRANT EXECUTE ON PROCEDURE register_supplier_phone TO 'employee'@'localhost';
 
 GRANT SELECT ON mademoiselle_borges.EventCal TO 'marketing'@'localhost';
 GRANT EXECUTE ON PROCEDURE register_new_event TO 'marketing'@'localhost';
