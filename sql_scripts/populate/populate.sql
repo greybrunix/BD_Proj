@@ -1,5 +1,9 @@
 USE mademoiselle_borges;
 
+SELECT (SP.Quantity * SP.CurrentValue)
+    FROM SaleProduct AS SP
+    INNER JOIN Sale AS S ON S.ReceiptNO = SP.ReceiptNO_sp
+    WHERE S.ReceiptNO = 17;
 -- Inserção de funcionários
 CALL register_new_employee("ADMIN00001", "Henrique Borges",
 												 "382923812", "1968-12-24", "Rua do blah",
