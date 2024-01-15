@@ -16,6 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Temporary table structure for view `BestSellersEmployee`
+--
+
+DROP TABLE IF EXISTS `BestSellersEmployee`;
+/*!50001 DROP VIEW IF EXISTS `BestSellersEmployee`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `BestSellersEmployee` AS SELECT
+ 1 AS `EventID`,
+  1 AS `EmployeeID`,
+  1 AS `Quantity` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `DailySales`
+--
+
+DROP TABLE IF EXISTS `DailySales`;
+/*!50001 DROP VIEW IF EXISTS `DailySales`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `DailySales` AS SELECT
+ 1 AS `DateOfSale`,
+  1 AS `TotalValue`,
+  1 AS `TotalQuantity` */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `Employee`
 --
 
@@ -147,6 +175,19 @@ INSERT INTO `EmployeePhone` VALUES
 ('SALES00001','+9999999999');
 /*!40000 ALTER TABLE `EmployeePhone` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `EmployeeSales`
+--
+
+DROP TABLE IF EXISTS `EmployeeSales`;
+/*!50001 DROP VIEW IF EXISTS `EmployeeSales`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `EmployeeSales` AS SELECT
+ 1 AS `EmployeeID_s`,
+  1 AS `ReceiptNO` */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `EventCal`
@@ -289,6 +330,19 @@ INSERT INTO `EventEmployee` VALUES
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `EventsParticipated`
+--
+
+DROP TABLE IF EXISTS `EventsParticipated`;
+/*!50001 DROP VIEW IF EXISTS `EventsParticipated`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `EventsParticipated` AS SELECT
+ 1 AS `ParticipantID`,
+  1 AS `EventIDName` */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `Participant`
 --
 
@@ -376,6 +430,25 @@ INSERT INTO `ParticipantEmail` VALUES
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `ParticipantFull`
+--
+
+DROP TABLE IF EXISTS `ParticipantFull`;
+/*!50001 DROP VIEW IF EXISTS `ParticipantFull`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `ParticipantFull` AS SELECT
+ 1 AS `ParticipantID`,
+  1 AS `ParticipantName`,
+  1 AS `ParticipantVAT`,
+  1 AS `ParticipantBirthDate`,
+  1 AS `Street`,
+  1 AS `Locale`,
+  1 AS `Postal`,
+  1 AS `Contacts` */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `ParticipantPhone`
 --
 
@@ -418,6 +491,19 @@ INSERT INTO `ParticipantPhone` VALUES
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `ParticipantsEvent`
+--
+
+DROP TABLE IF EXISTS `ParticipantsEvent`;
+/*!50001 DROP VIEW IF EXISTS `ParticipantsEvent`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `ParticipantsEvent` AS SELECT
+ 1 AS `EventID`,
+  1 AS `ParticipantIDs` */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `Product`
 --
 
@@ -451,7 +537,7 @@ INSERT INTO `Product` VALUES
 (6,'Arts and Crafts Fair','The Artiste Ticket',8.00,78),
 (7,'Pacote Caneta Azul Bic','Pacote de 10 Canetas da Marca Bic, cor azul',3.89,0),
 (8,'Borracha Branca','2 Borrachas MAPPED',1.10,0),
-(9,'Pacote Caneta Vermelha Bic','Pacote de 10 Canetas da Marca Bic, cor vermelha',3.89,0),
+(9,'Pacote Caneta Vermelha Bic','Pacote de 10 Canetas da Marca Bic, cor vermelha',3.89,1),
 (10,'Lápis de Cor Faber-Castell','Caixa com 36 lápis de cor vibrantes',29.99,0),
 (11,'Livro para Colorir','Livro com imagens de locais e eventos importantes de Eventopolis para colorir ',6.00,0),
 (12,'Livro \'Historia de Eventopolis, do século XV até modernidade\'','Livro do autor Benedito Leão, onde ele escreve sobre vários eventos históricos da antiga cidade de Eventopolis',30.00,0),
@@ -461,15 +547,41 @@ INSERT INTO `Product` VALUES
 (16,'Caneca \'I LOVE Eventopolis\'','Caneca de ceramica com o slogan da cidade',7.50,0),
 (17,'Jogo de Tabuleiro \'Descubra Eventopolis\'','Jogo interativo para explorar a história e geografia de Eventopolis',24.55,0),
 (18,'Livro de Receitas \'Sabores de Eventopolis\'','Receitas locais e tradicionais da região copiladas pelo enigmatico chefe Roy Mustang',49.95,0),
-(19,'Agenda Anual Gatos 2024','Agenda com páginas para cada dia do ano com imagens de vários felinos',12.99,0),
+(19,'Agenda Anual Gatos 2024','Agenda com páginas para cada dia do ano com imagens de vários felinos',12.99,1),
 (20,'Conjunto de Postais de Eventopolis','Pacote com 10 postais ilustrados de vários monumentos da cidade, incluido a famosa estufa construida por Carlos Valente no inicio do seculo XX',9.99,0),
 (21,'Guia Turístico de Eventopolis','Livro informativo com destinos, atrações e lendas da cidade',11.50,0),
-(22,'T-shirt \'I LOVE EVENTOPOLIS\'','Uma t-shirt de tamanho S com o famoso logo\'',10.00,0),
+(22,'T-shirt \'I LOVE EVENTOPOLIS\'','Uma t-shirt de tamanho S com o famoso logo\'',10.00,1),
 (23,'Bloco de Notas de Couro','Bloco de notas elegante com capa de couro sintético',9.75,0),
 (24,'Livro \'A vida secreta de Carlos Valente\'','Uma Biografia escrita por Maria Alves, acerca da escandalosa vida do mais importante arquiteto de Eventopolis',35.00,0),
 (25,'Bloco de Desenho A4','Bloco de papel para desenho tamanho A4, 50 folhas',12.95,0);
 /*!40000 ALTER TABLE `Product` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `ProductFutureSuppliers`
+--
+
+DROP TABLE IF EXISTS `ProductFutureSuppliers`;
+/*!50001 DROP VIEW IF EXISTS `ProductFutureSuppliers`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `ProductFutureSuppliers` AS SELECT
+ 1 AS `ProductID`,
+  1 AS `Suppliers` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `ProductPastSuppliers`
+--
+
+DROP TABLE IF EXISTS `ProductPastSuppliers`;
+/*!50001 DROP VIEW IF EXISTS `ProductPastSuppliers`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `ProductPastSuppliers` AS SELECT
+ 1 AS `ProductID`,
+  1 AS `SupplierIDs` */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `ProductSupplierFuture`
@@ -569,6 +681,32 @@ INSERT INTO `ProductSupplierPast` VALUES
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `ProductSuppliers`
+--
+
+DROP TABLE IF EXISTS `ProductSuppliers`;
+/*!50001 DROP VIEW IF EXISTS `ProductSuppliers`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `ProductSuppliers` AS SELECT
+ 1 AS `ProductID`,
+  1 AS `SupplierIDs` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `ProductsInSale`
+--
+
+DROP TABLE IF EXISTS `ProductsInSale`;
+/*!50001 DROP VIEW IF EXISTS `ProductsInSale`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `ProductsInSale` AS SELECT
+ 1 AS `ReceiptNO`,
+  1 AS `ProductIDs` */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `Sale`
 --
 
@@ -618,10 +756,25 @@ INSERT INTO `Sale` VALUES
 (19,59.54,4,'2023-12-15 18:40:00','SALES00003',5),
 (20,7.50,1,'2024-02-02 21:40:00','SALES00001',7),
 (21,34.44,3,'2024-02-05 15:10:00','SALES00003',9),
-(22,49.95,1,'2024-02-05 15:12:00','SALES00002',11),
-(23,26.88,3,'2024-02-07 13:41:00','SALES00001',13);
+(22,49.95,1,'2024-02-05 15:12:00','SALES00002',11);
 /*!40000 ALTER TABLE `Sale` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `SaleNoValue`
+--
+
+DROP TABLE IF EXISTS `SaleNoValue`;
+/*!50001 DROP VIEW IF EXISTS `SaleNoValue`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `SaleNoValue` AS SELECT
+ 1 AS `ReceiptNO`,
+  1 AS `TotalQuantity`,
+  1 AS `DateOfSale`,
+  1 AS `EmployeeID`,
+  1 AS `ParticipantID` */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `SaleProduct`
@@ -678,12 +831,22 @@ INSERT INTO `SaleProduct` VALUES
 (21,20,9.99,1),
 (21,21,11.50,1),
 (21,25,12.95,1),
-(22,18,49.95,1),
-(23,9,3.89,1),
-(23,19,12.99,1),
-(23,22,10.00,1);
+(22,18,49.95,1);
 /*!40000 ALTER TABLE `SaleProduct` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `SalesParticipant`
+--
+
+DROP TABLE IF EXISTS `SalesParticipant`;
+/*!50001 DROP VIEW IF EXISTS `SalesParticipant`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `SalesParticipant` AS SELECT
+ 1 AS `ParticipantID`,
+  1 AS `GROUP_CONCAT(S.ReceiptNO)` */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `Supplier`
@@ -764,6 +927,24 @@ INSERT INTO `SupplierEmail` VALUES
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `SupplierFull`
+--
+
+DROP TABLE IF EXISTS `SupplierFull`;
+/*!50001 DROP VIEW IF EXISTS `SupplierFull`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `SupplierFull` AS SELECT
+ 1 AS `SupplierID`,
+  1 AS `SupplierName`,
+  1 AS `IBAN`,
+  1 AS `Street`,
+  1 AS `Locale`,
+  1 AS `Postal`,
+  1 AS `Contacts` */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `SupplierPhone`
 --
 
@@ -799,6 +980,528 @@ INSERT INTO `SupplierPhone` VALUES
 (2,'+68349-333-10102');
 /*!40000 ALTER TABLE `SupplierPhone` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `employee_full`
+--
+
+DROP TABLE IF EXISTS `employee_full`;
+/*!50001 DROP VIEW IF EXISTS `employee_full`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `employee_full` AS SELECT
+ 1 AS `EmployeeID`,
+  1 AS `EmployeeName`,
+  1 AS `EmployeeVAT`,
+  1 AS `EmployeeBirthDate`,
+  1 AS `Street`,
+  1 AS `Locale`,
+  1 AS `PostalCode`,
+  1 AS `EmployeeID_e`,
+  1 AS `Contacts` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `employee_sales`
+--
+
+DROP TABLE IF EXISTS `employee_sales`;
+/*!50001 DROP VIEW IF EXISTS `employee_sales`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `employee_sales` AS SELECT
+ 1 AS `EmployeeID`,
+  1 AS `EmployeeName`,
+  1 AS `TotalValue` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `event_volume`
+--
+
+DROP TABLE IF EXISTS `event_volume`;
+/*!50001 DROP VIEW IF EXISTS `event_volume`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `event_volume` AS SELECT
+ 1 AS `EventID`,
+  1 AS `TotalQuantity` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `failed_reservations`
+--
+
+DROP TABLE IF EXISTS `failed_reservations`;
+/*!50001 DROP VIEW IF EXISTS `failed_reservations`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `failed_reservations` AS SELECT
+ 1 AS `ProductID` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `manager_employees`
+--
+
+DROP TABLE IF EXISTS `manager_employees`;
+/*!50001 DROP VIEW IF EXISTS `manager_employees`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `manager_employees` AS SELECT
+ 1 AS `ManagerEmployeeID`,
+  1 AS `ManagedEmployeeIDs` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `participant_sales`
+--
+
+DROP TABLE IF EXISTS `participant_sales`;
+/*!50001 DROP VIEW IF EXISTS `participant_sales`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `participant_sales` AS SELECT
+ 1 AS `ParticipantID`,
+  1 AS `TotalSales` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `product_supplier`
+--
+
+DROP TABLE IF EXISTS `product_supplier`;
+/*!50001 DROP VIEW IF EXISTS `product_supplier`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `product_supplier` AS SELECT
+ 1 AS `ProductID`,
+  1 AS `PastSupplierID`,
+  1 AS `FutureSupplierID` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `purchase_history`
+--
+
+DROP TABLE IF EXISTS `purchase_history`;
+/*!50001 DROP VIEW IF EXISTS `purchase_history`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `purchase_history` AS SELECT
+ 1 AS `ParticipantID`,
+  1 AS `ReceiptNO`,
+  1 AS `PurchaseDate` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `total_event_sale_value`
+--
+
+DROP TABLE IF EXISTS `total_event_sale_value`;
+/*!50001 DROP VIEW IF EXISTS `total_event_sale_value`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `total_event_sale_value` AS SELECT
+ 1 AS `EventID`,
+  1 AS `TotalValue` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `BestSellersEmployee`
+--
+
+/*!50001 DROP VIEW IF EXISTS `BestSellersEmployee`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `BestSellersEmployee` AS select `EV`.`EventID` AS `EventID`,`S`.`EmployeeID_s` AS `EmployeeID`,sum(`SP`.`Quantity`) AS `Quantity` from (((((`EventCal` `EV` join `EventEmployee` `EE` on(`EV`.`EventID` = `EE`.`EventID_ee`)) join `Employee` `E` on(`EE`.`EmployeeID_ee` = `E`.`EmployeeID`)) join `Sale` `S` on(`E`.`EmployeeID` = `S`.`EmployeeID_s`)) join `SaleProduct` `SP` on(`S`.`ReceiptNO` = `SP`.`ReceiptNO_sp`)) join `Product` `P` on(`P`.`ProductName` = `EV`.`EventName`)) group by `EV`.`EventID`,`S`.`EmployeeID_s` order by sum(`SP`.`Quantity`) desc */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `DailySales`
+--
+
+/*!50001 DROP VIEW IF EXISTS `DailySales`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `DailySales` AS select `S`.`DateOfSale` AS `DateOfSale`,sum(`S`.`TotalValue`) AS `TotalValue`,sum(`S`.`TotalQuantity`) AS `TotalQuantity` from `Sale` `S` group by `S`.`DateOfSale` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `EmployeeSales`
+--
+
+/*!50001 DROP VIEW IF EXISTS `EmployeeSales`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `EmployeeSales` AS select `S`.`EmployeeID_s` AS `EmployeeID_s`,group_concat(`S`.`ReceiptNO` separator ',') AS `ReceiptNO` from `Sale` `S` group by `S`.`EmployeeID_s` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `EventsParticipated`
+--
+
+/*!50001 DROP VIEW IF EXISTS `EventsParticipated`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `EventsParticipated` AS select `S`.`ParticipantID_s` AS `ParticipantID`,group_concat(`EV`.`EventID`,`EV`.`EventName` separator ',') AS `EventIDName` from (((`Sale` `S` join `SaleProduct` `SP` on(`S`.`ReceiptNO` = `SP`.`ReceiptNO_sp`)) join `Product` `P` on(`SP`.`ProductID_sp` = `P`.`ProductID`)) join `EventCal` `EV` on(`P`.`ProductName` = `EV`.`EventName`)) group by `S`.`ParticipantID_s` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `ParticipantFull`
+--
+
+/*!50001 DROP VIEW IF EXISTS `ParticipantFull`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `ParticipantFull` AS select `P`.`ParticipantID` AS `ParticipantID`,`P`.`ParticipantName` AS `ParticipantName`,`P`.`ParticipantVAT` AS `ParticipantVAT`,`P`.`ParticipantBirthDate` AS `ParticipantBirthDate`,`P`.`Street` AS `Street`,`P`.`Locale` AS `Locale`,`P`.`Postal` AS `Postal`,group_concat(`Email`.`Email`,`Phone`.`Phone` separator ',') AS `Contacts` from ((`Participant` `P` left join `ParticipantPhone` `Phone` on(`P`.`ParticipantID` = `Phone`.`ParticipantID_pp`)) left join `ParticipantEmail` `Email` on(`P`.`ParticipantID` = `Email`.`ParticipantID_pem`)) group by `P`.`ParticipantID` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `ParticipantsEvent`
+--
+
+/*!50001 DROP VIEW IF EXISTS `ParticipantsEvent`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `ParticipantsEvent` AS select `EV`.`EventID` AS `EventID`,group_concat(`PA`.`ParticipantID` separator ',') AS `ParticipantIDs` from ((((`EventCal` `EV` join `Sale` `S` on(`S`.`DateOfSale` between `EV`.`EventStart` and `EV`.`EventEnd`)) join `Participant` `PA` on(`PA`.`ParticipantID` = `S`.`ParticipantID_s`)) join `SaleProduct` `SP` on(`S`.`ReceiptNO` = `SP`.`ReceiptNO_sp`)) join `Product` `PR` on(`PR`.`ProductID` = `SP`.`ProductID_sp` and `EV`.`EventName` = `PR`.`ProductName`)) group by `EV`.`EventID` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `ProductFutureSuppliers`
+--
+
+/*!50001 DROP VIEW IF EXISTS `ProductFutureSuppliers`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `ProductFutureSuppliers` AS select `PSF`.`ProductID_psf` AS `ProductID`,`PSF`.`SupplierID_psf` AS `Suppliers` from `ProductSupplierFuture` `PSF` group by `PSF`.`ProductID_psf` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `ProductPastSuppliers`
+--
+
+/*!50001 DROP VIEW IF EXISTS `ProductPastSuppliers`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `ProductPastSuppliers` AS select `PSP`.`ProductID_psp` AS `ProductID`,group_concat(`PSP`.`SupplierID_psp` separator ',') AS `SupplierIDs` from `ProductSupplierPast` `PSP` group by `PSP`.`ProductID_psp` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `ProductSuppliers`
+--
+
+/*!50001 DROP VIEW IF EXISTS `ProductSuppliers`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `ProductSuppliers` AS select `PSP`.`ProductID_psp` AS `ProductID`,group_concat(`PSP`.`SupplierID_psp` separator ',') AS `SupplierIDs` from (`ProductSupplierPast` `PSP` join `ProductSupplierFuture` `PSF` on(`PSP`.`ProductID_psp` = `PSF`.`ProductID_psf`)) group by `PSP`.`ProductID_psp` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `ProductsInSale`
+--
+
+/*!50001 DROP VIEW IF EXISTS `ProductsInSale`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `ProductsInSale` AS select `SaleProduct`.`ReceiptNO_sp` AS `ReceiptNO`,group_concat(`SaleProduct`.`ProductID_sp` separator ',') AS `ProductIDs` from `SaleProduct` group by `SaleProduct`.`ReceiptNO_sp` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `SaleNoValue`
+--
+
+/*!50001 DROP VIEW IF EXISTS `SaleNoValue`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `SaleNoValue` AS select `S`.`ReceiptNO` AS `ReceiptNO`,`S`.`TotalQuantity` AS `TotalQuantity`,`S`.`DateOfSale` AS `DateOfSale`,`S`.`EmployeeID_s` AS `EmployeeID`,`S`.`ParticipantID_s` AS `ParticipantID` from `Sale` `S` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `SalesParticipant`
+--
+
+/*!50001 DROP VIEW IF EXISTS `SalesParticipant`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `SalesParticipant` AS select `S`.`ParticipantID_s` AS `ParticipantID`,group_concat(`S`.`ReceiptNO` separator ',') AS `GROUP_CONCAT(S.ReceiptNO)` from `Sale` `S` group by `S`.`ParticipantID_s` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `SupplierFull`
+--
+
+/*!50001 DROP VIEW IF EXISTS `SupplierFull`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `SupplierFull` AS select `S`.`SupplierID` AS `SupplierID`,`S`.`SupplierName` AS `SupplierName`,`S`.`IBAN` AS `IBAN`,`S`.`Street` AS `Street`,`S`.`Locale` AS `Locale`,`S`.`Postal` AS `Postal`,group_concat(`Email`.`Email`,`Phone`.`Phone` separator ',') AS `Contacts` from ((`Supplier` `S` left join `SupplierEmail` `Email` on(`S`.`SupplierID` = `Email`.`SupplierID_sem`)) left join `SupplierPhone` `Phone` on(`S`.`SupplierID` = `Phone`.`SupplierID_sp`)) group by `S`.`SupplierID` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `employee_full`
+--
+
+/*!50001 DROP VIEW IF EXISTS `employee_full`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `employee_full` AS select `E`.`EmployeeID` AS `EmployeeID`,`E`.`EmployeeName` AS `EmployeeName`,`E`.`EmployeeVAT` AS `EmployeeVAT`,`E`.`EmployeeBirthDate` AS `EmployeeBirthDate`,`E`.`Street` AS `Street`,`E`.`Locale` AS `Locale`,`E`.`PostalCode` AS `PostalCode`,`E`.`EmployeeID_e` AS `EmployeeID_e`,group_concat(`Email`.`Email`,`Phone`.`Phone` separator ',') AS `Contacts` from ((`Employee` `E` left join `EmployeeEmail` `Email` on(`E`.`EmployeeID` = `Email`.`EmployeeID_eem`)) left join `EmployeePhone` `Phone` on(`E`.`EmployeeID` = `Phone`.`EmployeeID_ep`)) group by `E`.`EmployeeID` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `employee_sales`
+--
+
+/*!50001 DROP VIEW IF EXISTS `employee_sales`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `employee_sales` AS select `E`.`EmployeeID` AS `EmployeeID`,`E`.`EmployeeName` AS `EmployeeName`,sum(`S`.`TotalValue`) AS `TotalValue` from (`Employee` `E` join `Sale` `S` on(`E`.`EmployeeID` = `S`.`EmployeeID_s`)) group by `E`.`EmployeeID` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `event_volume`
+--
+
+/*!50001 DROP VIEW IF EXISTS `event_volume`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `event_volume` AS select `EC`.`EventID` AS `EventID`,sum(`S`.`TotalQuantity`) AS `TotalQuantity` from (`EventCal` `EC` join `Sale` `S` on(`S`.`DateOfSale` between `EC`.`EventStart` and `EC`.`EventEnd`)) group by `EC`.`EventID` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `failed_reservations`
+--
+
+/*!50001 DROP VIEW IF EXISTS `failed_reservations`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `failed_reservations` AS select `PSP`.`ProductID_psp` AS `ProductID` from (`ProductSupplierPast` `PSP` join `ProductSupplierFuture` `PSF` on(`PSF`.`ProductID_psf` <> `PSF`.`ProductID_psf`)) where `PSF`.`DateOfSchedule` < curdate() */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `manager_employees`
+--
+
+/*!50001 DROP VIEW IF EXISTS `manager_employees`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `manager_employees` AS select `E`.`EmployeeID` AS `ManagerEmployeeID`,group_concat(`Ei`.`EmployeeID` separator ',') AS `ManagedEmployeeIDs` from (`Employee` `E` left join `Employee` `Ei` on(`Ei`.`EmployeeID_e` = `E`.`EmployeeID`)) where `Ei`.`EmployeeID` is not null group by `E`.`EmployeeID` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `participant_sales`
+--
+
+/*!50001 DROP VIEW IF EXISTS `participant_sales`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `participant_sales` AS select `P`.`ParticipantID` AS `ParticipantID`,sum(`S`.`TotalValue`) AS `TotalSales` from (`Participant` `P` join `Sale` `S` on(`P`.`ParticipantID` = `S`.`ParticipantID_s`)) group by `P`.`ParticipantID` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `product_supplier`
+--
+
+/*!50001 DROP VIEW IF EXISTS `product_supplier`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `product_supplier` AS select `P`.`ProductID` AS `ProductID`,`PSP`.`SupplierID_psp` AS `PastSupplierID`,`PSF`.`SupplierID_psf` AS `FutureSupplierID` from ((`Product` `P` join `ProductSupplierPast` `PSP` on(`P`.`ProductID` = `PSP`.`ProductID_psp`)) join `ProductSupplierFuture` `PSF` on(`P`.`ProductID` = `PSF`.`ProductID_psf`)) group by `P`.`ProductID`,`PSP`.`SupplierID_psp`,`PSF`.`SupplierID_psf` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `purchase_history`
+--
+
+/*!50001 DROP VIEW IF EXISTS `purchase_history`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `purchase_history` AS select `P`.`ParticipantID` AS `ParticipantID`,`S`.`ReceiptNO` AS `ReceiptNO`,`S`.`DateOfSale` AS `PurchaseDate` from (`Sale` `S` join `Participant` `P` on(`S`.`ParticipantID_s` = `P`.`ParticipantID`)) group by `P`.`ParticipantID`,`S`.`ReceiptNO` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `total_event_sale_value`
+--
+
+/*!50001 DROP VIEW IF EXISTS `total_event_sale_value`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `total_event_sale_value` AS select `EV`.`EventID` AS `EventID`,sum(`S`.`TotalValue`) AS `TotalValue` from (`EventCal` `EV` join `Sale` `S` on(`S`.`DateOfSale` between `EV`.`EventStart` and `EV`.`EventEnd`)) group by `EV`.`EventID` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -809,4 +1512,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-15  1:07:54
+-- Dump completed on 2024-01-15 13:12:19
