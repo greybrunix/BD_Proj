@@ -79,7 +79,11 @@ CREATE VIEW SupplierFull AS
 		GROUP BY S.SupplierID;
 
 CREATE VIEW SaleNoValue AS
-	SELECT S.ReceiptNO AS ReceiptNO, S.TotalQuantity AS TotalQuantity, S.DateOfSale AS DateOfSale, S.EmployeeID_s AS EmployeeID, S.ParticipantID_s AS ParticipantID
+	SELECT S.ReceiptNO AS ReceiptNO, 
+		   S.TotalQuantity AS TotalQuantity, 
+           S.DateOfSale AS DateOfSale, 
+           S.EmployeeID_s AS EmployeeID, 
+           S.ParticipantID_s AS ParticipantID
 		FROM Sale AS S;
 
 -- check product in sale (44)
@@ -128,13 +132,17 @@ CREATE VIEW SalesParticipant AS
 
 -- check sale values and volume in a given day (57 and 58)
 CREATE VIEW DailySales AS
-	SELECT S.DateOfSale AS DateOfSale, SUM(S.TotalValue) AS TotalValue, SUM(S.TotalQuantity) AS TotalQuantity
+	SELECT S.DateOfSale AS DateOfSale, 
+		   SUM(S.TotalValue) AS TotalValue, 
+           SUM(S.TotalQuantity) AS TotalQuantity
 		FROM Sale AS S
 	GROUP BY S.DateOfSale;
 
 -- check who sold the most ticket in Event (72)
 CREATE VIEW BestSellersEmployee AS
-	SELECT EV.EventID AS EventID, S.EmployeeID_s AS EmployeeID, SUM(SP.Quantity) AS Quantity
+	SELECT EV.EventID AS EventID, 
+		   S.EmployeeID_s AS EmployeeID, 
+           SUM(SP.Quantity) AS Quantity
 		FROM EventCal AS EV INNER JOIN EventEmployee AS EE
 			ON EV.EventID = EE.EventID_ee
 		INNER JOIN Employee AS E
@@ -150,7 +158,8 @@ CREATE VIEW BestSellersEmployee AS
 
 -- events someone participated in (81)
 CREATE VIEW EventsParticipated AS
-	SELECT S.ParticipantID_s AS ParticipantID, GROUP_CONCAT(EV.EventID, EV.EventName) AS EventID, EventName
+	SELECT S.ParticipantID_s AS ParticipantID, 
+		   GROUP_CONCAT(EV.EventID, EV.EventName) AS EventIDName
 		FROM Sale AS S INNER JOIN SaleProduct AS SP
 			ON S.ReceiptNO = SP.ReceiptNO_sp
 		INNER JOIN Product AS P
