@@ -185,8 +185,6 @@ CALL register_supplier ("Páginas Vivas Publicações Inc.","BR99900299294958811
 CALL register_supplier ("Himno ng Kagalakan Ltda.","FP22294939205R8687853" ,"pinggan ng mga bulaklak, n001","Manila","747484-444", 
 						"him@ltda.fp", "+3512521111121");
                         
-SELECT * FROM Product;
-
 -- Inserção de Produtos
 CALL register_reservation_new_product ("Pacote Caneta Azul Bic",
 									   "Pacote de 10 Canetas da Marca Bic, cor azul", 
