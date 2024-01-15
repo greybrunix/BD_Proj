@@ -323,7 +323,7 @@ BEGIN
 
         SET no_pds = no_pds - 1;
 
-    UNTIL no_pds <= 0
+    UNTIL no_pds = 0
     END REPEAT;
 
     DELETE FROM Sale
@@ -335,10 +335,6 @@ BEGIN
 
     DELETE FROM Participant
     WHERE ParticipantID NOT IN (SELECT ParticipantID_s FROM Sale);
-
-    IF ROW_COUNT() = 0 THEN
-		ROLLBACK;
-    END IF;
 
     COMMIT;
 END &&

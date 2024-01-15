@@ -1,12 +1,5 @@
 USE mademoiselle_borges;
-SELECT * FROM SaleProduct WHERE ReceiptNO_sp = 17;
-SELECT * FROM Product;
-SELECT * FROM Sale;
-SELECT SUM(SP.Quantity * SP.CurrentValue)
-    FROM SaleProduct AS SP
-    INNER JOIN Sale AS S ON S.ReceiptNO = SP.ReceiptNO_sp
-    WHERE S.ReceiptNO = 17;
--- Inserção de funcionários
+
 CALL register_new_employee("ADMIN00001", "Henrique Borges",
 												 "382923812", "1968-12-24", "Rua do blah",
 												 "Eventopolis", "1111-111", NULL, "+1111111111","henriquinho@borges.et");
@@ -381,6 +374,4 @@ CALL register_sale (22, "2024-02-05 15:12:00");
 CALL add_prod_to_new_shopping_cart(13,"SALES00001", 9, 1);
 CALL add_prod_to_shopping_cart(23, 13,22, 1);
 CALL add_prod_to_shopping_cart(23, 13,19, 1);
-CALL register_sale (23, "2024-02-07 13:41:00");
-
-
+CALL cancel_ongoing_sale(23);
