@@ -298,26 +298,15 @@ DECLARE pd_id INTEGER;
 
     START TRANSACTION;
     
-        SELECT COUNT(SP.ProductID_sp) INTO no_pds
-    FROM SaleProduct AS SP
-    WHERE SP.ReceiptNO_sp = s_id;
-    REPEAT
-        SELECT SP.ProductID_sp INTO pd_id
-        FROM SaleProduct AS SP
-        INNER JOIN Product AS P ON SP.ProductID_sp = P.ProductID
-        WHERE SP.ReceiptNO_sp = s_id
-        ORDER BY SP.ProductID_sp DESC
-        LIMIT 1;
-
     SELECT SUM(SP.Quantity) INTO s_totquant
     FROM SaleProduct AS SP
     INNER JOIN Sale AS S ON S.ReceiptNO = SP.ReceiptNO_sp
-    WHERE S.ReceiptNO = s_id AND pd_id = SP.ProductID_sp;
+    WHERE S.ReceiptNO = s_id;
 
-    SELECT (SP.Quantity * SP.CurrentValue) INTO s_totval
+    SELECT SUM(SP.Quantity * SP.CurrentValue) INTO s_totval
     FROM SaleProduct AS SP
     INNER JOIN Sale AS S ON S.ReceiptNO = SP.ReceiptNO_sp
-    WHERE S.ReceiptNO = s_id AND pd_id = SP.ProductID_sp;
+    WHERE S.ReceiptNO = s_id;
     
         UPDATE Sale
     SET TotalValue = s_totval, TotalQuantity = s_totquant, DateOfSale = s_dos
@@ -328,10 +317,6 @@ DECLARE pd_id INTEGER;
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error updating Sale.';
     END IF;
-            SET no_pds = no_pds - 1;
-            
-    UNTIL no_pds <= 0
-    END REPEAT;
 
     COMMIT;
 END &&

@@ -1,6 +1,8 @@
 USE mademoiselle_borges;
-
-SELECT (SP.Quantity * SP.CurrentValue)
+SELECT * FROM SaleProduct WHERE ReceiptNO_sp = 17;
+SELECT * FROM Product;
+SELECT * FROM Sale;
+SELECT SUM(SP.Quantity * SP.CurrentValue)
     FROM SaleProduct AS SP
     INNER JOIN Sale AS S ON S.ReceiptNO = SP.ReceiptNO_sp
     WHERE S.ReceiptNO = 17;
