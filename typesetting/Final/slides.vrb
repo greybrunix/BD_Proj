@@ -1,0 +1,12 @@
+\frametitle{Plano de Seguran\c {c}a e Recupera\c {c}\~{a}o de Dados}
+De forma a assegurar a possibilidade de Recuperação de Dados no casos de falhas, podemos utilizar o seguinte
+comando numa \textit{shell} \textbf{POSIX} como a de sistemas operativos GNU-Linux/UNIX:
+\begin{lstlisting}[language=bash, basicstyle=\small]
+$ mysqldump -h localhost -u root -p mademoiselle_borges >\
+$WORK_DIR/.backup/mademoiselle_backup.sql
+\end{lstlisting}
+Ou, em sistemas MS-DOS/Windows 3.x/Windows 9.x/Windows NT:
+\begin{lstlisting}[basicstyle=\small]
+C:\MYSQL\BIN> MYSQLDUMP.EXE -u ROOT -p mademoiselle_borges^
+> %BACKUPDIR%\MADEMOISELLE_BACKUP.SQL
+\end{lstlisting}

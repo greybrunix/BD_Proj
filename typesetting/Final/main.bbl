@@ -1,0 +1,207 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{apa/apasortcite//global/global}
+    \entry{begg2002database}{book}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=f323aade42252605c1445cdcf659686c}{%
+           family={Begg},
+           familyi={B\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4fee567789ecd68091074bbc73d4fb02}{%
+           family={Connolly},
+           familyi={C\bibinitperiod},
+           given={T.},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Addison-Wesley.}%
+      }
+      \strng{namehash}{ca3720581832aaa5f06d1d647595b560}
+      \strng{fullhash}{ca3720581832aaa5f06d1d647595b560}
+      \strng{bibnamehash}{ca3720581832aaa5f06d1d647595b560}
+      \strng{authorbibnamehash}{ca3720581832aaa5f06d1d647595b560}
+      \strng{authornamehash}{ca3720581832aaa5f06d1d647595b560}
+      \strng{authorfullhash}{ca3720581832aaa5f06d1d647595b560}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Database Systems: A Practical Approach to Design, Implementation, and Management}
+      \field{year}{2002}
+      \true{nocite}
+    \endentry
+    \entry{belo}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=09e8a4c3ebe93c3249653993863a82bd}{%
+           family={Belo},
+           familyi={B\bibinitperiod},
+           given={O.},
+           giveni={O\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {FCA}%
+      }
+      \strng{namehash}{09e8a4c3ebe93c3249653993863a82bd}
+      \strng{fullhash}{09e8a4c3ebe93c3249653993863a82bd}
+      \strng{bibnamehash}{09e8a4c3ebe93c3249653993863a82bd}
+      \strng{authorbibnamehash}{09e8a4c3ebe93c3249653993863a82bd}
+      \strng{authornamehash}{09e8a4c3ebe93c3249653993863a82bd}
+      \strng{authorfullhash}{09e8a4c3ebe93c3249653993863a82bd}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Bases de Dados Relacionais - Implementação com MySQL}
+      \field{year}{2021}
+      \true{nocite}
+    \endentry
+    \entry{chen}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4b787b7c01d43a026f8095b36f37cd8}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={P},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{e4b787b7c01d43a026f8095b36f37cd8}
+      \strng{fullhash}{e4b787b7c01d43a026f8095b36f37cd8}
+      \strng{bibnamehash}{e4b787b7c01d43a026f8095b36f37cd8}
+      \strng{authorbibnamehash}{e4b787b7c01d43a026f8095b36f37cd8}
+      \strng{authornamehash}{e4b787b7c01d43a026f8095b36f37cd8}
+      \strng{authorfullhash}{e4b787b7c01d43a026f8095b36f37cd8}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ACM Trans. Database Syst.}
+      \field{title}{The Entity-Relationship Model—toward a Unified View of Data}
+      \field{year}{1976}
+    \endentry
+  \enddatalist
+  \datalist[entry]{apa/global//global/global}
+    \entry{begg2002database}{book}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=f323aade42252605c1445cdcf659686c}{%
+           family={Begg},
+           familyi={B\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4fee567789ecd68091074bbc73d4fb02}{%
+           family={Connolly},
+           familyi={C\bibinitperiod},
+           given={T.},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Addison-Wesley.}%
+      }
+      \strng{namehash}{ca3720581832aaa5f06d1d647595b560}
+      \strng{fullhash}{ca3720581832aaa5f06d1d647595b560}
+      \strng{bibnamehash}{ca3720581832aaa5f06d1d647595b560}
+      \strng{authorbibnamehash}{ca3720581832aaa5f06d1d647595b560}
+      \strng{authornamehash}{ca3720581832aaa5f06d1d647595b560}
+      \strng{authorfullhash}{ca3720581832aaa5f06d1d647595b560}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Database Systems: A Practical Approach to Design, Implementation, and Management}
+      \field{year}{2002}
+      \true{nocite}
+    \endentry
+    \entry{belo}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=09e8a4c3ebe93c3249653993863a82bd}{%
+           family={Belo},
+           familyi={B\bibinitperiod},
+           given={O.},
+           giveni={O\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {FCA}%
+      }
+      \strng{namehash}{09e8a4c3ebe93c3249653993863a82bd}
+      \strng{fullhash}{09e8a4c3ebe93c3249653993863a82bd}
+      \strng{bibnamehash}{09e8a4c3ebe93c3249653993863a82bd}
+      \strng{authorbibnamehash}{09e8a4c3ebe93c3249653993863a82bd}
+      \strng{authornamehash}{09e8a4c3ebe93c3249653993863a82bd}
+      \strng{authorfullhash}{09e8a4c3ebe93c3249653993863a82bd}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Bases de Dados Relacionais - Implementação com MySQL}
+      \field{year}{2021}
+      \true{nocite}
+    \endentry
+    \entry{chen}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e4b787b7c01d43a026f8095b36f37cd8}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={P},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{e4b787b7c01d43a026f8095b36f37cd8}
+      \strng{fullhash}{e4b787b7c01d43a026f8095b36f37cd8}
+      \strng{bibnamehash}{e4b787b7c01d43a026f8095b36f37cd8}
+      \strng{authorbibnamehash}{e4b787b7c01d43a026f8095b36f37cd8}
+      \strng{authornamehash}{e4b787b7c01d43a026f8095b36f37cd8}
+      \strng{authorfullhash}{e4b787b7c01d43a026f8095b36f37cd8}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ACM Trans. Database Syst.}
+      \field{title}{The Entity-Relationship Model—toward a Unified View of Data}
+      \field{year}{1976}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

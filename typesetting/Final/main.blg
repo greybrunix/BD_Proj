@@ -1,0 +1,19 @@
+[0] Config.pm:307> INFO - This is Biber 2.19
+[0] Config.pm:310> INFO - Logfile is 'main.blg'
+[54] biber:340> INFO - === Mon Jan 15, 2024, 14:04:30
+[64] Biber.pm:419> INFO - Reading 'main.bcf'
+[119] Biber.pm:976> INFO - Using all citekeys in bib section 0
+[137] Biber.pm:4419> INFO - Processing section 0
+[148] Biber.pm:4610> INFO - Looking for bibtex file 'citations.bib' for section 0
+[148] bibtex.pm:1713> INFO - LaTeX decoding ...
+[151] bibtex.pm:1519> INFO - Found BibTeX data source 'citations.bib'
+[192] UCollate.pm:68> INFO - Overriding locale 'pt-PT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[192] UCollate.pm:68> INFO - Overriding locale 'pt-PT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[193] Biber.pm:4239> INFO - Sorting list 'apa/apasortcite//global/global' of type 'entry' with template 'apa' and locale 'pt-PT'
+[193] Biber.pm:4245> INFO - No sort tailoring available for locale 'pt-PT'
+[210] UCollate.pm:68> INFO - Overriding locale 'pt-PT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[211] UCollate.pm:68> INFO - Overriding locale 'pt-PT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[211] Biber.pm:4239> INFO - Sorting list 'apa/global//global/global' of type 'entry' with template 'apa' and locale 'pt-PT'
+[211] Biber.pm:4245> INFO - No sort tailoring available for locale 'pt-PT'
+[219] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[233] bbl.pm:763> INFO - Output to main.bbl

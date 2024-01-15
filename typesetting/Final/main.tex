@@ -1,0 +1,1270 @@
+\documentclass[a4paper,12pt]{scrreprt}
+    %% Used for changing geometry of the page
+    %% Cover page text cannot overlay cover sketching/style 
+    %% https://ctan.org/pkg/geometry?lang=en
+\usepackage{geometry}
+    %% Changes language of some packages protocols
+    %% e.g., when captioning images: Figure 1. $\rightarrow$ Figura 1.
+    %% https://ctan.org/pkg/babel?lang=en
+\usepackage[portuguese]{babel}
+    %% Used for special fonts
+    %% Cannot be compiled with pdflatex
+    %% https://ctan.org/pkg/fontspec?lang=en
+\usepackage{fontspec}
+    %% Arial FONT
+    \setmainfont{LiberationSans}
+
+    %% More colors and color options
+    %% https://ctan.org/pkg/xcolor?lang=en
+    %% https://ctan.org/pkg/colortbl?lang=en
+\usepackage{xcolor,colortbl}
+    %% More tabular options, like dashed/dotted lines
+    %% https://ctan.org/pkg/arydshln?lang=en
+\usepackage{arydshln}
+    %% List of acronyms
+    %% https://ctan.org/pkg/nomencl?lang=en
+\usepackage[intoc]{nomencl}
+    %% Must be called to init nomencl environment  
+    \makenomenclature
+    %% More images options/settings
+    %% https://ctan.org/pkg/graphicx?lang=en
+\usepackage{graphics}
+    %% Defining subdirectories to image path enviornment
+    %% \graphicspath{{sub1}{sub2}...{subN}}
+    \graphicspath{{images}}
+    
+    %% used to handle cross-referencing commands in LaTeX to produce hypertext links in the document
+    %% https://ctan.org/pkg/hyperref?lang=en
+\usepackage{hyperref}
+    %% math environments
+    %% https://ctan.org/pkg/amsmath?lang=en
+
+    %% settings
+    \hypersetup{
+        colorlinks,
+        citecolor=black,
+        filecolor=black,
+        linkcolor=black,
+        urlcolor=black
+    }
+
+\usepackage{amsmath}
+    %% Defining backgrouns, used to make the cover
+    %% https://ctan.org/pkg/background?lang=en
+\usepackage[some]{background}
+    %% Used to make drawings or complex graphics
+    %% http://pgf.sourceforge.net/pgf_CVS.pdf
+\usepackage{tikz}
+% we want ER + above/below + left/right
+\usetikzlibrary{calc}
+\usepackage{float}
+
+%% Defining sfdefault font and default font for document
+\usepackage[indexing, style=apa]{biblatex}
+\addbibresource{citations.bib}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{listings}
+
+
+
+%==========================================================================
+% DOCUMENT
+%==========================================================================
+
+\begin{document}
+
+\pagenumbering{gobble}
+
+% builds the cover
+\include{cover}
+\makecover
+
+%% smaller footer and header size
+\newgeometry{top=3cm,left=3cm,right=3cm,bottom=4cm}
+
+%==========================================================================
+% BEGIN OPTIONAL DEDICATÓRIA
+%==========================================================================
+
+%%\clearpage
+%%\begin{center}
+ %%   \thispagestyle{empty}
+  %%  \vspace*{\fill}
+    
+  %%  $<<$/opcional Dedicatória$>>$
+    
+ %%   \vspace*{\fill}
+%%\end{center}
+%%\clearpage
+
+%==========================================================================
+% END OPCIONAL DEDICATÓRIA
+%==========================================================================
+
+
+%==========================================================================
+% BEGIN ABSTRACT PAGE
+%==========================================================================
+
+
+
+%% Abstract name: \Large font size, flushed left and paragraph skip before abstract content
+\renewenvironment{abstract}
+ {\par\noindent\textbf{\Large\abstractname}\par\bigskip}
+ {}
+
+\begin{flushleft}
+\begin{abstract}
+    Neste trabalho, foi inicializado o processo do desenho de um Sistema de
+    Bases de Dados na forma da contextualiza\c{c}\~ao do problema, visando
+    criar uma \textit{blueprint} s\'olida e demonstrar que, efetivamente,
+    \'e justificada a cria\c{c}\~ao do presente Sistema de Bases de Dados,
+    o levantamento de requisitos de manipulação, descrição, e controlo e a
+    conceptualização do problema com recurso a um diagrama conceptual
+    (\textit{Entity-Relationship Diagram}).
+    \par \textbf{\'Area de Aplicação}: Desenho e arquitetura de Sistemas de
+    Bases de Dados.
+    \par \textbf{Palavras-Chave}: Bases de Dados Relacionais,
+    Defini\c{c}\~ao de Sistema, SQL, Diagrama Conceptual,
+    Recolha de Requisitos.
+\end{abstract}
+\end{flushleft}
+
+
+\pagebreak
+
+%==========================================================================
+% END ABSTRACT PAGE 
+%==========================================================================
+
+%==========================================================================
+% BEGIN INDEXES PAGES
+%==========================================================================
+
+%% Changes table of content name
+%% Portuguese babel default : "Conteúdo"
+%% Personally I prefer "índice"
+\renewcommand{\contentsname}{Índice}
+
+\tableofcontents
+
+\pagebreak
+
+\listoffigures
+
+\pagebreak
+
+\listoftables
+
+\pagebreak
+
+%==========================================================================
+% END INDEXES PAGES 
+%==========================================================================
+
+
+%==========================================================================
+% BEGIN INTRODUCTION
+%==========================================================================
+
+%% Starting page numbering here
+\pagenumbering{arabic}
+
+\chapter{Introdução e Definição do Sistema}
+     \section{Contextualização}
+
+     Em Eventopolis, uma localidade remota no centro de uma grande floresta,
+     a gestão dos eventos foi sempre baseada em \textit{outsourcing} ou métodos manuais,
+     devido à escassez de recursos humanos e à existência de um monopólio na área de Bases
+     de Dados (BD). Este monopólio era controlado por uma seita de ocultistas tecnológicos,
+     os quais praticavam preços exorbitantes e limitavam o acesso a uma parte significativa
+     das informações nas suas BD. Após uma revolta interna motivada pela insatisfação com a
+     direção da empresa, alguns ex-membros, descontentes com a situação, optaram por adotar
+     uma abordagem mais humanista e criar uma \textit{start-up} de Engenharia de Software em Eventopolis.
+    
+     Ao tomar conhecimento desta informação, o Professor Doutor Henrique Borges, responsável atual
+     pela Gestão de Eventos na Câmara Municipal da cidade, prontamente identificou a
+     oportunidade de mitigar os prejuízos significativos dos últimos anos ao estabelecer
+     um contrato com a referida \textit{start-up} para a implementação de um Sistema de Bases de Dados (SBD) \textit{open-source}.
+    
+     O SBD seria batizado de ``Mademoiselle Borges'' em homenagem
+     a Antoinette Borges, a antiga gestora de Eventos da Câmara Municipal de Eventopolis
+     e esposa de Henrique Borges, que faleceu há alguns anos. Antoinette enfrentou uma pressão considerável ao ser forçada a gerir manualmente os eventos culturais de Eventopolis, com uma
+     equipa de funcionários bastante limitada, desafios que foram fatores cruciais para o seu falecimento precoce.
+   
+     Para Henrique Borges, este projeto tem então um significado profundamente pessoal.
+     Além de simplificar o funcionamento dos eventos, diminuindo a mortalidade deste posto de trabalho,
+     a criação deste Sistema também reflete a sua vontade de fomentar a promoção da arte e da cultura
+     na sua pequena cidade, algo que era o maior sonho da sua falecida esposa.
+     Antoinette queria ver a transformação da modesta e isolada cidade numa capital cultural,
+     uma aspiração que, infelizmente, apenas se concretizaria após o seu falecimento.
+    
+     Após a introdução do SBD, todos os eventos aprovados pela Câmara transformarão
+     a cidade num cenário requintado que realça a estética do estilo \textit{Art Nouveau},
+     o estilo artístico predileto da \textit{Mademoiselle}, este estilo tira inspiração da vegetação exuberante,
+     densa e colorida, característica das imensas florestas que rodeiam Eventopolis.
+     O principal local de eventos será uma gigantesca estufa situada no parque central,
+     construída no início do século anterior. Esta estrutura exibe uma cúpula central, vitrais coloridos
+     e um esqueleto de ferro com linhas detalhadas e artísticas, que ao longo do tempo oxidaram,
+     apresentando agora uma tonalidade verde clássica.
+
+    \section{Fundamenta\c{c}\~ao}
+    Considerando o modo prévio de gerir eventos em Eventopolis,
+    onde o uso de serviços externos era considerado excessivamente dispendioso,
+    e diante da escassez de recursos humanos para uma gestão manual, a única alternativa
+    viável, na perspetiva de Henrique Borges, seria desenvolver um SBD interno.
+    \section{Apresentação do Caso de Estudo}
+    Este trabalho consistirá então na elaboração de um SBD que consiga, aptamente, ajudar Henrique Borges
+    e a c\^amara municipal de Eventopolis a gerir e publicitar os seus eventos.
+    
+    \section{Motivação e Objectivos}
+    O Professor Doutor Henrique Borges acredita que a introdu\c{c}\~{a}o de uma base de dados
+    trar\'{a} sucesso aos eventos.
+
+    Os objetivos mencionados abaixo s\~{a}o fundamentais para refletir este sucesso:
+    \begin{itemize}
+    \item Aumentar a capacidade de armazenamento de informa\c{c}\~{o}es;
+    \item Saber em tempo real qual a previsão de afluência de cada evento, sendo assim possível
+planear os eventos com maior precisão;
+    \item Perceber quais são os colaboradores com melhor desempenho nas vendas, permitindo o
+uso de incentivos para estimulá-los a alcançar novos patamares de vendas;
+    \item Possibilitar uma gestão financeira mais abrangente e precisa;
+    \item Garantir que é minimizada a possibilidade da capacidade do evento ser excedida;
+    \item Obter, em tempo real, um registo preciso das compras de cada participante, bem como
+identificar os itens mais vendidos tanto em eventos específicos quanto globalmente;
+    \item Melhorar a organiza\c{c}\~{a}o de hor\'{a}rios para cada evento;
+    \item Promover a cidade em \^{a}mbito nacional e internacional;
+    \item Estimular a economia local por meio de inje\c{c}\~{a}o de capital na regi\~{a}o.
+    \end{itemize}
+
+        \section{Viabilidade}
+        O Professor Doutor Henrique Borges defende que ao implementar um sistema de controlo de eventos
+        será possível: 
+        \begin{itemize}
+          \item Recuperar, no final no primeiro semestre, $40\%$ das perdas anteriores e cerca de $20\%$
+            do investimento inicial;
+          \item Aumentar a participação nos eventos em $20\%$ no primeiro ano.
+        \end{itemize}
+
+        \section{Recursos}
+             \subsubsection{Recursos Humanos}
+             \begin{itemize}
+               \item Pessoal de limpeza;
+               \item Equipa de seguran\c{c}a;
+               \item Vendedores;
+               \item Equipa de multim\'edia;
+               \item Funcion\'{a}rios da empresa de desenvolvimento;
+               \item Potenciais Volunt\'arios.
+             \end{itemize}
+             \subsubsection{Recursos Materiais}
+             \begin{itemize}
+             \item{Hardware:}
+               \begin{itemize}
+                 \item 1 servidor fornecido pela \textit{start-up} com 128GiB;
+                 \item 15 terminais ``burros'';
+                 \item 10 computadores pessoais.
+               \end{itemize}
+             \item{Software:}
+               \begin{itemize}
+                 \item SGBD;
+                 \item Aplicação de vendas e aprovisionamento;
+                 \item Redes sociais para divulgar o calendários de eventos.
+               \end{itemize}
+             \end{itemize}
+             \subsubsection{Equipa de Trabalho}
+             \begin{itemize}
+                 \item{\textbf{Pessoal Interno}}
+                   Na equipa de gest\~ao de eventos da C\^amara Municipal de Eventopolis temos:
+                   \begin{itemize}
+                     \item{Professor Doutor Henrique Borges:} O coordenador principal da equipa;
+                     \item{Maria Ivanovna Ivanova:} Colaboradora com experi\^encia em \textit{marketing} e co-coordenadora
+                       da equipa;
+                     \item{Herr Otto Mustermann:} Trabalhador \textit{part-time}.
+                   \end{itemize}
+                 \item{\textbf{Pessoal Externo}}
+                   Já o pessoal externo, consiste na equipa de desenvolvimento da ``start-up'',
+                   que seria constituída por 4 engenheiros, nomeadamente:
+                   \begin{itemize}
+                     \item Luke Bytespell;
+                     \item Aurelius Cibern\'etico;
+                     \item Bella Firewall;
+                     \item Aurora Matrix.
+                   \end{itemize}
+             \end{itemize}
+        \section{Plano de Execu\c{c}\~ao}
+             Com o intuito de desenvolver atempadamente o SBD ``Mademoiselle Borges'', Henrique Borges e a equipa de desenvolvimento
+              reuniram-se e elaboraram o seguinte esquema GANTT\footnote{(ver \ref{GANTT} e \ref{GANTT_c2} para esquema completo)}:
+        \newpage
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=6.2in]{images/GANTT_c1.png}
+            \caption{Diagrama de GANTT com conteúdos da primeira fase do Trabalho}
+        \end{figure}
+    
+    \section{Estrutura do Relatório}
+
+    Após a introdução, seguir-se-ão mais dois capítulos, designadamente, metodologia e conclusão,
+    acompanhados por um capítulo complementar para potenciais anexos.
+    Na metodologia, abordaremos uma secção para cada fase do ``ciclo de vida'' do desenvolvimento de bases de dados,
+    nomeadamente a definição de requisitos e modelação conceptual\footnote{De notar que este relat\'orio n\~ao abrange nas fases de modela\c{c}\~ao
+        l\'ogica nem implementa\c{c}\~ao f\'isica, logo, n\~ao ser\~ao encontradas nesta fase do relat\'orio.}.
+        
+    A conclusão seguirá os padrões convencionais de tal secção, fornecendo um breve
+    resumo dos resultados finais e indicando as próximas etapas necessárias para o sucesso do trabalho.
+    Prosseguimos com o esclarecimento de siglas e abreviaturas e, finalmente, o capítulo de anexos,
+    que pode conter \textit{scripts}, imagens de diagramas finais, entre outros.
+        
+%==========================================================================
+% END INTRODUCTION
+%==========================================================================
+\chapter{Metodologia}
+    \section{Defini\c{c}\~ao de Requisitos}
+        \subsection{M\'etodo de Levantamento e de An\'alise de Requisitos Adotados}
+        Com o objetivo de determinar os objetivos a serem alcançados pelo SBD,
+        foram agendadas diversas reuniões com o Prof.\ Dr.\ Henrique Borges, onde foram discutidas
+        várias questões pertinentes. No final destas reuniões, é previsto obter-se uma compreensão
+        abrangente dos requisitos a serem implementados.
+        \subsection{Organiza\c{c}\~ao dos Requisitos Levantados}
+        Sendo assim, um total de $88$ requisitos foram levantados e,
+        de acordo com a norma da organização de requisitos, separados em Descrição,
+        Manipulação e Controlo, dos quais $44$ são de Descrição, $33$ de Manipulação e
+        $11$ de Controlo.
+        \newpage
+        \subsubsection{Requisitos de Descri\c{c}\~ao}
+        \begin{table}[h]
+        \centering
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{ | c | c |p{15cm} | c | c | c |}
+        \hline
+        Nr & Hour & Description & Source & Analist & Type \\ \hline
+        1 & 12:29 & Each event must have an unique identifier. & Henrique Borges & Aurora Matrix & DR \\ \hline
+        2 & 12:29 & Each event must have an unique name & Henrique Borges & Aurora Matrix & DR \\ \hline
+        3 & 12:29 & Each event must have a description & Henrique Borges & Aurora Matrix & DR \\ \hline
+        4 & 12:29 & Each event must have a beginning and ending date & Henrique Borges & Aurora Matrix & DR \\ \hline
+        5 & 12:29 & Each event must have a maximum capacity & Henrique Borges & Aurora Matrix & DR \\ \hline
+        6 & 12:30 & There are no concurrent events & Henrique Borges & Aurora Matrix & DR \\ \hline
+        7 & 12:30 & Each employee must have an unique identifier which is formatted as ""XXXXXYYYYY"" where XXXXX is a descriptor of rank or function and YYYYY is a number & Henrique Borges & Aurora Matrix & DR \\ \hline
+        8 & 12:30 & Each employee must have a name & Henrique Borges & Aurora Matrix & DR \\ \hline
+        9 & 12:30 & Each employee must have a VAT & Henrique Borges & Aurora Matrix & DR \\ \hline
+        10 & 12:30 & Each employee must have a birth date & Henrique Borges & Aurora Matrix & DR \\ \hline
+        11 & 12:30 & Each employee must have a list of emails & Henrique Borges & Aurora Matrix & DR \\ \hline
+        12 & 12:30 & Each employee must have a list of phone numbers & Henrique Borges & Aurora Matrix & DR \\ \hline
+        13 & 12:30 & Each employee must have an address & Henrique Borges & Aurora Matrix & DR \\ \hline
+        14 & 12:30 & An address is a composite of Street name, Locale and Postal Code & Henrique Borges & Aurora Matrix & DR \\ \hline
+        15 & 12:31 & Each sale must have an unique identifier & Henrique Borges & Aurora Matrix & DR \\ \hline
+        16 & 12:31 & Each sale must have a total sale value which is the result of a certain calculation & Henrique Borges & Aurora Matrix & DR \\ \hline
+        17 & 12:31 & Each sale must have the quantity of products & Henrique Borges & Aurora Matrix & DR \\ \hline
+        18 & 12:31 & Each sale must have the date the sale closed & Henrique Borges & Aurora Matrix & DR \\ \hline
+        19 & 12:32 & Each participant must have an unique identifier & " Henrique Borges" & Aurora Matrix & DR \\ \hline
+        20 & 12:32 & Each participant must have a name & Henrique Borges & Aurora Matrix & DR \\ \hline
+        21 & 12:32 & Each participant must have date of birth & Henrique Borges & Aurora Matrix & DR \\ \hline
+        22 & 12:32 & Each participant must have a list of phone numbers & Henrique Borges & Aurora Matrix & DR \\ \hline
+        23 & 12:32 & Each participant must have, optionally, a list of emails & Henrique Borges & Aurora Matrix & DR \\ \hline
+        24 & 12:32 & Each participant must have, optionally, their VAT & Henrique Borges & Aurora Matrix & DR \\ \hline
+        25 & 12:32 & Each participant must have optionally, address & Henrique Borges & Aurora Matrix & DR \\ \hline
+        26 & 12:33 & Each product must have an unique identifier & Henrique Borges & Aurora Matrix & DR \\ \hline
+        27 & 12:33 & Each product must have an unique name & Henrique Borges & Aurora Matrix & DR \\ \hline
+        28 & 12:33 & Each product must have a current price & Henrique Borges & Aurora Matrix & DR \\ \hline
+        29 & 12:33 & Each product must have a stock which is a number that represents the total quantity of a given product in storage & Henrique Borges & Aurora Matrix & DR \\ \hline
+        30 & 12:33 & Each product must have a description & Henrique Borges & Aurora Matrix & DR \\ \hline
+        31 & 12:33 & A ticket is a product who's name is the same as the event's name & Henrique Borges & Aurora Matrix & DR \\ \hline
+        32 & 12:34 & Each supplier must have an unique identifier & Henrique Borges & Aurora Matrix & DR \\ \hline
+        33 & 12:34 & Each supplier must have an unique name & Henrique Borges & Aurora Matrix & DR \\ \hline
+        34 & 12:34 & Each supplier must have an IBAN & Henrique Borges & Aurora Matrix & DR \\ \hline
+        35 & 12:34 & Each supplier must have an list of emails & Henrique Borges & Aurora Matrix & DR \\ \hline
+        36 & 12:34 & Each supplier must have an list of cellphones & Henrique Borges & Aurora Matrix & DR \\ \hline
+        37 & 12:34 & Each supplier must have an address & Henrique Borges & Aurora Matrix & DR \\ \hline
+        38 & 12:34 & The only type of identifier that should be manually inserted is the employee identifier, every other should be an automatic number & Henrique Borges & Aurora Matrix & DR \\ \hline
+        65 & 13:01 & The amount of tickets does not exceed the maximum capacity of an event & Henrique Borges & Aurora Matrix & DR \\ \hline
+        70 & 13:07 & The value of a product in a sale is dependant on it's base price at the moment of purchase and the desired quantity & Henrique Borges & Aurora Matrix & DR \\ \hline
+        79 & 13:23 & Administrator info must be stored in the database as employees. & Henrique Borges & Aurora Matrix & DR \\ \hline
+        81 & 13:24 & The value of a sale is sum of the value times the quantity of all products in a sale. & Henrique Borges & Aurora Matrix & DR \\ \hline
+        85 & 13:28 & It must be possible to differenciate completed deliveries from ongoing reservations & Henrique Borges & Aurora Matrix & DR \\ \hline
+        86 & 13:28 & It must be possible to differenciate failed reservations from ongoing reservations or completed reservations & Henrique Borges & Aurora Matrix & DR \\ \hline
+    \end{tabular}%
+    }
+    \caption{Requisitos de Descrição}
+    \end{table}
+\newpage
+    \subsubsection{Requisitos de Manipula\c{c}\~ao}
+    \begin{table}[h]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{| c | c | p {13cm} | c | c | c |}
+    \hline
+        Nr & Hour & Description & Source & Analist & Type \\ \hline
+        43 & 12:37 & It must be possible to consult who is the manager of an employee. & Henrique Borges & Aurora Matrix & ER \\ \hline
+        44 & 12:39 & It must be possible to consult products in a sale & Henrique Borges & Aurora Matrix & ER \\ \hline
+        45 & 12:41 & It must be possible to consult every closed sale & Henrique Borges & Aurora Matrix & ER \\ \hline
+        46 & 12:42 & It must be possible to consult all participants in a given event & Henrique Borges & Aurora Matrix & ER \\ \hline
+        47 & 12:43 & It must be possible to consult all participants in the system & Henrique Borges & Aurora Matrix & ER \\ \hline
+        48 & 12:44 & It must be possible to consult the participant associated with a given sale & Henrique Borges & Aurora Matrix & ER \\ \hline
+        49 & 12:45 & It must be possible to consult all products in stock & Henrique Borges & Aurora Matrix & ER \\ \hline
+        50 & 12:46 & It must be possible to consult all suppliers of a given product & Henrique Borges & Aurora Matrix & ER \\ \hline
+        51 & 12:46 & It must be possible to consult only past suppliers of a given product & Henrique Borges & Aurora Matrix & ER \\ \hline
+        52 & 12:46 & It must be possible to consult only eventual suppliers of a given product & Henrique Borges & Aurora Matrix & ER \\ \hline
+        53 & 12:47 & It must be possible to consult all of a participant's purchases & Henrique Borges & Aurora Matrix & ER \\ \hline
+        54 & 12:48 & It must be possible to consult all suppliers & Henrique Borges & Aurora Matrix & ER \\ \hline
+        55 & 12:49 & It must be possible to consult all employees & Henrique Borges & Aurora Matrix & ER \\ \hline
+        56 & 12:50 & It must be possible to consult all events & Henrique Borges & Aurora Matrix & ER \\ \hline
+        57 & 12:51 & It must be possible to consult the value of sales in a particular day & Henrique Borges & Aurora Matrix & ER \\ \hline
+        58 & 12:51 & It must be possible to consult the volume of sales in a particular day & Henrique Borges & Aurora Matrix & ER \\ \hline
+        59 & 12:52 & It must be possible to determine who is the participant with highest volume of sales & Henrique Borges & Aurora Matrix & ER \\ \hline
+        60 & 12:53 & It must be possible to determine the event with the highest volume of sales. & Henrique Borges & Aurora Matrix & ER \\ \hline
+        61 & 12:54 & It must be possible to determine the event with the highest rate of participation & Henrique Borges & Aurora Matrix & ER \\ \hline
+        62 & 12:55 & When the system closes, it must dump a sales report as a text file & Henrique Borges & Aurora Matrix & ER \\ \hline
+        63 & 12:59 & A participant is inserted into the database when they buy a ticket & Henrique Borges & Aurora Matrix & ER \\ \hline
+        64 & 13:00 & If an event is open-entry the sale of a ticket is still registered with 0 value & Henrique Borges & Aurora Matrix & ER \\ \hline
+        68 & 13:05 & It must be possible to consult what events occured in a given timespan & Henrique Borges & Aurora Matrix & ER \\ \hline
+        69 & 13:06 & It must be possible to consult which employee sold the most tickets for a given event. & Henrique Borges & Aurora Matrix & ER \\ \hline
+        73 & 13:16 & It must be possible to consult the events in which someone participated in & Henrique Borges & Aurora Matrix & ER \\ \hline
+        74 & 13:17 & It must be possible to insert new events into the database & Henrique Borges & Aurora Matrix & ER \\ \hline
+        75 & 13:18 & It must be possible to insert new employees in to the database & Henrique Borges & Aurora Matrix & ER \\ \hline
+        76 & 13:19 & A product, if it exists, must be updated as soon as the supplying is concluded & Henrique Borges & Aurora Matrix & ER \\ \hline
+        77 & 13:20 & A product, if new, must be added to the database as soon as it is ordered & Henrique Borges & Aurora Matrix & ER \\ \hline
+        82 & 13:24 & It must be possible to consult the employee managed by another employee & Henrique Borges & Aurora Matrix & ER \\ \hline
+        83 & 13:25 & It must be possible to determine the participant with highest value of sales & Henrique Borges & Aurora Matrix & ER \\ \hline
+        84 & 13:27 & It must be possible to determine the event with highest value in sales & Henrique Borges & Aurora Matrix & ER \\ \hline
+        87 & 13:30 & It must be possible to consult all sales made by an employee & Henrique Borges & Aurora Matrix & ER \\ \hline
+    \end{tabular}%
+    }
+    \caption{Requisitos de Manipulação}
+\end{table}
+    \newpage
+        \subsubsection{Requisitos de Controlo}
+        \begin{table}[h]
+        \centering
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l|l| p{10cm}|l|l|l|}
+        \hline
+        Nr & Hour & Description & Source & Analist & Type \\ \hline
+        39 & 12:35 & Henrique Borges is a System Administrator & Henrique Borges & Aurora Matrix & AR \\ \hline
+        40 & 12:36 & Maria Ivanovna Ivanova is a System Administrator & Henrique Borges & Aurora Matrix & AR \\ \hline
+        41 & 12:36 & Herr Mustermann is a System Administrator & Henrique Borges & Aurora Matrix & AR \\ \hline
+        42 & 12:36 & There must be a special way of accessing the database called guest for anyone who wishes to view information on events & Henrique Borges & Aurora Matrix & AR \\ \hline
+        66 & 13:02 & Access to the database is only available from 07:00 to 02:00 & Henrique Borges & Aurora Matrix & AR \\ \hline
+        67 & 13:04 & Database Administrators may revoke access to the database if provided with a suitable/legal reason. & Henrique Borges & Aurora Matrix & AR \\ \hline
+        71 & 13:08 & An administrator has access to any and all information in the database & Henrique Borges & Aurora Matrix & AR \\ \hline
+        72 & 13:09 & An administrator has access to all and any functionalities of the database & Henrique Borges & Aurora Matrix & AR \\ \hline
+        78 & 13:23 & Only administrators may update information & Henrique Borges & Aurora Matrix & AR \\ \hline
+        80 & 13:23 & Only administrators have access to the total value of sales & Henrique Borges & Aurora Matrix & AR \\ \hline
+        88 & 13:30 & The usernames in the database correspond directly to the identifier & Henrique Borges & Aurora Matrix & AR \\ \hline
+        \end{tabular}
+        }
+        \caption{Requisitos de Controlo}
+        \end{table}
+        \newpage
+        
+        \subsubsection{Análise e Validação Geral dos Requisitos}
+        Depois do levantamento dos requisitos, marcou-se uma reunião no intuito do pessoal
+        externo tomar conhecimento dos requisitos documentados.
+
+        Essa reunião, por sua vez, foi realizada com sucesso, e o pessoal interno
+        mostrou-se satisfeito com o progresso e nível de detalhe a que os membros
+        da equipa de desenvolvimento de BD chegaram, especialmente o Prof.\ Dr.\ Henrique
+        Borges, que viu muito potencial neste projeto.
+    \newpage
+    \section{Modela\c{c}\~ao Conceptual}
+        \subsection{Identificação Conceptual}
+             Após analisar os requisitos anotados, a equipa de desenvolvimento procedeu com a 
+             modelação conceptual do SBD, tendo iniciado pela identificação das entidades,
+             relacionamentos e os atributos de cada uma, não incluíndo chaves estrangeiras.
+             \subsubsection{Entidades}
+             \begin{itemize}
+                 \item{\textbf{Evento:}} Evento a ser gerido. 
+                     \begin{itemize}
+                     \item{ID:} Chave Primária da entidade que estará no domínio INTEGER
+                       e será auto incrementável;
+                     \item{Nome:} O nome de um evento que estará no domínio VARCHAR(75).
+                     \item{Descrição:} A descrição de um elemento da tabela ``Evento'' será
+                       um breve texto que introduz o tema e qualquer tipo de subevento que possa
+                       estar inserido no evento. Sendo assim, este atributo estará no domínio TEXT;
+                     \item{DataFim:} A data do fim de um evento será uma data com as horas a qual
+                       o evento será dado por oficialmente terminado. Sendo assim, estará no domínio
+                       DATETIME;
+                     \item{DataInicio:} A data do inicio de um evento será uma data com as horas a qual
+                       o evento será dado por oficialmente iniciado. Sendo assim, estará no domínio
+                       DATETIME;
+                     \item{DataFim:} A data do final de um evento será uma data com as horas a qual
+                       o evento será dado por oficialmente terminado. Sendo assim, estará no domínio
+                       DATETIME;
+                     \item{Capacidade:} É importante ter noção da quantidade máxima de participantes num
+                       dado evento. Então, este atributo será um elemento numérico e estará no domínio INTEGER.
+                     \end{itemize}
+                 \item{\textbf{Funcionário:}} Colaborador da câmara munincipal.
+                     \begin{itemize}
+                     \item{ID:} Chave Primária da entidade que estará no domínio VARCHAR(10);
+                     \item{Nome:} O nome legal ou social de um funcionário também será armazenado e estará
+                       no domínio VARCHAR(75);
+                     \item{NIF:} O número de identificação fiscal é um número de 9 algarismos e, portanto estará
+                       no domínio VARCHAR(9);
+                     \item{DataNascimento:} Data de nascimento que estará no domínio DATE;
+                       
+                     \item{Email:} Email é um atributo multivalorado que estará no domínio VARCHAR(75);
+                       
+                     \item{NTelemovel:} Números de telemóvel. Podem conter letras e números. É um atributo multivalorado no domínio VARCHAR(20);
+                       
+                     \item{Morada:} Morada composta por rua, localidade, código-postal. Atributo Composto de VARCHAR(), onde rua será VARCHAR(50), localidade VARCHAR(30) e código-postal VARCHAR(15);
+                       
+                     \end{itemize}
+                 \item{\textbf{Participante:}} Pessoa que participa num evento(s). É registado no sistema quando efetua a compra do seu primeiro bilhete para um evento;
+                     \begin{itemize}
+                     \item{ID:} Chave Primária da entidade que estará no domínio INTEGER;
+                       
+                     \item{Nome:} O nome legal ou social da pessoa também será armazenado e estará
+                       no domínio VARCHAR(75);
+                       
+                     \item{NIF:} O número de identificação fiscal é um número de 9 algarismos e, portanto estará no domínio VARCHAR(9). Este campo é opcional;
+                       
+                     \item{DataNascimento:} Data de nascimento que estará no domínio DATE;
+                       
+                     \item{Email:} Email do participante que estará no domínio VARCHAR(75). Este campo é multivalorado e opcional;
+                       
+                     \item{NTelemovel:} Números de telemóvel. Podem conter letras e números. É um atributo multivalorado no domínio VARCHAR(20);
+                       
+                     \item{Morada:} Morada composta por rua, localidade, código-postal. Atributo Composto de VARCHAR(), onde rua será VARCHAR(50), localidade VARCHAR(30) e código-postal VARCHAR(15). Este campo é opcional;
+                       
+                     \end{itemize}
+                 \item{\textbf{Artigo:}} Artigo que é possível estar numa venda;
+                     \begin{itemize}
+                     \item{ID:} Chave Primária da entidade que estará no domínio INTEGER;
+                       
+                     \item{Nome:} O nome do artigo que estará no domínio VARCHAR(75);
+                       
+                     \item{Descrição:} A descrição de um elemento da tabela ``Artigo'' será
+                       um breve texto que descreve o produto em questão e qualquer medida extra necessária a ter com o mesmo. Sendo assim, este atributo estará no domínio TEXT;
+                       
+                     \item{Preço:} Valor de um artigo, logo estará no domínio DECIMAL(5,2);
+                       
+                     \item{Stock:} Quantidade de um artigo que está disponível, estará no domínio INTEGER;
+                       
+                     \end{itemize}
+                 \item{\textbf{Venda:}} Venda de artigo(s) a ser efetuada a um participante por parte de um funcionário;
+                     \begin{itemize}
+                     \item{ID:} Chave Primária da entidade que estará no domínio INTEGER;
+                       
+                     \item{Valor:} Valor total da venda que estará no domínio DECIMAL(5,2);
+                       
+                     \item{Quantidade:} Valor total do número de artigos na venda que estará no domínio INTEGER;
+                       
+                     \item{Data:} Data na qual a venda aconteceu logo estará no domínio DATE;
+                       
+                     \end{itemize}
+                 \item{\textbf{Fornecedor:}} Quem fornece os artigos;
+                     \begin{itemize}
+                     \item{ID:} Chave Primária da entidade que estará no domínio INTEGER;
+                       
+                     \item{Nome:} O nome da empresa fornecedora que estará no domínio VARCHAR(75);
+                       
+                     \item{IBAN:} Código de identificação de conta bancária para a qual devem ser feitos os pagamentos ao fornecedor. Está no domínio VARCHAR(50);
+                       
+                     \item{Email:} Email do participante que estará no domínio VARCHAR(75) e é multivalorado;
+                       
+                     \item{Contacto:} Pessoa que representa a empresa e o seu número de telemóvel, estará no domínio VARCHAR(50);
+                       
+                     \item{NTelemovel:} Números de telemóvel. Podem conter letras e números. É um atributo multivalorado no domínio VARCHAR(20);
+                       
+                     \item{Morada:} Morada composta por rua, localidade, código-postal. Atributo Composto de VARCHAR(), onde rua será VARCHAR(50), localidade VARCHAR(30) e código-postal VARCHAR(15);
+                       
+                     \end{itemize}
+             \end{itemize}
+             \subsubsection{Relacionamentos}
+             \begin{itemize}
+                 \item{Evento emprega Funcionário:} Relacionamento entre Evento e Funcionário, representado quais funcionários estão alocados para quais eventos. Sendo a cardinalidade muitos para muitos;
+                 \item{Funcionário gere Funcionário:} Relacionamento entre Funcionário e Funcionário, representado qual funcionário gere qual/quais funcionários são geridos por um Funcionário. Sendo a cardinalidade 1 para muitos;
+                 \item{Funcionário realiza Venda:} Relacionamento entre Funcionário e Venda, representado qual funcionário efetuou uma Venda. Sendo a cardinalidade um para muitos.
+                 \item{Venda contém Artigo:} Relacionamento entre Venda e Artigo, representando quais artigos estão numa venda. Sendo a cardinalidade muitos para muitos.
+                     \begin{itemize}
+                     \item{Valor:} Valor do artigo no momento da venda, estará então no domínio DECIMAL(5,2);
+                       
+                     \item{Quantidade:} Valor total da quantidade de um dado artigo numa venda, estará então no domínio INTEGER;
+                       
+                     \end{itemize}
+                 \item{Venda para Participante:} Relacionamento entre Venda e Participante, representando a que participante uma venda pertence. Sendo a cardinalidade muitos para 1;
+                 \item{Artigo fornecido por Fornecedor:} Relacionamento entre Artigo e Fornecedor, representado o fornecedor pelo qual um artigo foi fornecido. Sendo a cardinalidade muitos para muitos;
+                     \begin{itemize}
+                     \item{Data:} Data na qual o artigo foi entregue pelo fornecedor, estará então no domínio DATETIME;
+                     \item{Quantidade:} Valor total da quantidade de um dado artigo numa entrega por parte de um fornecedor, estará então no domínio INTEGER;
+                       
+                     \end{itemize}
+                 \item{Artigo encomendado do Fornecedor:} Relacionamento entre Artigo e Fornecedor, representado o fornecedor pelo qual um artigo foi encomendado. Sendo a cardinalidade muitos para muitos;
+                     \begin{itemize}
+                     \item{DataEncomenda:} Data na qual o artigo foi encomendado ao fornecedor, estará então no domínio DATETIME;
+                     \item{DataEsperada:} Data na qual o artigo é esperado que seja entregue, estará então no domínio DATETIME. DataEncomenda e DataEsperada compõe a chave primária do relacionamento;
+                     \item{Quantidade:} Valor total da quantidade de um dado artigo numa encomenda por parte de um fornecedor, estará então no domínio INTEGER;
+                       
+                     \end{itemize}
+             \end{itemize}
+\newpage
+        \subsection{Modelo Conceptual}
+        Consoante os resultados da subsecção anterior, temos o seguinte diagrama ER,
+        concebido na ferramenta BrModelo\footnote{Note-se que os diagramas criados no brModelo
+        não seguem a notação de Chen [\cite{chen}]}:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=4.75in]{images/Conceptual_Com_Atributos.png}
+            \caption{Diagrama Conceitual}
+        \end{figure}
+        
+\section{Modelação Lógica}
+\subsection{Construção e Validação do Modelo de Dados Lógico}
+Com a modelação conceptual completa e validada, a equipa de desenvolvimento procedeu com a modelação
+lógica do SBD, sendo que a mesma é uma tradução direta do modelo conceptual, introduzindo agora chaves estrangeiras.
+
+\subsection{Normalização de Dados}
+
+Devido à abordagem que adotámos no trabalho desde o modelo conceptual onde a leitura ocorre da esquerda para a direita e de cima para baixo, e considerando que atendemos a todos os requisitos das leis de normalização, os nossos dados encontram-se naturalmente normalizados na Terceira Forma Normal (3FN).
+
+O facto de estarem normalizados em 3FN proporciona várias vantagens, incluindo a prevenção de anomalias como a redundância, 
+e problemas de consistência decorrentes de processos de inserção, atualização ou remoção. 
+Além disso, evita a atualização deficiente de um determinado registo com múltiplas ocorrências, onde nem todas são corretamente atualizadas.
+
+\subsection{Apresentação e Explicação do Modelo Lógico Produzido}
+
+\subsubsection{Tradução de Entidades}
+    \begin{itemize}
+        \item{\textbf{Evento $\rightarrow$ EventCal}}
+            \begin{itemize}
+                \item{ID $\rightarrow$ EventID}
+                \item{Nome $\rightarrow$ EventName}
+                \item{Descricao $\rightarrow$ EventDescription}
+                \item{DataInicio $\rightarrow$ EventStart}
+                \item{DataFim $\rightarrow$ EventEnd}
+                \item{Capacidade $\rightarrow$ Capacity}
+            \end{itemize}
+        \item{\textbf{Funcionário $\rightarrow$ Employee}}
+            \begin{itemize}
+                \item{ID $\rightarrow$ EmployeeID}
+                \item{Nome $\rightarrow$ EmployeeName}
+                \item{NIF $\rightarrow$ EmployeeVAT}
+                \item{DataNascimento $\rightarrow$ EmployeeBirthDate}
+            \end{itemize}
+            Temos dois atributos multivalorados na entidade Funcionário que geram duas novas tabelas:
+            \begin{itemize}
+                \item{\textbf{Email $\rightarrow$ EmployeeEmail}}
+                    \begin{itemize}
+                        \item{EmployeeID\_eem:} Chave estrangeira (chave primária e NOT NULL) que referencia a chave candidata EmployeeID na tabela Employee.
+                        \item{Email:} Atributo que representa um email tal como no modelo conceptual.
+                    \end{itemize}
+                \item{\textbf{NTelemovel $\rightarrow$ EmployeePhone}}
+                    \begin{itemize}
+                        \item{EmployeeID\_ep:} Chave estrangeira (chave primária e NOT NULL) que referencia a chave candidata EmployeeID na tabela Employee.
+                        \item{Phone:} Atributo que representa um número de telemóvel como no modelo conceptual.
+                    \end{itemize}
+            \end{itemize}
+        \item{\textbf{Venda $\rightarrow$ Sale}}
+            \begin{itemize}
+                \item{ID $\rightarrow$ ReceiptNO}
+                \item{Valor $\rightarrow$ TotalValue}
+                \item{Quantidade $\rightarrow$ TotalQuantity}
+                \item{Data $\rightarrow$ DateOfSale}
+                \item{EmployeeID\_s:} Chave estrangeira (NOT NULL) que referencia a chave candidata EmployeeID na tabela Employee.
+                \item{ParticipantID\_s:} Chave estrangeira (NOT NULL) que referencia a chave candidata ParticipantID na tabela Participant.
+            \end{itemize}
+        \item{\textbf{Participante $\rightarrow$ Participant}}
+            \begin{itemize}
+                \item{ID $\rightarrow$ ParticipantID}
+                \item{Nome $\rightarrow$ ParticipantName}
+                \item{NIF $\rightarrow$ ParticipantVAT}
+                \item{DataNascimento $\rightarrow$ ParticipantBirthDate}
+                \item{Rua $\rightarrow$ Street}
+                \item{Localidade $\rightarrow$ Locale}
+                \item{CodigoPostal $\rightarrow$ Postal}
+            \end{itemize}
+            Temos dois atributos multivalorados na entidade Participante que geram duas novas tabelas:
+            \begin{itemize}
+                \item{\textbf{NTelemovel $\rightarrow$ ParticipantPhone}}
+                    \begin{itemize}
+                        \item{ParticipantID\_pp:} Chave estrangeira (chave primária e NOT NULL) que referencia 
+                        a chave candidata ParticipantID na tabela Participant.
+                        \item{Phone:} Atributo que representa um número de telemóvel como no modelo conceptual.
+                    \end{itemize}
+                \item{\textbf{Email $\rightarrow$ ParticipantEmail}}
+                    \begin{itemize}
+                        \item{ParticipantID\_pem:} Chave estrangeira (chave primária e NOT NULL) que referencia a chave candidata ParticipantID na tabela Participant.
+                        \item{Email:} Atributo que representa um email como no modelo conceptual.
+                    \end{itemize}
+            \end{itemize}
+        \item{\textbf{Artigo $\rightarrow$ Produto}}
+            \begin{itemize}
+                \item{ID $\rightarrow$ ProductID}
+                \item{Nome $\rightarrow$ ProductName}
+                \item{Descricao $\rightarrow$ ProductDescription}
+                \item{Preco $\rightarrow$ BasePrice}
+                \item{Stock $\rightarrow$ QuantityInStock}
+            \end{itemize}
+        \item{\textbf{Forncedor $\rightarrow$ Supplier}}
+            \begin{itemize}
+                \item{ID $\rightarrow$ SupplierID}
+                \item{Nome $\rightarrow$ SupplierName}
+                \item{IBAN $\rightarrow$ IBAN}
+                \item{Rua $\rightarrow$ Street}
+                \item{Localidade $\rightarrow$ Locale}
+                \item{CodigoPostal $\rightarrow$ Postal}
+            \end{itemize}
+             Temos dois atributos multivalorados na entidade Artigo que geram duas novas tabelas:
+             \begin{itemize}
+                \item{\textbf{NTelemovel $\rightarrow$ SupplierPhone}}
+                    \begin{itemize}
+                        \item{SupplierID\_sp:} Chave estrangeira (chave primária e NOT NULL) que referencia a chave candidata SupplierID
+                        na tabela Supplier.
+                        \item{Phone:} Atributo que representa um número de telemóvel como no modelo conceptual.
+                    \end{itemize}
+                \item{\textbf{Email $\rightarrow$ SupplierEmail}}
+                    \begin{itemize}
+                        \item{SupplierID\_sem:} Chave estrangeira (chave primária e NOT NULL) que referencia a chave candidata SupplierID na tabela Supplier.
+                        \item{Email:} Atributo que representa um email como no modelo conceptual.
+                    \end{itemize}
+            \end{itemize}
+    \end{itemize}
+
+\subsubsection{Tradução de Relacionamentos}
+    Os relacionamentos com cardinalidade \textit{n para n} geram novas tabelas. Veremos como são traduzidos os mesmos.
+    \begin{itemize}
+        \item{\textbf{Evento emprega Funcionário $\rightarrow$ EventEmployee}}
+            \begin{itemize}
+                \item{EventID\_ee:} Chave estrangeira (chave primária composta com EmployeeID\_ee) que referencia a chave candidata EventID na tabela EventCal.
+                \item{EmployeeID\_ee:} Chave estrangeira (chave primária composta com EventID\_ee) que referencia a chave candidata EmployeeID na tabela Employee.
+            \end{itemize}
+        \item{\textbf{Venda contém Artigo $\rightarrow$ SaleProduct}}
+            \begin{itemize}
+                \item{ReceiptNO\_sp:} Chave estrangeira (chave primária composta com ProductID\_sp) 
+                que referencia a chave candidata ReceiptNO na tabela Sale.
+                \item{ProductID\_sp:} Chave estrangeira que (chave primária composta com ReceiptNO\_sp)
+                referencia a chave candidata ProductID na tabela Product.
+                \item{Valor $\rightarrow$ CurrentValue}
+            \end{itemize}
+        \item{\textbf{Artigo fornecido por Fornecedor $\rightarrow$ ProductSupplierPast}}
+            \begin{itemize}
+                \item{ProductID\_psp:} Chave estrangeira (chave primária composta com SupplierID\_psp e DateOfDelivery)
+                que referencia a chave candidata ProductID na tabela Product.
+                \item{SupplierID\_psp:} Chave estrangeira (chave primária composta com ProductID\_psp e DateOfDelivery)
+                que referencia a chave candidata SupplierID na tabela Supplier.
+                \item{Data $\rightarrow$ DateOfDelivery:} Chave primária composta com ProductID\_psp e SupplierID\_psp. 
+                \item{Quantidade $\rightarrow$ Quantity}
+            \end{itemize}
+        \item{\textbf{Artigo encomendado a Fornecedor $\rightarrow$ ProductSupplierFuture}}
+            \begin{itemize}
+                \item{ProductID\_psf:} Chave estrangeira (chave primária composta com SupplierID\_psf, 
+                DateOfReservation e DateOfSchedule) que referencia a chave candidata ProductID na tabela Product.
+                \item{SupplierID\_psf:} Chave estrangeira (chave primária composta com ProductID\_psf,
+                DateOfReservation e DateOfSchedule) que referencia a chave candidata SupplierID na tabela Supplier.
+                \item{DataEncomenda $\rightarrow$ DateOfReservation:} Chave primária composta com ProductID\_psf, SupplierID\_psf e DateOfSchedule.
+                \item{DataEsperada $\rightarrow$ DateOfSchedule:} Chave primária composta com ProductID\_psf, 
+                SupplierID\_psf e DateOfReservation.
+                \item{Quantidade $\rightarrow$ Quantity}
+            \end{itemize}
+    \end{itemize}
+
+\subsection{Validação do Modelo com Interrogações do Utilizador}
+Por via a validar o modelo lógico explicado no ponto anterior, tomou-se a liberdade de escolher alguns requisitos de manipulação presentes na Tabela 2.2.
+\usetikzlibrary{positioning}
+\begin{itemize}
+    \item{Saber qual evento teve a maior taxa de participação de todos (RM61)}
+$$\tau_{rate} DESC \gamma_{ID, Name ; rate} \pi_{\delta}( (\rho_{EV}EventCal) \bowtie (\rho_{SP} SaleProduct)  \bowtie_{\alpha \wedge \beta} 
+(\rho_P Product)) $$
+Sabendo que:
+
+$\delta: EV.EventID\rightarrow ID,EV.EventName\rightarrow Name,SUM(SP.Quantity)/EV.Capacity\rightarrow rate$.
+
+$\alpha: P.ProductID = SP.ProductID\_sp$
+
+$\beta : P.ProductName = EV.EventName$
+    \item{Saber qual é o evento com maior valor de vendas (RM94)}
+$$\tau_{TotVal} DESC \gamma_{ID, Name; TotVal} \pi_{\delta}( (\rho_{EV} EventCal) \bowtie_{\alpha} (\rho_S Sale )$$
+Onde:
+
+$\alpha : EV.EventStart < S.DateOfSale < EV.EventEnd$
+
+$\delta: EV.EventID\rightarrow ID, EV.EventName\rightarrow Name, SUM(S.TotalValue)\rightarrow TotVal$
+\end{itemize}
+
+\section{Modelação Física}
+\subsection{Tradução do Esquema Lógico para o Sistema de Gestão de Bases de Dados Escolhido}
+Esta tradução é direta, sendo que até se pode utilizar uma funcionalidade do \textit{MySQL Workbench} para a realizar.
+Listam-se exemplos de criação de tabelas. A restante criação de tabelas encontra-se nos anexos.
+\begin{itemize}
+    \item{Criação da Tabela SaleProduct}
+        \begin{lstlisting}[language=sql]
+CREATE TABLE SaleProduct (
+        ReceiptNO_sp INTEGER NOT NULL,
+        ProductID_sp INTEGER NOT NULL,
+        CurrentValue DECIMAL(5,2) NOT NULL,
+        Quantity INTEGER NOT NULL,
+        CONSTRAINT comp_key 
+            PRIMARY KEY (ReceiptNO_sp, ProductID_sp),
+        FOREIGN KEY (ReceiptNO_sp)
+            REFERENCES Sale (ReceiptNO),
+        FOREIGN KEY (ProductID_sp)
+            REFERENCES Product (ProductID)
+);
+        \end{lstlisting}
+        Esta tabela representa o relacionamento Venda contém Artigo, onde indicamos todos os atributos como pedido no modelo lógico, bem como a identificação de chave primária composta com ReceiptNO\_sp e ProductID\_sp.
+    \item{Criação da Tabela EventCal}
+        \begin{lstlisting}[language=sql]
+CREATE TABLE EventCal (
+        EventID INTEGER AUTO_INCREMENT,
+        EventName VARCHAR(75) NOT NULL UNIQUE,
+        EventDescription TEXT NOT NULL,
+        EventStart DATETIME NOT NULL,
+        EventEnd   DATETIME NOT NULL,
+        Capacity INTEGER NOT NULL,
+        PRIMARY KEY (EventID)
+);
+        \end{lstlisting}
+        No caso da tabela EventCal, a tradução é ainda mais simples, visto que não tem chaves estrangeiras. Sendo assim, 
+        só tivemos que indicar os atributos como pedido e indicar que a chave primária é EventID.
+\end{itemize}
+
+\subsection{Tradução das Interrogações do Utilizador para SQL} 
+
+Neste ponto, traduziremos alguns requisitos de manipulação em \textit{queries} de MySQL, assim como as tabelas que resultam da execução das mesmas, tendo em conta o povoamento que usamos, que se encontra nos Anexos deste relatório.
+
+\begin{itemize}
+    \item{Saber qual evento teve a maior taxa de participação de todos (RM61)}
+    \begin{lstlisting}[language=sql]
+SELECT EV.EventID, 
+       EV.EventName, 
+       SUM(SP.Quantity) / EV.Capacity * 100 AS rate
+FROM EventCal as EV INNER JOIN SaleProduct as SP
+    INNER JOIN Product AS P
+        ON P.ProductID = SP.ProductID_sp AND
+           P.ProductName = EV.EventName
+    GROUP BY EV.EventID, EV.EventName
+        ORDER BY rate DESC
+    LIMIT 1;
+    \end{lstlisting}
+    \begin{figure}[H]
+            \centering
+            \includegraphics[width=4.75in]{images/querie1.png}
+            \caption{Resultado RM61}
+        \end{figure}
+    
+    \item{Saber qual é o evento com maior valor de vendas (RM94)}
+    \begin{lstlisting}[language=sql]
+SELECT EV.EventID, EV.EventName, SUM(S.TotalValue) AS totVal
+	FROM EventCal AS EV INNER JOIN Sale as S
+		ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventEnd
+	GROUP BY EV.EventID, EV.EventName
+		ORDER BY totVal DESC
+LIMIT 1;
+    \end{lstlisting}
+    \begin{figure}[H]
+            \centering
+            \includegraphics[width=4.75in]{images/querie2.png}
+            \caption{Resultado RM94}
+        \end{figure}
+\end{itemize}
+
+\subsection{Definição e Caracterização das Vistas de Utilização em SQL}
+Definimos algumas vistas para conseguirmos abstrair o utilizador da interação direta com a base de dados. As vistas possibilitam-nos conceder permissão ou negar acesso a determinadas partes da BD. Desta forma, conseguimos garantir que, por exemplo, os funcionários não tenham acesso ao valor total das vendas.
+Veremos agora alguns exemplos de vistas que definimos.
+As restantes vistas podem ser consultadas nos anexos.
+
+\begin{lstlisting}[language=sql]
+CREATE VIEW product_supplier AS
+    SELECT P.ProductID AS ProductID, 
+           PSP.SupplierID_psp AS PastSupplierID,
+           PSF.SupplierID_psf AS FutureSupplierID
+        FROM Product AS P INNER JOIN ProductSupplierPast AS PSP 
+            ON P.ProductID = PSP.ProductID_psp
+        INNER JOIN ProductSupplierFuture AS PSF
+            ON P.ProductID = PSF.ProductID_psf
+    GROUP BY P.ProductID, PSP.SupplierID_psp, PSF.SupplierID_psf;
+\end{lstlisting}
+
+A vista acima gera uma tabela virtual que contém todos os \textit{suppliers} de produtos, ou seja, se um utilizador desejar obter os \textit{suppliers} 
+de um produto só terá que fazer uma simples \textit{query}.
+
+\begin{lstlisting}[language=sql]
+CREATE VIEW BestSellersEmployee AS
+    SELECT EV.EventID AS EventID,
+           S.EmployeeID_s AS EmployeeID,
+           SUM(SP.Quantity) AS Quantity
+        FROM EventCal AS EV INNER JOIN EventEmployee AS EE
+            ON EV.EventID = EE.EventID_ee
+        INNER JOIN Employee AS E
+            ON EE.EmployeeID_ee = E.EmployeeID
+        INNER JOIN Sale AS S
+            ON E.EmployeeID = S.EmployeeID_s
+        INNER JOIN SaleProduct AS SP
+            ON S.ReceiptNO = SP.ReceiptNO_sp
+        INNER JOIN Product AS P
+            ON P.ProductName = EV.EventName
+    GROUP BY EV.EventID, S.EmployeeID_s
+        ORDER BY SUM(SP.Quantity) DESC;
+\end{lstlisting}
+
+Com esta vista conseguimos que se consiga obter o melhor ou melhores, como o utilizador desejar, vendedores em termos de quantidade 
+de produtos vendida.
+A mesma resulta numa tabela virtual que expõe o ID do evento em causa, o ID do funcionário e a quantidade total de produtos vendida.
+
+\begin{lstlisting}[language=sql]
+CREATE VIEW manager_employees AS
+    SELECT E.EmployeeID AS ManagerEmployeeID,
+           GROUP_CONCAT(Ei.EmployeeID) AS ManagedEmployeeIDs
+    FROM Employee AS E LEFT OUTER JOIN Employee AS Ei
+    ON Ei.EmployeeID_e = E.EmployeeID
+    WHERE Ei.EmployeeID IS NOT NULL
+    GROUP BY E.EmployeeID;    
+\end{lstlisting}
+
+Esta vista tem como resultado uma tabela virtual composta pelos ID's dos funcionários que gerem funcionários, seguido do ID de todos os funcionários que o mesmo gere.
+Sendo assim, o utilizador consegue obter os funcionários que um funcionário gere.
+
+\subsection{Cálculo do Espaço da Base de Dados}
+De forma a Computar o espaço utilizado pela Base de Dados podemos utilizar a seguinte \textit{query} de MariaDB/MySQL:
+\begin{lstlisting}[language=sql]
+SELECT 
+    table_schema 
+        AS 'Database Name', 
+    SUM(data_length + index_length)
+        AS 'Size in Bytes', 
+    ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) 
+        AS 'Size in MiB' 
+    FROM information_schema.tables
+    WHERE table_schema = 'mademoiselle_borges';
+\end{lstlisting}
+Ou, alternativamente, recorrendo a uma ferramenta, como ``MySQL Workbench'', no menu contexto esquerdo, sob \textit{schemas}, clicando no símbolo
+`i', conseguimos ver o espaço ocupado pelo nosso SBD.
+
+Sendo assim, a nossa Base de Dados ocupa um total de $0.53$ \textit{Mebibytes} após o povoamento inicial.
+Como podemos ver na tabela resultante da \textit{query} apresentada:\\
+\begin{center}
+\begin{tabular}{ |c | c | c |}
+    \hline
+     Database Name & Size in Bytes & Size in MebiBytes \\
+     \hline
+     mademoiselle\_borges & $557056$ &   $0.53$ \\ 
+    \hline
+\end{tabular}
+\end{center}
+
+Após fazermos o cálculo do tamanho que a Base de Dados vai ocupar, tendo em conta o povoamento inicial, podemos concluir, assumindo que a BD tem um crescimento de $10\%$ anual, que o seu tamanho previsto para o próximo será de $612762$ bytes ($0.58$ MiB).
+
+\subsection{Indexação do Sistema de Dados}
+Apesar da indexação do sistema de dados, em geral, poder vir a trazer benefícios de \textit{performance} optamos por não implementar este processo.
+Devido ao tamanho reduzido da base de dados e ao facto de usarmos maioritariamente os ID's de cada tuplo nas condições 
+\textit{WHERE} e \textit{GROUP BY} o ganho de \textit{performance} seria mínimo podendo até resultar em perda de \textit{performance} em \textit{queries} de atualização de tabelas. No futuro, com o crescimento da base de dados, se a 
+\textit{performance} baixar, a indexação de dados poderá voltar a ser considerada.
+
+\subsection{Procedimentos Implementados}
+Os procedimentos permitem ao utilizador encapsular uma série de \textit{queries} numa só unidade. Para além disso, permite modularidade e reutilização.
+Veremos agora alguns procedimentos que implementamos. No caso, estes têm o intuito de povoar a base de dados.
+\begin{lstlisting}[language=sql]
+
+DELIMITER &&
+CREATE PROCEDURE register_supplier (IN s_name VARCHAR(75), iban VARCHAR(50),
+                                    street VARCHAR(50), locale VARCHAR(30), 
+                                    postal VARCHAR(15), email VARCHAR(75), 
+                                    phone VARCHAR(20))
+BEGIN
+    DECLARE last_ins INTEGER;
+
+
+    START TRANSACTION;
+
+    INSERT INTO Supplier (SupplierName, IBAN, Street, Locale, Postal)
+    VALUES (s_name, iban, street, locale, postal);
+
+    IF ROW_COUNT() = 0 THEN
+        ROLLBACK;
+    END IF;
+
+    SELECT SupplierID INTO last_ins 
+        FROM Supplier 
+    ORDER BY SupplierID DESC LIMIT 1;
+
+    CALL register_supplier_phone(last_ins, phone);
+
+    IF ROW_COUNT() = 0 THEN
+        ROLLBACK;
+    END IF;
+
+    CALL register_supplier_email(last_ins, email);
+
+    IF ROW_COUNT() = 0 THEN
+        ROLLBACK;
+    END IF;
+    
+    COMMIT;
+END &&
+\end{lstlisting}
+
+O procedimento acima permite ao utilizador registar um novo fornecedor na base de dados.
+
+\begin{lstlisting}[language=sql]
+DELIMITER &&
+CREATE PROCEDURE add_prod_new_shop_new_part(IN e_id VARCHAR(10), 
+                                            pd_id INTEGER,
+	part_name VARCHAR(75), part_vat VARCHAR(9),
+    street VARCHAR(50), locale VARCHAR(30), 
+    postal VARCHAR(15), part_bd DATE,
+	quant INTEGER, phone VARCHAR(20), 
+    email VARCHAR(75))
+BEGIN
+	DECLARE last_ins INTEGER;
+    DECLARE last_sale_id INTEGER;
+    DECLARE cur_val DECIMAL(5,2);
+
+    START TRANSACTION;
+
+    INSERT INTO Participant(ParticipantName, 
+                            ParticipantVAT, 
+                            ParticipantBirthDate,
+                            Street, Locale, Postal)
+    VALUES (part_name, part_vat, part_bd, street, locale, postal);
+
+    IF ROW_COUNT() = 0 THEN
+		ROLLBACK;
+    END IF;
+
+    SELECT ParticipantID INTO last_ins FROM Participant
+    ORDER BY ParticipantID DESC LIMIT 1;
+
+    INSERT INTO ParticipantPhone
+    VALUES (last_ins, phone);
+
+    IF ROW_COUNT() = 0 THEN
+		ROLLBACK;
+    END IF;
+
+    IF email IS NOT NULL THEN
+        INSERT INTO ParticipantEmail
+        VALUES (last_ins, email);
+
+        IF ROW_COUNT() = 0 THEN
+			ROLLBACK;
+        END IF;
+    END IF;
+
+    INSERT INTO Sale(TotalValue, TotalQuantity, DateOfSale,
+    EmployeeID_s, ParticipantID_s)
+    VALUES ("0.00", "0", NULL, e_id, last_ins);
+
+    IF ROW_COUNT() = 0 THEN
+		ROLLBACK;
+    END IF;
+
+    SELECT ReceiptNO INTO last_sale_id FROM Sale
+    ORDER BY ReceiptNO DESC LIMIT 1;
+
+    SELECT BasePrice INTO cur_val
+    FROM Product
+    WHERE ProductID = pd_id;
+
+    INSERT INTO SaleProduct(ReceiptNO_sp, ProductID_sp, CurrentValue,
+    Quantity) 
+    VALUES (last_sale_id, pd_id, cur_val, quant);
+
+    IF ROW_COUNT() = 0 THEN
+		ROLLBACK;
+    END IF;
+
+    UPDATE Product
+    SET QuantityInStock = QuantityInStock - quant
+    WHERE ProductID = pd_id;
+
+    IF ROW_COUNT() = 0 THEN
+		ROLLBACK;
+    END IF;
+    COMMIT;
+END &&
+\end{lstlisting}
+
+O procedimento permite criar um novo carrinho de compras de um participante novo.
+O participante será registado na base de dados e a compra será registada quando
+a compra for concluída.
+
+
+\newpage
+\begin{lstlisting}[language=sql]
+DELIMITER &&
+CREATE PROCEDURE register_new_employee (IN e_id VARCHAR(10), 
+    e_name VARCHAR(75),
+    vat VARCHAR(9), 
+    bd DATE, 
+    street VARCHAR(50), 
+    locale VARCHAR(30),
+	postal VARCHAR(15), 
+    manager VARCHAR(10),
+    phone VARCHAR(20), 
+    email VARCHAR(75))
+BEGIN
+    START TRANSACTION;
+
+    INSERT INTO Employee
+    VALUES (e_id, e_name, vat, bd, street, locale, postal, manager);
+
+    IF ROW_COUNT() = 0 THEN
+		ROLLBACK;
+    END IF;
+
+    CALL register_employee_email(e_id, email);
+
+    IF ROW_COUNT() = 0 THEN
+		ROLLBACK;
+    END IF;
+
+    CALL register_employee_phone(e_id, phone);
+
+    IF ROW_COUNT() = 0 THEN
+		ROLLBACK;
+    END IF;
+
+    COMMIT;
+END &&
+\end{lstlisting}
+
+O procedimento permite registar um novo funcionário na base de dados.
+\vspace{3cm}
+
+\subsection{Plano de Segurança e de Recuperação de Dados}
+De forma a assegurar a possibilidade de Recuperação de Dados no casos de falhas, podemos utilizar o seguinte
+comando numa \textit{shell} \textbf{POSIX} como a de sistemas operativos GNU-Linux/UNIX:
+\begin{lstlisting}[language=bash]
+$ mysqldump -h localhost -u root -p mademoiselle_borges >\ 
+$WORK_DIR/.backup/mademoiselle_backup.sql
+\end{lstlisting}
+Ou, em sistemas MS-DOS/Windows 3.x/Windows 9.x/Windows NT:
+\begin{lstlisting}
+C:\MYSQL\BIN> MYSQLDUMP.EXE -u ROOT -p mademoiselle_borges^
+> %BACKUPDIR%\MADEMOISELLE_BACKUP.SQL 
+\end{lstlisting}
+
+%==========================================================================
+% BEGIN CONCLUSÕES DE TRABALHO FUTURO
+%==========================================================================
+
+\chapter{Conclusões e Trabalho Futuro}
+
+    O desenvolvimento e implementação de uma base de dados relacional (em MySQL) envolveu uma abordagem sistemática, 
+    desde a definição do sistema até à sua implementação física. O trabalho iniciou-se com a definição
+    do sistema, durante a qual procedemos à contextualização, fundamentação, estabelecimento de objetivos
+    e avaliação de viabilidade, delineando de seguida um plano de execução e identificando a equipa 
+    de trabalho responsável. Estes passos forneceram uma base sólida para o desenvolvimento subsequente.
+
+    Na fase de definição de requisitos, optou-se por um método presencial para levantar e analisar
+    as necessidades do cliente. Realizamos reuniões diretas com intuito de descobrir de forma 
+    eficaz as exigências e expectativas do mesmo, e procedemos a organização dos requisitos
+    obtidos em categorias distintas - descrição, exploração e controlo.
+
+    A modelação conceptual proporcionou uma visão abstrata do sistema, destacando as entidades,
+    os relacionamentos e os atributos. O diagrama ER resultante tornou-se uma ferramenta 
+    valiosa para visualizar a estrutura de uma forma clara e compreensível.
+
+    Ao avançarmos para a modelação lógica, a construção do modelo de dados, juntamente 
+    com a sua normalização, garantiu a eficiência e integridade do sistema. A implementação física e a subsequente criação 
+    de \textit{Queries} e a definição de \textit{Views} evidenciaram a aplicabilidade prática do modelo desenvolvido.
+
+   Para um trabalho futuro, será fundamental refletir sobre os desafios enfrentados neste projeto e identificar áreas específicas para aprimoramento. Considerando as áreas onde tivemos maiores dificuldades, como no controlo de acesso no contexto \textit{Grant} e \textit{Revoke}, e nas funcionalidades de gestão e estatística, é imperativo traçar estratégias para melhorar estes pontos específicos. Ao refletirmos sobre estas dificuldades, esperamos, com base na experiência adquirida, estar mais preparados para enfrentar desafios futuros.
+
+    
+    
+
+
+%==========================================================================
+% END CONCLUSÕES DE TRABALHO FUTURO
+%==========================================================================
+
+%==========================================================================
+% BEGIN REFERÊNCIAS
+%==========================================================================
+
+%% Changes biblibography name
+%% Portuguese babel default : "Bibliografia"
+%% Personally I prefer "Referências"
+\renewcommand\bibname{Referências}
+
+%% https://www.overleaf.com/learn/latex/bibliography_management_with_bibtex
+\nocite{*}
+\printbibliography
+
+
+%==========================================================================
+% END REFERÊNCIAS
+%==========================================================================
+
+%==========================================================================
+% BEGIN LISTA DE SIGLAS E ACRÓNIMOS
+%==========================================================================
+
+%% Portuguese babel does not translate this environment
+\renewcommand{\nomname}{Lista de Siglas e Acrónimos}
+
+%% Text that can be shown before acronyms list
+\renewcommand{\nompreamble}{}
+
+%% acronyms
+\nomenclature[01]{\textbf{BD}}{Base(s) de Dados}
+\nomenclature[02]{\textbf{ER}}{Entity-Relationship}
+\nomenclature[03]{\textbf{SBD}}{Sistema de Bases de Dados}
+\nomenclature[04]{\textbf{SGBD}}{Sistema de Gestão de Bases de Dados}
+
+%% Show acronyms
+\printnomenclature
+
+
+
+%==========================================================================
+% END LISTA DE SIGLAS E ACRÓNIMOS
+%==========================================================================
+
+
+%==========================================================================
+% BEGIN ANEXOS
+%==========================================================================
+
+%% Why \addchap, instead of \chapter? 
+%%addchap has no numbering but appears in table of contents.
+\chapter{Anexos}
+    
+    %% section version of \addchap
+    \section{Anexo 1} \label{GANTT}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=6.2in]{images/GANTT.png}
+        \end{figure}
+\newpage
+    \section{Anexo 2} \label{GANTT_c2}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=6.2in]{images/GANTT_c2.png}
+        \end{figure}
+\newpage
+    \section{Anexo 3} \label{Modelação Física}
+        \lstinputlisting[language=sql]{files/schema.sql}
+\newpage
+    \section{Anexo 4} \label{Vistas de Utilização}
+    \footnotesize
+        \lstinputlisting[language=sql, basicstyle=\tiny]{files/views.sql}
+\newpage
+    \section{Anexo 5} \label{Atualização de Tabelas}
+    \footnotesize
+        \lstinputlisting[language=sql, basicstyle=\tiny]{files/updates.sql}
+\newpage
+    \section{Anexo 6} \label{Tradução das Interrogações do Utilizador para SQL: Queries}
+    \footnotesize
+        \lstinputlisting[language=sql, basicstyle=\tiny]{files/query.sql}
+\newpage
+    \section{Anexo 7} \label{Tradução das Interrogações do Utilizador para SQL: Funções e Procedimentos}
+    \footnotesize
+        \lstinputlisting[language=sql, basicstyle=\tiny]{files/funcs.sql}
+\newpage
+    \section{Anexo 8} \label{Grant e Revoke}
+    \footnotesize
+        \lstinputlisting[language=sql, basicstyle=\tiny]{files/access.sql}
+\newpage
+    \section{Anexo 9} \label{Povoamento Inicial}
+    \footnotesize
+        \lstinputlisting[language=sql, basicstyle=\tiny]{files/populate.sql}
+\newpage
+    \section{Anexo 10} \label{Eventos}
+    \footnotesize
+        \lstinputlisting[language=sql, basicstyle=\tiny]{files/event.sql}
+%==========================================================================
+% END ANEXOS
+%==========================================================================
+
+\end{document}
