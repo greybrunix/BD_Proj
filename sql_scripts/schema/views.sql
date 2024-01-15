@@ -25,7 +25,6 @@ CREATE VIEW purchase_history AS
 			ON S.ParticipantID_s = P.ParticipantID
 	GROUP BY P.ParticipantID, S.ReceiptNO;
     
--- DROP VIEW IF EXISTS manager_employees;
 CREATE VIEW manager_employees AS
     SELECT E.EmployeeID AS ManagerEmployeeID,
 		   GROUP_CONCAT(Ei.EmployeeID) AS ManagedEmployeeIDs
@@ -33,14 +32,13 @@ CREATE VIEW manager_employees AS
     ON Ei.EmployeeID_e = E.EmployeeID
     WHERE Ei.EmployeeID IS NOT NULL
     GROUP BY E.EmployeeID;
--- SELECT * FROM manager_employees;
-
+    
 CREATE VIEW event_volume AS
 	SELECT EC.EventID AS EventID, SUM(S.TotalQuantity) AS TotalQuantity
 		FROM EventCal As EC INNER JOIN Sale AS S
 			ON S.DateOfSale BETWEEN EC.EventStart AND EC.EventEnd
 	GROUP BY EC.EventID;
-    
+
 CREATE VIEW participant_sales AS
 	SELECT P.ParticipantID AS ParticipantID, SUM(S.TotalValue) AS TotalSales
 		FROM Participant AS P INNER JOIN Sale AS S
@@ -52,7 +50,7 @@ CREATE VIEW failed_reservations AS
 		FROM ProductSupplierPast AS PSP INNER JOIN ProductSupplierFuture AS PSF
 			ON PSF.ProductID_psf NOT IN (PSF.ProductID_psf)
 				WHERE PSF.DateOfSchedule < CURDATE();
-                
+
 -- view para tabelas com tabelas dependentes
 CREATE VIEW employee_full AS
 	SELECT E.*, GROUP_CONCAT(Email.Email, Phone.Phone) AS Contacts
@@ -91,7 +89,7 @@ CREATE VIEW ProductsInSale AS
 	SELECT ReceiptNO_sp AS ReceiptNO, GROUP_CONCAT(ProductID_sp) AS ProductIDs
 		FROM SaleProduct
 	GROUP BY ReceiptNO_sp;
-
+    
 -- check all participants of a given event (46)
 CREATE VIEW ParticipantsEvent AS
 	SELECT EV.EventID AS EventID, GROUP_CONCAT(PA.ParticipantID) AS ParticipantIDs
@@ -104,7 +102,7 @@ CREATE VIEW ParticipantsEvent AS
 			INNER JOIN Product AS PR
 				ON PR.ProductID = SP.ProductID_sp AND EV.EventName = PR.ProductName
 	GROUP BY EV.EventID;
-
+    
 -- check suppliers of a product (50)
 CREATE VIEW ProductSuppliers AS
 	SELECT PSP.ProductID_psp AS ProductID, GROUP_CONCAT(PSP.SupplierID_psp) AS SupplierIDs
@@ -117,19 +115,19 @@ CREATE VIEW ProductPastSuppliers AS
 	SELECT PSP.ProductID_psp AS ProductID, GROUP_CONCAT(PSP.SupplierID_psp) AS SupplierIDs
 		FROM ProductSupplierPast AS PSP
 	GROUP BY PSP.ProductID_psp;
-
+    
 -- check future suppliers of a product (52)
 CREATE VIEW ProductFutureSuppliers AS
 	SELECT PSF.ProductID_psf AS ProductID, PSF.SupplierID_psf  AS Suppliers
 		FROM ProductSupplierFuture AS PSF
-	GROUP BY PSF.ProductID_psf;
+	GROUP BY PSF.ProductID_psf, PSF.SupplierID_psf;
 
 -- check all sales associated with a participant (53)
 CREATE VIEW SalesParticipant AS
 	SELECT S.ParticipantID_s AS ParticipantID, GROUP_CONCAT(S.ReceiptNO)
 		FROM Sale AS S
 	GROUP BY S.ParticipantID_s;
-
+    
 -- check sale values and volume in a given day (57 and 58)
 CREATE VIEW DailySales AS
 	SELECT S.DateOfSale AS DateOfSale, 
