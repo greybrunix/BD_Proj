@@ -37,13 +37,13 @@ LIMIT 1;
 SELECT EV.EventID, EV.EventName, SUM(S.TotalQuantity) AS quant
 	FROM EventCal AS EV 
 		INNER JOIN Sale AS S
-			ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventFin 
+			ON S.DateOfSale BETWEEN EV.EventStart AND EV.EventEnd
 		GROUP BY EV.EventID, EV.EventName
 			ORDER BY quant DESC
 LIMIT 1;
 
 -- check event with highest rate participation (61)
-SELECT EV.EventID, EV.name, SUM(SP.Quantity) / EV.Capacity * 100 AS rate
+SELECT EV.EventID, EV.EventName, SUM(SP.Quantity) / EV.Capacity * 100 AS rate
 	FROM EventCal as EV INNER JOIN SaleProduct as SP
 		INNER JOIN Product AS P
 			ON P.ProductID = SP.ProductID_sp and P.ProductName = EV.EventName

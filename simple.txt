@@ -1,0 +1,4 @@
+SOURCE /home/bdg/Documents/work/uni/fourth/DataBases/Proj/sql_scripts/schema/schema.sql;
+SOURCE /home/bdg/Documents/work/uni/fourth/DataBases/Proj/sql_scripts/schema/views.sql;
+SOURCE /home/bdg/Documents/work/uni/fourth/DataBases/Proj/sql_scripts/func_procs_queries/event.sql;
+SOURCE /home/bdg/Documents/work/uni/fourth/DataBases/Proj/sql_scripts/func_procs_queries/updates.sql;
